@@ -1,12 +1,12 @@
 
 #include <iostream>
-#include "LinkedList.h"
+#include "ArrayList.h"
 
 using namespace std;
 
 
 
-void purgeList(List list)
+void purgeList(List &list)
 {
 	int currentElement, elementToBeComparedAgainst;
 

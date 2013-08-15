@@ -1,6 +1,7 @@
 
 #include "LinkedList.h"
-
+#include <cstdio>
+#include <cstdlib>
 
 
 List::List()

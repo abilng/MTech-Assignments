@@ -75,8 +75,6 @@ void List::deleteElement(index position)
 			array[i-1] = array [i];
 		}
 		elementCount--;
-		printf("delete %d:",position); displayElements();
-		printf("\n");
 	}
 	else
 	{

@@ -5,7 +5,6 @@
 using namespace std;
 
 
-
 void purgeList(List &list)
 {
 	int currentElement, elementToBeComparedAgainst;

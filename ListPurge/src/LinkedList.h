@@ -2,29 +2,35 @@
 #ifndef LIST_H_
 #define LIST_H_
 
-class List
+
+namespace linkedList
 {
-	int elementCount;
-	struct Node* firstNode;
-	struct Node* lastNode;
+	class List
+	{
+		int elementCount;
+		struct Node* firstNode;
+		struct Node* lastNode;
 
-	public:
-	List();
-	int firstPosition();
-	int endPosition();
-	int nextPosition(int position);
-	int retrieveElement(int position);
-	void addElement(int element);
-	void deleteElement(int position);
-	void displayElements();
-};
+		public:
+		List();
+		int firstPosition();
+		int endPosition();
+		int nextPosition(int position);
+		int retrieveElement(int position);
+		void addElement(int element);
+		void deleteElement(int position);
+		void displayElements();
+	};
 
 
 
-struct Node
-{
-	int element;
-	struct Node* nextNode;
-};
+	struct Node
+	{
+		int element;
+		struct Node* nextNode;
+	};
+}
+
+using namespace linkedList;
 
 #endif

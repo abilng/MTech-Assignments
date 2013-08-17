@@ -7,7 +7,7 @@ using namespace std;
 
 void purgeList(List &list)
 {
-	int currentElement, elementToBeComparedAgainst;
+	index currentElement, elementToBeComparedAgainst;
 
 	currentElement = list.firstPosition();
 	while(currentElement != list.endPosition())
@@ -46,6 +46,7 @@ int main() {
 	cout << "\n\nPurged list:\n";
 	purgeList(listToPurge);
 	listToPurge.displayElements();
+	cout<<endl;
 
 	return 0;
 }

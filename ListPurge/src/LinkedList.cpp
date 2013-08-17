@@ -2,124 +2,104 @@
 #include "LinkedList.h"
 #include <cstdio>
 #include <cstdlib>
-
+#define NA -1
 
 namespace linkedList
 {
-	List::List()
-	{
-		firstNode = NULL;
-		lastNode = NULL;
-		elementCount = 0;
-	}
+  List::List()
+  {
+    index newNode;
+    newNode = new Node;
+    newNode->element = NA;
+    newNode->next = NULL;
+    head = newNode;
+    lastNode = newNode;
+    elementCount = 0;
+  }
+  List::~List()
+  {
+    index next,current = head;
+    while( current != NULL) {
+      next = current->next;
+      delete current;
+      current = next;
+    }
+  }
+
+  index List::firstPosition()
+  {
+    return head;
+  }
 
 
 
-	int List::firstPosition()
-	{
-		if(elementCount)
-			return 0;
-		else
-			return -1;
-	}
+  index List::endPosition()
+  {
+    return (lastNode);
+  }
+  
+  
+  index List::nextPosition(index position)
+  {
+    return (position->next);
+  }
+
+
+  data List::retrieveElement(index position)
+  {
+    if(position->next!=NULL)
+      return position->next->element;
+    else 
+      throw "Index Out of Bound Exception";
+  }
 
 
 
-	int List::endPosition()
-	{
-		return (elementCount);
-	}
+  void List:: addElement(data element)
+  {
+    struct Node* newNode;
+    
+    newNode = new Node;
+    newNode->element = element;
+    newNode->next = NULL;
+
+    lastNode->next = newNode;
+    lastNode=newNode;
+    elementCount++;
+
+  }
 
 
-
-	int List::nextPosition(int position)
-	{
-		return (position + 1);
-	}
-
-
-
-	int List::retrieveElement(int position)
-	{
-		struct Node* currentNode;
-		int positionIndex;
-
-		currentNode = firstNode;
-		for(positionIndex = 0; positionIndex < position; positionIndex++)
-		{
-			if(!currentNode)
-				break;
-			else
-				currentNode = currentNode->nextNode;
-		}
-
-		return currentNode->element;
-	}
+  void List::deleteElement(index position)
+  {
+    index delNode;
+        
+    if(position!=NULL&&position->next!=NULL)
+      {
+	delNode = position->next;
+	position->next=position->next->next;
+	delete delNode;
+	if(position->next==NULL)
+	  lastNode=position;
+	elementCount--;
+      }
+    else
+      throw "Index Out of Bound Exception";
+  }
+  
 
 
-
-	void List:: addElement(int element)
-	{
-		struct Node* newNode;
-
-		newNode = (Node*)malloc(sizeof(struct Node));
-		newNode->element = element;
-		newNode->nextNode = NULL;
-
-		if(!elementCount)
-		{
-			firstNode = newNode;
-			lastNode = firstNode;
-		}
-		else
-		{
-			lastNode->nextNode = newNode;
-			lastNode = newNode;
-		}
-		elementCount++;
-	}
-
-
-
-	void List::deleteElement(int position)
-	{
-		struct Node* currentNode, *nextNode;
-		int positionIndex;
-
-		if(!position)
-		{
-			firstNode = firstNode->nextNode;
-			elementCount--;
-			return;
-		}
-
-		currentNode = firstNode;
-		for(positionIndex = 0; positionIndex < position - 1; positionIndex++)
-			if(!currentNode)
-				return;
-			else
-				currentNode = currentNode->nextNode;
-
-		nextNode = currentNode->nextNode;
-		currentNode->nextNode = nextNode->nextNode;
-		elementCount--;
-
-		return;
-	}
-
-
-
-	void List::displayElements()
-	{
-		struct Node* currentNode;
-
-		currentNode = firstNode;
-		while(currentNode)
-		{
-			printf("%d ", currentNode->element);
-			currentNode = currentNode->nextNode;
-		}
-
-		return;
-	}
+  void List::displayElements()
+  {
+    index currentNode;
+    
+    currentNode = head;
+    while(currentNode->next)
+      {
+	printf("%d ", currentNode->next->element);
+	currentNode = currentNode->next;
+      }
+    
+    return;
+  }
 }

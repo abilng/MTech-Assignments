@@ -1,4 +1,5 @@
 all:
+
 array:	main ArrayList.o
 	g++ -o main PurgeList.o ArrayList.o 
 

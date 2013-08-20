@@ -1,7 +1,5 @@
 
 #include "ArrayList.h"
-#include <cstdio>
-
 
 namespace arrayList
 {
@@ -51,21 +49,22 @@ namespace arrayList
   
   void List::insertElement(index position,data element)
   {
-    if(position > -1)
-      {
-	if(elementCount >= MAX_SIZE)
-	  throw "Array Overflow Exception";
-	for (int i= elementCount; i > position; --i) {
-	  array[i] = array [i-1];
+	if(position > -1)
+	{
+		if(elementCount >= MAX_SIZE)
+			throw "Array Overflow Exception";
+		for (int i= elementCount; i > position; --i)
+		{
+			array[i] = array [i-1];
+		}
+		array[position] = element;
+		elementCount++;
 	}
-	array[position] = element;
-	elementCount++;
-      }
-    else
-      {
-	//Error
-	throw "Index Out of Bound Exception";
-      }
+	else
+	{
+		//Error
+		throw "Index Out of Bound Exception";
+	}
   }
   
   
@@ -73,7 +72,7 @@ namespace arrayList
   void List::addElement(data element)
   {
     if(elementCount >= MAX_SIZE)
-			throw "Array Overflow Exception";
+		throw "Array Overflow Exception";
     array[elementCount++]=element;
   }
   
@@ -82,24 +81,25 @@ namespace arrayList
   void List::deleteElement(index position)
   {
     if(position > -1)
-      {
-	for (int i= position+1; i < elementCount; i++) {
-	  array[i-1] = array [i];
-	}
-	elementCount--;
-      }
+    {
+		for (int i= position+1; i < elementCount; i++)
+		{
+		  array[i-1] = array [i];
+		}
+		elementCount--;
+    }
     else
-      {
-	//Error
-	throw "Index Out of Bound Exception";
-      }
+    {
+		//Error
+		throw "Index Out of Bound Exception";
+    }
   }
   
   
 
-  void List::displayElements()
+  void List::displayElements(std::ostream& dataOut)
   {
     for (int i = 0; i < elementCount; ++i)
-			printf("%d ",array[i]);
+		dataOut << array[i] << " ";
   }
 }

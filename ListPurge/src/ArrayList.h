@@ -2,6 +2,8 @@
 #ifndef ARRAYLIST_H_
 #define ARRAYLIST_H_
 
+#include <cstdio>
+#include <iostream>
 
 namespace arrayList
 {
@@ -25,7 +27,7 @@ namespace arrayList
 		void insertElement(index position,data element);
 		void addElement(data element);
 		void deleteElement(index position);
-		void displayElements();
+		void displayElements(std::ostream& dataOut);
 	};
 }
 

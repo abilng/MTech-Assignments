@@ -1,6 +1,7 @@
 
 #include <iostream>
-#include "ArrayList.h"
+#include <fstream>
+#include "LinkedList.h"
 
 using namespace std;
 
@@ -26,27 +27,31 @@ void purgeList(List &list)
 
 
 
-int main() {
-	int numberOfElements, elementCount, element;
+int main(int argc, char*argv[]) {
+	int element;
 	List listToPurge;
 
-	cout << "Enter the number of elements in the list: ";
-	cin >> numberOfElements;
-
-	for(elementCount = 1; elementCount <= numberOfElements; elementCount++)
+	if(argc < 3)
 	{
-		cout << "\nElement(" << elementCount << "): ";
-		cin >> element;
-		listToPurge.addElement(element);
+		cout << "Not enough parameters";
+		return 1;
 	}
+	ifstream fileToRead(argv[1]);
+	ofstream fileToWrite(argv[2]);
+
+	while(fileToRead >> element)
+		listToPurge.addElement(element);
+	fileToRead.close();
 
 	cout << "\n\nOriginal list:\n";
-	listToPurge.displayElements();
+	listToPurge.displayElements(cout);
 
 	cout << "\n\nPurged list:\n";
 	purgeList(listToPurge);
-	listToPurge.displayElements();
+	listToPurge.displayElements(cout);
+	listToPurge.displayElements(fileToWrite);
 	cout<<endl;
+	fileToWrite.close();
 
 	return 0;
 }

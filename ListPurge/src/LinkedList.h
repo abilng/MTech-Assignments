@@ -11,13 +11,14 @@ namespace linkedList
 	#define NA -1
 
 	typedef int data;
-	typedef Node * index;
 
 	struct Node
 	{
 		data element;
 		struct Node* next;
 	};
+
+	typedef Node * index;
 
 	class List
 	{

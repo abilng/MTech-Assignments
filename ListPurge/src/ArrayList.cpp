@@ -48,8 +48,8 @@ namespace arrayList
       return array[position];
     else
       {
-	//Error
-	throw "Index Out of Bound Exception";
+		//Error
+		throw "Index Out of Bound Exception";
       }
   }
 

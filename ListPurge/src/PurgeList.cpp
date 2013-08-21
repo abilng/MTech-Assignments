@@ -6,6 +6,11 @@
 using namespace std;
 
 
+/*
+ * Description: Eliminates duplicate elements from list
+ * Input      : The list object containing duplicate elements
+ * Output     : The list object with duplicate elements removed
+ */
 void purgeList(List &list)
 {
 	index currentElement, elementToBeComparedAgainst;
@@ -27,6 +32,11 @@ void purgeList(List &list)
 
 
 
+/*
+ * Description: Entry point of the program
+ * Input      : Reads list elements from the input file specified as first parameter
+ * Output     : Writes list elements to the output file specified as second parameter
+ */
 int main(int argc, char*argv[]) {
 	int element;
 	List listToPurge;

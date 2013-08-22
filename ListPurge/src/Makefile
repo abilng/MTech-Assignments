@@ -1,12 +1,19 @@
-all:
+all: arrayprog linkedlistprog
 
-array:	main ArrayList.o
-	g++ -o main PurgeList.o ArrayList.o 
+purgelist: PurgeList.cpp ArrayList.h LinkedList.h
+	g++ -c PurgeList.cpp -o PurgeList.o
 
-list:	main LinkedList.o
-	g++ -o main PurgeList.o LinkedList.o 
+array: ArrayList.cpp ArrayList.h
+	g++ -c ArrayList.cpp -o ArrayList.o
 
-main:	PurgeList.o ArrayList.h LinkedList.h
+linkedlist: LinkedList.cpp LinkedList.h
+	g++ -c LinkedList.cpp -o LinkedList.o
+
+arrayprog: PurgeList.o ArrayList.o
+	g++ PurgeList.o ArrayList.o -o array
+
+linkedlistprog: PurgeList.o LinkedList.o
+	g++ PurgeList.o ArrayList.o -o linkedlist
 
 clean: 
-	rm -rf main *.o
+	rm -rf array  linkedlist *.o

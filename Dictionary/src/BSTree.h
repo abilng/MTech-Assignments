@@ -10,16 +10,27 @@
 
 #include "Dictionary.h"
 
+struct BSTNode
+{
+		data val;
+		BSTNode * lchild;
+		BSTNode * rchild;
+};
+
 class BSTree: public Dictionary
 {
+	private:
+		BSTNode root;
 	public:
 		BSTree();
 		~BSTree();
+
 		void insert(data val);
 		bool del(data val);
 		bool search(data val);
 		void clear();
 		void display();
+
 };
 
 #endif /* BSTREE_H_ */

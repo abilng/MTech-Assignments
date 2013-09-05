@@ -5,9 +5,9 @@
  *      Author: abilng
  */
 
-//#include "Dictionary.h"
-//#include "BSTree.h"
-//#include "RBTree.h"
+#include "Dictionary.h"
+#include "BSTree.h"
+#include "RBTree.h"
 #include <ctime>
 #include <fstream>
 #include <iostream>
@@ -32,7 +32,18 @@ void help(char * prgname)
 
 int main(int argc, char*argv[])
 {
+	bool bst=false,timer=false;
+	string insertFile,lookupFile;
+	string insertTimeFile,lookupTimeFile;
+	Dictionary * dict;
 	if(argc == 1) help(argv[0]);
+
+	//TODO parse arguments
+
+	if(bst)
+		dict = new BSTree();
+	else
+		dict = new RBTree();
 
 	//TODO
 

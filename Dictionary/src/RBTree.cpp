@@ -81,20 +81,20 @@ RBTreeNode * RBTree::lookup(data val,RBTreeNode * ptr)
 void RBTree::leftRotate(RBTreeNode * x)
 {
 	RBTreeNode *y = x->right;
-  x->right=y->left;
-  if(y->left!=this->nill)
-  	(y->left)->p=x;
+	x->right=y->left;
+	if(y->left!=this->nill)
+		(y->left)->p=x;
 
-  y->p=x->p;
-  if(x->p==this->nill)
-  	this->root=y;
-  else if(x==(x->p)->left)
-  	(x->p)->left=y;
-  else
-  	(x->p)->right=y;
+	y->p=x->p;
+	if(x->p==this->nill)
+		this->root=y;
+	else if(x==(x->p)->left)
+		(x->p)->left=y;
+	else
+		(x->p)->right=y;
 
-  y->left=x;
-  x->p=y;
+	y->left=x;
+	x->p=y;
 }
 
 void RBTree::rightRotate(RBTreeNode * y)
@@ -102,19 +102,19 @@ void RBTree::rightRotate(RBTreeNode * y)
 	RBTreeNode *x = y->left;
 
 	y->left=x->right;
-  if(x->right!=this->nill)
-  	(x->right)->p=y;
+	if(x->right!=this->nill)
+		(x->right)->p=y;
 
-  x->p=y->p;
-  if(y->p==this->nill)
-  	this->root=x;
-  else if(y==(y->p)->left)
-  	(y->p)->left=x;
-  else
-  	(y->p)->right=x;
+	x->p=y->p;
+	if(y->p==this->nill)
+		this->root=x;
+	else if(y==(y->p)->left)
+		(y->p)->left=x;
+	else
+		(y->p)->right=x;
 
-  x->right=y;
-  y->p=x;
+	x->right=y;
+	y->p=x;
 }
 /**
  * Replaces sub tree rooted at u with sub tree
@@ -182,6 +182,131 @@ void RBTree::del(RBTreeNode * delNode)
 }
 void RBTree::deleteFixup(RBTreeNode * x)
 {
+	RBTreeNode * w;//Sibling
+
+	while(x != root && x->colour == BLACK)
+	{
+		if(x->p->left == x) //x is left child
+		{
+			w=x->p->right;
+			if(w->colour == RED)
+			{
+				/**
+				 * CASE I:sibling is red
+				 *
+				 * exchange color of w and w.p;
+				 * Left Rotate about parent of x (of w also )
+				 * Find new Sibling
+				 * Case converted to 2/3/4
+				 */
+				w->colour = BLACK;
+				w->p->colour = RED;
+				leftRotate(x->p);
+				w = x->p->right;
+			}
+			if(w->left->colour == BLACK
+					&& w->right->colour == BLACK)
+			{
+				/**
+				 * CASE II:sibling is black and both it's
+				 * children are black.
+				 *
+				 * Removing one black from both x and w
+				 * Add extra black to x.p
+				 * Continue with x.p as new x
+				 */
+				w->colour = RED;
+				x = x->p;
+			}
+			else
+			{
+				if(w->right->colour == BLACK){
+					/**
+					 * CASE III:sibling is black and
+					 * left child is RED and right child is BLACK
+					 *
+					 * switch color of w and w.left
+					 * Left Rotate w.r.t w.
+					 * New sibling w is black with BLACK left child and
+					 * RED red right child (i.e, Converted to CASE IV)
+					 */
+
+					w->left->colour = BLACK;
+					w->colour = RED;
+					rightRotate(w);
+					w = x->p->right;
+
+				}
+				/**
+				 * CASE IV:Sibling w is black with RED red right child
+				 *
+				 * Exchange color of w and it's parent (also x.p)
+				 * change color of right child of w to BLACK.
+				 * Left Rotate about x.p and
+				 * Remove Extra black on x (i.e, end Fix-up)
+				 */
+
+				w->colour = w->p->colour;
+				w->p->colour = BLACK;
+				w->right->colour = BLACK;
+				leftRotate(x->p);
+				x = root; //break while;
+			}
+		}
+		else //x is right child
+		{
+			w=x->p->left;
+
+			if(w->colour == RED)
+			{
+				/**
+				 * CASE I:sibling is red
+				 *
+				 */
+				w->colour = BLACK;
+				w->p->colour = RED;
+				rightRotate(x->p);
+				w = x->p->left;
+			}
+			if(w->left->colour == BLACK
+					&& w->right->colour == BLACK)
+			{
+				/**
+				 * CASE II:sibling is black and both it's
+				 * children are black.
+				 */
+				w->colour = RED;
+				x = x->p;
+			}
+			else
+			{
+				if(w->left->colour == BLACK){
+					/**
+					 * CASE III:sibling is black and
+					 * right child is RED and left child is BLACK
+					 */
+
+					w->right->colour = BLACK;
+					w->colour = RED;
+					leftRotate(w);
+					w = x->p->left;
+
+				}
+				/**
+				 * CASE IV:Sibling w is black
+				 * with RED red left child
+				 */
+
+				w->colour = w->p->colour;
+				w->p->colour = BLACK;
+				w->left->colour = BLACK;
+				rightRotate(x->p);
+				x = root; //break while;
+			}
+		}
+
+	}
+	x->colour = BLACK;
 
 }
 

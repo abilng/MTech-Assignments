@@ -18,15 +18,24 @@ struct RBTreeNode
 {
 		data val;
 		colour c;
-		RBTreeNode * lchild;
-		RBTreeNode * rchild;
+		RBTreeNode *p;
+		RBTreeNode * left;
+		RBTreeNode * right;
 };
 
 class RBTree: public Dictionary
 {
 	private:
-		RBTreeNode * head;
+		RBTreeNode * root;
 		RBTreeNode * nill;
+
+		RBTreeNode * lookup(data val,RBTreeNode *);
+		RBTreeNode * lookup(data val);
+
+		void leftRotate(RBTreeNode *);
+		void rightRotate(RBTreeNode *);
+		void transplant(RBTreeNode *,RBTreeNode *);
+
 	public:
 		RBTree();
 		~RBTree();

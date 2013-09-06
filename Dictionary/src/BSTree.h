@@ -13,8 +13,9 @@
 struct BSTNode
 {
 		data val;
-		BSTNode * lchild;
-		BSTNode * rchild;
+		BSTNode * left;
+		BSTNode * right;
+		BSTNode * p;
 };
 
 class BSTree: public Dictionary

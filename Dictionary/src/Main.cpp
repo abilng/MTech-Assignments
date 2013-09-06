@@ -33,10 +33,15 @@ void help(char * prgname)
 int main(int argc, char*argv[])
 {
 	bool bst=false,timer=false;
+	clock_t insTime,lookupTime,startTime;
 	string insertFile,lookupFile;
 	string insertTimeFile,lookupTimeFile;
 	Dictionary * dict;
-	if(argc == 1) help(argv[0]);
+	if(argc == 1)
+	{
+		help(argv[0]);
+		return 2;
+	}
 
 	//TODO parse arguments
 
@@ -45,8 +50,20 @@ int main(int argc, char*argv[])
 	else
 		dict = new RBTree();
 
-	//TODO
+	 startTime = clock();
+	//TODO insert
+	 insTime = clock() - startTime;
 
+	 startTime = clock();
+	 	//TODO delete
+	 lookupTime = clock() - startTime;
+
+	 if(timer)
+	 {
+		//TODO append timing info
+		//seconds  = ((float)lookupTime)/CLOCKS_PER_SEC);
+		//seconds  = ((float)insTime)/CLOCKS_PER_SEC);
+	 }
 	return 0;
 }
 

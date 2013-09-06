@@ -19,6 +19,11 @@ class Dictionary
 		virtual bool search(data val) = 0;
 		virtual void clear() = 0;
 		virtual void display() = 0;
+
+		void populateDictionary(const char * InputFile,
+				const char * TimeFile,bool timer);
+		void lookupDictionary(const char * InputFile,
+						const char * TimeFile,bool timer);
 };
 
 #endif /* DICTIONARY_H_ */

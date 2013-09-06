@@ -12,12 +12,12 @@
 
 #define NA -1
 
-enum colour{RED,BLACK};
+enum colourType{RED,BLACK};
 
 struct RBTreeNode
 {
 		data val;
-		colour c;
+		colourType colour;
 		RBTreeNode *p;
 		RBTreeNode * left;
 		RBTreeNode * right;
@@ -34,7 +34,15 @@ class RBTree: public Dictionary
 
 		void leftRotate(RBTreeNode *);
 		void rightRotate(RBTreeNode *);
+
+		void insertFixup(RBTreeNode * );
+
 		void transplant(RBTreeNode *,RBTreeNode *);
+		void deleteFixup(RBTreeNode *);
+		void del(RBTreeNode *);
+
+		RBTreeNode * minimum();
+		RBTreeNode * minimum(RBTreeNode * ptr);
 
 	public:
 		RBTree();

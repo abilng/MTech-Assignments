@@ -17,7 +17,7 @@ RBTree::RBTree()
 	nill->val = NA;
 	nill->left = NULL;
 	nill->right= NULL;
-	nill-> c = BLACK;
+	nill-> colour = BLACK;
 	nill->p = NULL;
 
 	root = NULL;
@@ -28,6 +28,35 @@ RBTree::~RBTree()
 	clear();
 	delete nill;
 }
+
+
+void RBTree::insert(data val)
+{
+	//TODO
+}
+
+bool RBTree::del(data val)
+{
+	//TODO
+	return true;
+}
+
+bool RBTree::search(data val)
+{
+	//TODO
+	return false;
+}
+
+void RBTree::clear()
+{
+	//TODO
+}
+
+void RBTree::display()
+{
+	//TODO
+}
+
 
 inline RBTreeNode * RBTree::lookup(data val)
 {
@@ -104,30 +133,67 @@ void RBTree::transplant(RBTreeNode * u,RBTreeNode * v)
 		v->p = u->p;
 }
 
-
-void RBTree::insert(data val)
+void RBTree::del(RBTreeNode * delNode)
 {
-	//TODO
+
+	//Node which take delNode's position
+	RBTreeNode *xNode;
+
+	//Node which is deleted or moved within the tree
+	RBTreeNode *yNode;
+
+	yNode= delNode;
+	colourType yOrginalColour = yNode->colour;
+
+	if(delNode->left == nill)
+	{
+		xNode = delNode->right;
+		transplant(delNode,delNode->right);
+	}
+	else if(delNode->right == nill)
+	{
+		xNode= delNode->left;
+		transplant(delNode,delNode->left);
+	}
+	else
+	{
+		yNode = minimum(delNode->right); //find successor
+		yOrginalColour = yNode->colour;
+		xNode = yNode->right;
+
+		if (yNode->p == delNode)
+		{
+			xNode->p = yNode;
+		}
+		else
+		{
+			transplant(yNode,yNode->right);
+			yNode->right = delNode->right;
+			yNode->right->p = yNode;
+		}
+		transplant(delNode,yNode);
+		yNode->left = delNode->left;
+		yNode->left->p = yNode;
+		yNode->colour = delNode->colour;
+	}
+
+	if (yOrginalColour == BLACK)
+		deleteFixup(xNode);
+}
+void RBTree::deleteFixup(RBTreeNode * x)
+{
+
 }
 
-bool RBTree::del(data val)
+
+RBTreeNode * RBTree::minimum()
 {
-	//TODO
-	return true;
+	return minimum(root);
+}
+RBTreeNode * RBTree::minimum(RBTreeNode * ptr)
+{
+	while(ptr->left != nill)
+		ptr = ptr->left;
+	return ptr;
 }
 
-bool RBTree::search(data val)
-{
-	//TODO
-	return false;
-}
-
-void RBTree::clear()
-{
-	//TODO
-}
-
-void RBTree::display()
-{
-	//TODO
-}

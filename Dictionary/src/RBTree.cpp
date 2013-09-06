@@ -35,9 +35,12 @@ void RBTree::insert(data val)
 	//TODO
 }
 
-bool RBTree::del(data val)
+bool RBTree::del(const data val)
 {
-	//TODO
+	RBTreeNode * delNode = lookup(val);
+	if(delNode == NULL)
+		return false;
+	del(delNode);
 	return true;
 }
 

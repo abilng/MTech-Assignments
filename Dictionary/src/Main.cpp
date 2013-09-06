@@ -9,13 +9,27 @@
 #include "BSTree.h"
 #include "RBTree.h"
 #include <iostream>
+#include <string>
+#include <cstdlib>
+
+#define OPTIONPREFIX '-'
 
 using namespace std;
 
-
-void help(char * prgname)
+struct Args
 {
-	cout<<"Usage: "<<prgname<<" [-bst][-t] insertFile searchFile";
+		bool bst;
+		bool timer;
+		char * prgName;
+		char * insertFile;
+		char * lookupFile;
+		char * insertTimeFile;
+		char * lookupTimeFile;
+}args;
+
+void help()
+{
+	cout<<"Usage: "<<args.prgName<<" [-bst][-t] insertFile searchFile";
 	cout<<" [ITimeFile] [STimeFile] "<<endl;
 
 	cout<<endl;
@@ -25,34 +39,68 @@ void help(char * prgname)
 	cout<<"-t		Calculate time for insert and lookup"<<endl;
 	cout<<"		  timing in appended in `ITimeFile` `STimeFile` respectively "<<endl;
 	cout<<endl;
+	exit(3);
 }
 
+void parseArgs(int argc, char*argv[])
+{
+	int noofargs = 3;
+	int fileStartIndex = 1;
+	string currentArg;
+
+	args.prgName = argv[0];
+
+	for (int i = 1; i < argc && i<3; ++i)
+	{
+		currentArg = argv[i];
+		if(currentArg[0] == OPTIONPREFIX)
+		{
+			if(currentArg=="-bst")
+			{
+				if(i!= 1) help();
+				noofargs++;
+				fileStartIndex++;
+				args.bst = true;
+			}
+			else if(currentArg=="-t")
+			{
+				if( i!= 1 && i!=2 ) help();
+				noofargs+=3;
+				fileStartIndex++;
+				args.timer = true;
+
+			}
+			else
+			{
+				cerr<<"Unknown Option"<<endl;
+				help();
+			}
+		}
+	}
+	if(argc != noofargs) help();
+	args.insertFile = argv[fileStartIndex++];
+	args.lookupFile = argv[fileStartIndex++];
+	if(!args.timer) return;
+	args.insertTimeFile = argv[fileStartIndex++];
+	args.lookupTimeFile = argv[fileStartIndex++];
+
+}
 
 int main(int argc, char*argv[])
 {
-	bool bst=false,timer=false;
 
-	char * insertFile;
-	char * lookupFile;
-	char * insertTimeFile;
-	char * lookupTimeFile;
 	Dictionary * dict;
-	if(argc == 1)
-	{
-		help(argv[0]);
-		return 2;
-	}
+	parseArgs(argc,argv);
 
-	//TODO parse arguments
-
-	if(bst)
+	if(args.bst)
 		dict = new BSTree();
 	else
 		dict = new RBTree();
 
-
-	dict->populateDictionary(insertFile,insertTimeFile,timer);
-	dict->lookupDictionary(lookupFile,lookupTimeFile,timer);
+	dict->populateDictionary(args.insertFile,
+			args.insertTimeFile,args.timer);
+	dict->lookupDictionary(args.lookupFile,
+			args.lookupTimeFile,args.timer);
 
 	return 0;
 }

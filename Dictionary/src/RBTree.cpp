@@ -38,7 +38,7 @@ void RBTree::insert(data val)
 	z->val = val;
 	z->left = this->nill;
 	z->right = this->nill;
-	z->colour = BLACK;
+	z->colour = RED;
 	z->p = this->nill;
 
 	y = this->nill;
@@ -82,7 +82,7 @@ void RBTree::insertFixup(RBTreeNode* z)
 				z->p->colour= BLACK;
 				y->colour = BLACK;
 				z->p->p->colour = RED;
-				z->p->p = z;
+				z = z->p->p;
 			}
 			else
 			{
@@ -105,7 +105,7 @@ void RBTree::insertFixup(RBTreeNode* z)
 				z->p->colour= BLACK;
 				y->colour = BLACK;
 				z->p->p->colour = RED;
-				z->p->p = z;
+				z = z->p->p;
 			}
 			else
 			{
@@ -146,14 +146,23 @@ void RBTree::clear()
 
 void RBTree::traverse(RBTreeNode* T)
 {
-	traverse(T->left); cout << "T ";
-	cout << T->val << " ";
-	traverse(T->right);
+	if(T->left != this->nill)
+		traverse(T->left);
+
+	cout << T->val << "(";
+	if(T->colour)
+		cout << 'B';
+	else
+		cout << 'R';
+	cout << ")";
+
+	if(T->right != this->nill)
+		traverse(T->right);
 }
 
 void RBTree::display()
 {
-	traverse(this->root); cout << "Traversed";
+	traverse(this->root);
 }
 
 

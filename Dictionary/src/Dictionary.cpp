@@ -31,14 +31,14 @@ void Dictionary::populateDictionary(const char * InputFile,
 	}
 
 	while(fileToRead >> element)
+	{
 		insert(element);
+		cout << "Inserted " << element << ": ";
+		display();
+		cout << endl;
+	}
 
 	fileToRead.close();
-	//TODO insert value
-
-	//	 insert(value);
-
-
 	insTime = clock() - startTime;
 
 	if(timer)
@@ -55,8 +55,9 @@ void Dictionary::populateDictionary(const char * InputFile,
 		outfp<<nElements<<"\t"<<seconds<<endl;
 		outfp.close();
 	}
-
 }
+
+
 void Dictionary::lookupDictionary(const char * InputFile,
 		const char * TimeFile,bool timer)
 {

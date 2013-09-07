@@ -98,7 +98,6 @@ int main(int argc, char*argv[])
 
 
 	dict->populateDictionary(args.insertFile, args.insertTimeFile,args.timer);
-
 	dict->lookupDictionary(args.lookupFile,	args.lookupTimeFile,args.timer);
 
 	return 0;

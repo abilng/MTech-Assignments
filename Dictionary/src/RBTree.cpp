@@ -20,7 +20,7 @@ RBTree::RBTree()
 	nill-> colour = BLACK;
 	nill->p = NULL;
 
-	root = new RBTreeNode();
+	root = nill;
 }
 
 RBTree::~RBTree()
@@ -64,7 +64,7 @@ void RBTree::insert(data val)
 	z->left = this->nill;
 	z->right = this->nill;
 	z->colour = RED;
-	//insertFixup(z);
+	insertFixup(z);
 }
 
 

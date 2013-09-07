@@ -135,8 +135,10 @@ bool RBTree::del(const data val)
 
 bool RBTree::search(data val)
 {
-	//TODO
-	return false;
+	if(lookup(val)==NULL)
+		return false;
+	else
+		return true;
 }
 
 void RBTree::clear()
@@ -146,6 +148,7 @@ void RBTree::clear()
 
 void RBTree::traverse(RBTreeNode* T)
 {
+	if(T == nill) return;
 	if(T->left != this->nill)
 		traverse(T->left);
 
@@ -257,11 +260,13 @@ void RBTree::del(RBTreeNode * delNode)
 	{
 		xNode = delNode->right;
 		transplant(delNode,delNode->right);
+		delete delNode;
 	}
 	else if(delNode->right == nill)
 	{
 		xNode= delNode->left;
 		transplant(delNode,delNode->left);
+		delete delNode;
 	}
 	else
 	{
@@ -271,7 +276,8 @@ void RBTree::del(RBTreeNode * delNode)
 
 		if (yNode->p == delNode)
 		{
-			xNode->p = yNode;
+			if(xNode != nill)
+				xNode->p = yNode;
 		}
 		else
 		{
@@ -283,16 +289,17 @@ void RBTree::del(RBTreeNode * delNode)
 		yNode->left = delNode->left;
 		yNode->left->p = yNode;
 		yNode->colour = delNode->colour;
+		delete delNode;
 	}
 
-	if (yOrginalColour == BLACK)
+	if (yOrginalColour == BLACK && xNode != nill)
 		deleteFixup(xNode);
 }
 void RBTree::deleteFixup(RBTreeNode * x)
 {
 	RBTreeNode * w;//Sibling
 
-	while(x != root && x->colour == BLACK)
+	while(x !=root && x->colour == BLACK)
 	{
 		if(x->p->left == x) //x is left child
 		{

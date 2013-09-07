@@ -33,6 +33,7 @@ void Dictionary::populateDictionary(const char * InputFile,
 	while(fileToRead >> element)
 	{
 		insert(element);
+		nElements++;
 		cout << "Inserted " << element << ": ";
 		display();
 		cout << endl;
@@ -63,13 +64,34 @@ void Dictionary::lookupDictionary(const char * InputFile,
 {
 	clock_t lookupTime,startTime;
 	int nElements=0;
+	int element;
 
-	//TODO
-	//Read values from file & update nElements
+	ifstream fileToRead(InputFile);
 
 	startTime = clock();
-	//TODO lookup
-	// search(value);
+
+	if (!fileToRead.is_open())
+	{
+			perror("Error:");
+			exit(2);
+	}
+
+	while(fileToRead >> element)
+	{
+		nElements++;
+/*		if(del(element))
+		{
+			cout << "deleted " << element << ": ";
+			display();
+			cout << endl;
+		}*/
+		if(search(element))
+			cout << "Found " << element <<endl;
+		else
+			cout << "Not found " << element <<endl;
+	}
+
+	fileToRead.close();
 	lookupTime = clock() - startTime;
 
 	if(timer)

@@ -10,18 +10,21 @@
 
 #include "Dictionary.h"
 
-struct BSTNode
+#define NA -1
+
+struct BSTreeNode
 {
 		data val;
-		BSTNode * left;
-		BSTNode * right;
-		BSTNode * p;
+		BSTreeNode * left;
+		BSTreeNode * right;
+		BSTreeNode * p;
 };
 
 class BSTree: public Dictionary
 {
 	private:
-		BSTNode root;
+		BSTreeNode * root;
+		BSTreeNode * nill;
 	public:
 		BSTree();
 		~BSTree();

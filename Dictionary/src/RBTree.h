@@ -11,16 +11,16 @@
 #include "Dictionary.h"
 
 #define NA -1
-
-enum colourType{RED,BLACK};
+enum colourType {RED,BLACK};
+using namespace std;
 
 struct RBTreeNode
 {
 		data val;
 		colourType colour;
 		RBTreeNode *p;
-		RBTreeNode * left;
-		RBTreeNode * right;
+		RBTreeNode *left;
+		RBTreeNode *right;
 };
 
 class RBTree: public Dictionary
@@ -40,6 +40,8 @@ class RBTree: public Dictionary
 		void transplant(RBTreeNode *,RBTreeNode *);
 		void deleteFixup(RBTreeNode *);
 		void del(RBTreeNode *);
+
+		void traverse(RBTreeNode* T);
 
 		RBTreeNode * minimum();
 		RBTreeNode * minimum(RBTreeNode * ptr);

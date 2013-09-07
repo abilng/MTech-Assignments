@@ -20,7 +20,7 @@ RBTree::RBTree()
 	nill-> colour = BLACK;
 	nill->p = NULL;
 
-	root = NULL;
+	root = new RBTreeNode();
 }
 
 RBTree::~RBTree()
@@ -32,7 +32,96 @@ RBTree::~RBTree()
 
 void RBTree::insert(data val)
 {
-	//TODO
+	RBTreeNode *x, *y, *z;
+
+	z = new RBTreeNode();
+	z->val = val;
+	z->left = this->nill;
+	z->right = this->nill;
+	z->colour = BLACK;
+	z->p = this->nill;
+
+	y = this->nill;
+	x = this->root;
+	while(x != this->nill)
+	{
+		y = x;
+		if(z->val < x->val)
+			x = x ->left;
+		else
+			x = x->right;
+	}
+	z->p = y;
+	if(y == this->nill)
+		this->root = z;
+	else
+	{
+		if(z->val < y->val)
+			y->left = z;
+		else
+			y->right = z;
+	}
+	z->left = this->nill;
+	z->right = this->nill;
+	z->colour = RED;
+	//insertFixup(z);
+}
+
+
+void RBTree::insertFixup(RBTreeNode* z)
+{
+	RBTreeNode *y;
+
+	while(z->p->colour == RED)
+	{
+		if(z->p == z->p->p->left)
+		{
+			y = z->p->p->right;
+			if(y->colour == RED)
+			{
+				z->p->colour= BLACK;
+				y->colour = BLACK;
+				z->p->p->colour = RED;
+				z->p->p = z;
+			}
+			else
+			{
+				if(z == z->p->right)
+				{
+					z = z->p;
+					leftRotate(z);
+				}
+
+				z->p->colour = BLACK;
+				z->p->p->colour = RED;
+				rightRotate(z->p->p);
+			}
+		}
+		else
+		{
+			y = z->p->p->left;
+			if(y->colour == RED)
+			{
+				z->p->colour= BLACK;
+				y->colour = BLACK;
+				z->p->p->colour = RED;
+				z->p->p = z;
+			}
+			else
+			{
+				if(z == z->p->left)
+				{
+					z = z->p;
+					rightRotate(z);
+				}
+
+				z->p->colour = BLACK;
+				z->p->p->colour = RED;
+				leftRotate(z->p->p);
+			}
+		}
+	}
+	this->root->colour = BLACK;
 }
 
 bool RBTree::del(const data val)
@@ -55,9 +144,16 @@ void RBTree::clear()
 	//TODO
 }
 
+void RBTree::traverse(RBTreeNode* T)
+{
+	traverse(T->left); cout << "T ";
+	cout << T->val << " ";
+	traverse(T->right);
+}
+
 void RBTree::display()
 {
-	//TODO
+	traverse(this->root); cout << "Traversed";
 }
 
 
@@ -81,7 +177,7 @@ RBTreeNode * RBTree::lookup(data val,RBTreeNode * ptr)
 	return NULL;
 }
 
-void RBTree::leftRotate(RBTreeNode * x)
+void RBTree::leftRotate(RBTreeNode *x)
 {
 	RBTreeNode *y = x->right;
 	x->right=y->left;

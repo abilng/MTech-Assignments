@@ -83,24 +83,23 @@ void parseArgs(int argc, char*argv[])
 	if(!args.timer) return;
 	args.insertTimeFile = argv[fileStartIndex++];
 	args.lookupTimeFile = argv[fileStartIndex++];
-
 }
 
 int main(int argc, char*argv[])
 {
 
-	Dictionary * dict;
-	parseArgs(argc,argv);
+	Dictionary *dict;
+	/*parseArgs(argc,argv);
 
 	if(args.bst)
 		dict = new BSTree();
 	else
-		dict = new RBTree();
+		dict = new RBTree();*/
 
-	dict->populateDictionary(args.insertFile,
-			args.insertTimeFile,args.timer);
-	dict->lookupDictionary(args.lookupFile,
-			args.lookupTimeFile,args.timer);
+	dict = new RBTree(); dict->populateDictionary(argv[2], "dummy",args.timer);
+	//dict->populateDictionary(args.insertFile, args.insertTimeFile,args.timer);
+	dict->display();
+	//dict->lookupDictionary(args.lookupFile,	args.lookupTimeFile,args.timer);
 
 	return 0;
 }

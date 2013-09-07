@@ -8,7 +8,11 @@
 #ifndef DICTIONARY_H_
 #define DICTIONARY_H_
 
+#include <iostream>
+#include <fstream>
+
 typedef int data;
+using namespace std;
 
 class Dictionary
 {

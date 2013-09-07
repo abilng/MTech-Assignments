@@ -13,17 +13,13 @@
 
 using namespace std;
 
-void Dictionary::populateDictionary(const char * InputFile,
-		const char * TimeFile,bool timer)
+void Dictionary::populateDictionary(const char* InputFile,	const char* TimeFile, bool timer)
 {
-	clock_t insTime,startTime;
-	int nElements=0;
-	int element;
+	clock_t insTime = 0, startTime;
+	int nElements=0, element;
+	char errorMsg[30];
 
 	ifstream fileToRead(InputFile);
-
-	startTime = clock();
-
 	if (!fileToRead.is_open())
 	{
 			perror("Error:");
@@ -32,44 +28,38 @@ void Dictionary::populateDictionary(const char * InputFile,
 
 	while(fileToRead >> element)
 	{
+		startTime = clock();
 		insert(element);
-		nElements++;
+		insTime += (clock() - startTime);
 		cout << "Inserted " << element << ": ";
 		display();
 		cout << endl;
 	}
-
 	fileToRead.close();
-	insTime = clock() - startTime;
 
 	if(timer)
 	{
 		float seconds  = ((float)insTime)/CLOCKS_PER_SEC;
 		fstream outfp;
-		outfp.open(TimeFile,fstream::app|fstream::out);
+		outfp.open(TimeFile, fstream::app|fstream::out);
 		if (!outfp.is_open())
 		{
-			char errorMsg[30];
 			sprintf(errorMsg,"Error while opening %s:",InputFile);
 			perror(errorMsg);
 		}
-		outfp<<nElements<<"\t"<<seconds<<endl;
+		outfp << nElements << "\t" << seconds << endl;
 		outfp.close();
 	}
 }
 
 
-void Dictionary::lookupDictionary(const char * InputFile,
-		const char * TimeFile,bool timer)
+void Dictionary::lookupDictionary(const char* InputFile, const char* TimeFile,bool timer)
 {
-	clock_t lookupTime,startTime;
-	int nElements=0;
-	int element;
+	clock_t lookupTime = 0, startTime;
+	int nElements=0, element;
+	bool isFound;
 
 	ifstream fileToRead(InputFile);
-
-	startTime = clock();
-
 	if (!fileToRead.is_open())
 	{
 			perror("Error:");
@@ -78,21 +68,17 @@ void Dictionary::lookupDictionary(const char * InputFile,
 
 	while(fileToRead >> element)
 	{
-		nElements++;
-/*		if(del(element))
-		{
-			cout << "deleted " << element << ": ";
-			display();
-			cout << endl;
-		}*/
-		if(search(element))
-			cout << "Found " << element <<endl;
+		startTime = clock();
+		isFound = search(element);
+		lookupTime += (clock() - startTime);
+		cout << "Searched " << element << ": ";
+		if(isFound)
+			cout << "Found";
 		else
-			cout << "Not found " << element <<endl;
+			cout << "Not found";
+		cout << endl;
 	}
-
 	fileToRead.close();
-	lookupTime = clock() - startTime;
 
 	if(timer)
 	{
@@ -106,7 +92,7 @@ void Dictionary::lookupDictionary(const char * InputFile,
 			perror(errorMsg);
 			exit(2);
 		}
-		outfp<<nElements<<"\t"<<seconds<<endl;
+		outfp << nElements << "\t" << seconds << endl;
 		outfp.close();
 	}
 }

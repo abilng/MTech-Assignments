@@ -157,7 +157,7 @@ void RBTree::traverse(RBTreeNode* T)
 		cout << 'B';
 	else
 		cout << 'R';
-	cout << ")";
+	cout << ") ";
 
 	if(T->right != this->nill)
 		traverse(T->right);
@@ -174,7 +174,7 @@ inline RBTreeNode * RBTree::lookup(data val)
 	return lookup(val,root);
 }
 
-RBTreeNode * RBTree::lookup(data val,RBTreeNode * ptr)
+RBTreeNode * RBTree::lookup(data val,RBTreeNode* ptr)
 {
 	if(ptr == NULL) return NULL;
 	while(ptr!= this->nill)

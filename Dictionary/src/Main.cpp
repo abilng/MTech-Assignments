@@ -96,9 +96,14 @@ int main(int argc, char*argv[])
 	else
 		dict = new RBTree();
 
-
 	dict->populateDictionary(args.insertFile, args.insertTimeFile,args.timer);
-	dict->lookupDictionary(args.lookupFile,	args.lookupTimeFile,args.timer);
+	cout <<"\nDeleted 2: "; dict->del(2); dict->display(); cout<< endl;
+	cout <<"Deleted 5: "; dict->del(5); dict->display(); cout<< endl;
+	cout <<"Deleted 3: "; dict->del(3); dict->display(); cout<< endl;
+	cout <<"Deleted 7: "; dict->del(7); dict->display(); cout<< endl;
+	cout <<"Deleted 8: "; dict->del(8); dict->display(); cout<< endl;
+	cout <<"Deleted 9: "; dict->del(9); dict->display(); cout<< endl;
+	//dict->lookupDictionary(args.lookupFile, args.lookupTimeFile,args.timer);
 
 	return 0;
 }

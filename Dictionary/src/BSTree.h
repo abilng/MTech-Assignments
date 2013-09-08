@@ -13,43 +13,32 @@
 
 #define NA -1
 
-struct BSTreeNode
+struct BSTNode
 {
 		data val;
-		BSTreeNode * left;
-		BSTreeNode * right;
-		BSTreeNode * p;
+		BSTNode * left;
+		BSTNode * right;
+		BSTNode * p;
 };
 
 class BSTree: public Dictionary
 {
 	private:
-<<<<<<< .mine
-		BSTNode *root;
-		BSTNode *nill;
-		void traverse(BSTNode* T);
-		BSTNode * lookup(data val,BSTNode *);
+
+
+		BSTNode * root;
+
 		BSTNode * lookup(data val);
+		BSTNode * lookup(data val,BSTNode* ptr);
+
 		void transplant(BSTNode *,BSTNode *);
 		void del(BSTNode *);
-		
+		void traverse(BSTNode* T);
+
 		BSTNode * minimum();
 		BSTNode * minimum(BSTNode * ptr);
 
-=======
-		BSTreeNode * root;
 
-		BSTreeNode * lookup(data val);
-		BSTreeNode * lookup(data val,BSTreeNode* ptr);
-
-		void transplant(BSTreeNode *,BSTreeNode *);
-		void del(BSTreeNode *);
-		void traverse(BSTreeNode* T);
-
-		BSTreeNode * minimum();
-		BSTreeNode * minimum(BSTreeNode * ptr);
-
->>>>>>> .r30
 	public:
 		BSTree();
 		~BSTree();

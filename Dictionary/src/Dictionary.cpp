@@ -32,9 +32,11 @@ void Dictionary::populateDictionary(const char* InputFile,	const char* TimeFile,
 		startTime = clock();
 		insert(element);
 		insTime += (clock() - startTime);
+		/*
 		cout << "Inserted " << element << ": ";
 		display();
 		cout << endl;
+		*/
 	}
 	fileToRead.close();
 

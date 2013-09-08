@@ -104,12 +104,65 @@ int main(int argc, char*argv[])
 	cout <<"Deleted 7: "; dict->del(7); dict->display(); cout<< endl;
 	cout <<"Deleted 8: "; dict->del(8); dict->display(); cout<< endl;
 	cout <<"Deleted 9: "; dict->del(9); dict->display(); cout<< endl;
-*/
+	 */
 	dict->lookupDictionary(args.lookupFile, args.lookupTimeFile,args.timer);
 
 	//TODO menu driven part
 
-	return 0;
+	char option,ch;
+	int element;
+
+	do {
+		cout<<"===  MENU  ==="<<endl;
+		cout<<"1:INSERT"<<endl;
+		cout<<"2:DELETE"<<endl;
+		cout<<"3:SEARCH"<<endl;
+		cout<<"4:DISPLAY"<<endl;
+		cout<<"5:CLEAR"<<endl;
+		cout<<"Enter the choice:";
+		cin>>option;
+		switch(option)
+		{
+			case '1':
+				cout<<"Enter the element to Insert:"<<flush;
+				cin>>element;
+				dict->insert(element);
+				break;
+			case '2':
+				cout<<"Enter the element to Delete:"<<flush;
+				cin>>element;
+				if(dict->del(element))
+					cout<<"Deleted"<<endl;
+				else
+					cout<<"Deleted Failed"<<endl;
+				break;
+			case '3':
+				cout<<"Enter the element to Search:"<<flush;
+				cin>>element;
+				if(dict->search(element))
+					cout<<"Found"<<endl;
+				else
+					cout<<"Not Found"<<endl;
+				break;
+			case '4':
+				cout<<"Elements are:"<<endl;
+				dict->display();
+				cout<<endl;
+				break;
+			case '5':
+				cin>>element;
+				dict->clear();
+				cout<<"ADT Cleared"<<endl;
+				break;
+			default:
+				cout<<"Unknown option"<<endl;
+				break;
+		}
+		cout<<"Press Y to continue:";
+		cin>>ch;
+	}while(ch=='Y' || ch == 'y');
+	cout<<"Bye.."<<endl;
+return 0;
 }
 
 

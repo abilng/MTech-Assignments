@@ -240,8 +240,8 @@ void RBTree::transplant(RBTreeNode * u,RBTreeNode * v)
 		u->p->left = v;
 	else
 		u->p->right = v;
-	if (v != nill)
-		v->p = u->p;
+
+	v->p = u->p;
 }
 
 void RBTree::del(RBTreeNode * delNode)
@@ -276,7 +276,6 @@ void RBTree::del(RBTreeNode * delNode)
 
 		if (yNode->p == delNode)
 		{
-			if(xNode != nill)
 				xNode->p = yNode;
 		}
 		else
@@ -292,7 +291,7 @@ void RBTree::del(RBTreeNode * delNode)
 		delete delNode;
 	}
 
-	if (yOrginalColour == BLACK && xNode != nill)
+	if (yOrginalColour == BLACK /*&& xNode != nill*/)
 		deleteFixup(xNode);
 }
 void RBTree::deleteFixup(RBTreeNode * x)

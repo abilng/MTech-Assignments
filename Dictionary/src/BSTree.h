@@ -9,6 +9,7 @@
 #define BSTREE_H_
 
 #include "Dictionary.h"
+#define NA -1
 
 #define NA -1
 
@@ -23,6 +24,19 @@ struct BSTreeNode
 class BSTree: public Dictionary
 {
 	private:
+<<<<<<< .mine
+		BSTNode *root;
+		BSTNode *nill;
+		void traverse(BSTNode* T);
+		BSTNode * lookup(data val,BSTNode *);
+		BSTNode * lookup(data val);
+		void transplant(BSTNode *,BSTNode *);
+		void del(BSTNode *);
+		
+		BSTNode * minimum();
+		BSTNode * minimum(BSTNode * ptr);
+
+=======
 		BSTreeNode * root;
 
 		BSTreeNode * lookup(data val);
@@ -35,6 +49,7 @@ class BSTree: public Dictionary
 		BSTreeNode * minimum();
 		BSTreeNode * minimum(BSTreeNode * ptr);
 
+>>>>>>> .r30
 	public:
 		BSTree();
 		~BSTree();

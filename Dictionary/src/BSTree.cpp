@@ -2,14 +2,23 @@
  * BSTree.cpp
  *
  *  Created on: Sep 5, 2013
- *      Author: abil
+ *      
  */
 
 #include "BSTree.h"
 
+
 BSTree::BSTree()
 {
+<<<<<<< .mine
+	nill = new BSTNode();
+		nill->val = -1;
+		nill->left = NULL;
+		nill->right= NULL;
+		nill->p = NULL;
+=======
 	root = NULL;
+>>>>>>> .r30
 
 }
 
@@ -20,8 +29,42 @@ BSTree::~BSTree()
 
 void BSTree::insert(data val)
 {
-	BSTreeNode *x, *y, *z;
-	z = new BSTreeNode();
+	BSTNode *x, *y, *z;
+	z = new BSTNode();
+<<<<<<< .mine
+		z->val = val;
+		z->left = this->nill;
+		z->right = this->nill;
+		z->p = this->nill;
+		y = this->nill;
+			x = this->root;
+			while(x != this->nill)
+			{
+				y = x;
+				if (z->val==x->val)
+				
+			
+						return;
+			
+				if(z->val < x->val)
+					x = x ->left;
+				else
+					x = x->right;
+			}
+			z->p = y;
+			if(y == this->nill)
+					this->root = z;
+				else
+				{
+					if(z->val < y->val)
+						y->left = z;
+					else
+						y->right = z;
+				}
+				z->left = this->nill;
+				z->right = this->nill;
+		  }
+=======
 	z->val = val;
 	z->left = NULL;
 	z->right = NULL;
@@ -49,13 +92,63 @@ void BSTree::insert(data val)
 	z->left = NULL;
 	z->right = NULL;
 }
-
-inline BSTreeNode * BSTree::lookup(data val)
+>>>>>>> .r30
+		  
+		  
+inline BSTNode * BSTree::lookup(data val)
 {
 	return lookup(val,root);
 }
+		  
+BSTNode * BSTree::lookup(data val,BSTNode * ptr)
+{
+	if(ptr == NULL) return NULL;
+	while(ptr!= this->nill)
+	{
+		if(ptr->val > val)
+			ptr=ptr->left;
+		else if(ptr->val < val)
+			ptr=ptr->right;
+		else
+			return ptr;
+	}
+	return NULL;
+}
 
+<<<<<<< .mine
+ 
+void BSTree::transplant(BSTNode * u,BSTNode * v)
+{
+	if(u->p == nill)
+		root = v;
+	else if (u == u->p->left)
+		u->p->left = v;
+	else
+		u->p->right = v;
+	if (v != nill)
+		v->p = u->p;
+=======
+inline BSTreeNode * BSTree::lookup(data val)
+{
+	return lookup(val,root);
+>>>>>>> .r30
+}
 
+BSTNode * BSTree::minimum()
+{
+	return minimum(root);
+}
+BSTNode * BSTree::minimum(BSTNode * ptr)
+{
+	while(ptr->left != nill)
+		ptr = ptr->left;
+	return ptr;
+}
+
+<<<<<<< .mine
+void BSTree::del(BSTNode * delNode)
+{
+=======
 BSTreeNode * BSTree::lookup(data val,BSTreeNode* ptr)
 {
 	while(ptr!= NULL)
@@ -69,7 +162,58 @@ BSTreeNode * BSTree::lookup(data val,BSTreeNode* ptr)
 	}
 	return NULL;
 }
+>>>>>>> .r30
 
+<<<<<<< .mine
+	
+	BSTNode *xNode;
+
+	
+	BSTNode *yNode;
+
+	yNode= delNode;
+	
+
+	if(delNode->left == nill)
+	{
+		xNode = delNode->right;
+		transplant(delNode,delNode->right);
+	}
+	else if(delNode->right == nill)
+	{
+		xNode= delNode->left;
+		transplant(delNode,delNode->left);
+	}
+	else
+	{
+		yNode = minimum(delNode->right); //find successor
+		
+		xNode = yNode->right;
+
+		if (yNode->p == delNode)
+		{
+			xNode->p = yNode;
+		}
+		else
+		{
+			transplant(yNode,yNode->right);
+			yNode->right = delNode->right;
+			yNode->right->p = yNode;
+		}
+		transplant(delNode,yNode);
+		yNode->left = delNode->left;
+		yNode->left->p = yNode;
+		
+	}
+
+	
+}
+
+
+
+
+bool BSTree::del(const data val)
+=======
 void BSTree::del(BSTreeNode * z)
 {
 	BSTreeNode * y;
@@ -94,11 +238,20 @@ void BSTree::del(BSTreeNode * z)
 }
 
 bool BSTree::del(data val)
+>>>>>>> .r30
 {
+<<<<<<< .mine
+	BSTNode * delNode = lookup(val);
+	if(delNode == NULL)
+		return false;
+	del(delNode);
+	
+=======
 	BSTreeNode * delnode = lookup(val);
 	if(delnode == NULL)
 		return false;
 	del(delnode);
+>>>>>>> .r30
 	return true;
 }
 
@@ -113,10 +266,25 @@ void BSTree::clear()
 {
 	//TODO
 }
+void BSTree::traverse(BSTNode* T)
+{
+	if(T->left != this->nill)
+		traverse(T->left);
+
+	cout << T->val ;
+	
+
+	if(T->right != this->nill)
+		traverse(T->right);
+}
 
 void BSTree::display()
 {
+<<<<<<< .mine
+	traverse(this->root);
+=======
  traverse(root);
+>>>>>>> .r30
 }
 
 

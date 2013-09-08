@@ -24,7 +24,17 @@ class BSTree: public Dictionary
 {
 	private:
 		BSTreeNode * root;
-		BSTreeNode * nill;
+
+		BSTreeNode * lookup(data val);
+		BSTreeNode * lookup(data val,BSTreeNode* ptr);
+
+		void transplant(BSTreeNode *,BSTreeNode *);
+		void del(BSTreeNode *);
+		void traverse(BSTreeNode* T);
+
+		BSTreeNode * minimum();
+		BSTreeNode * minimum(BSTreeNode * ptr);
+
 	public:
 		BSTree();
 		~BSTree();

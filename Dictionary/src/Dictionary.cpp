@@ -28,6 +28,7 @@ void Dictionary::populateDictionary(const char* InputFile,	const char* TimeFile,
 
 	while(fileToRead >> element)
 	{
+		nElements++;
 		startTime = clock();
 		insert(element);
 		insTime += (clock() - startTime);
@@ -68,6 +69,7 @@ void Dictionary::lookupDictionary(const char* InputFile, const char* TimeFile,bo
 
 	while(fileToRead >> element)
 	{
+		nElements++;
 		startTime = clock();
 		isFound = search(element);
 		lookupTime += (clock() - startTime);

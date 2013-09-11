@@ -69,7 +69,8 @@ bool BSTree::search(data val)
 
 void BSTree::clear()
 {
-    //TODO
+    clear(root);
+    root = NULL;
 }
 
 void BSTree::display()
@@ -159,4 +160,13 @@ void BSTree::traverse(BSTNode* T)
     cout << T->val << " ";
     traverse(T->right);
 
+}
+
+void BSTree::clear(BSTNode * root)
+{
+	if(root == NULL)
+		return;
+	clear(root->left);
+	clear(root->right);
+	delete root;
 }

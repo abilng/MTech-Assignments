@@ -2,7 +2,6 @@
  * BSTree.h
  *
  *  Created on: Sep 5, 2013
- *      Author: abil
  */
 
 #ifndef BSTREE_H_
@@ -38,6 +37,7 @@ class BSTree: public Dictionary
 		BSTNode * minimum();
 		BSTNode * minimum(BSTNode * ptr);
 
+		void clear(BSTNode * root);
 
 	public:
 		BSTree();

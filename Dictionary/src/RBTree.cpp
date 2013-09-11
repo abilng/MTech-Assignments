@@ -143,7 +143,8 @@ bool RBTree::search(data val)
 
 void RBTree::clear()
 {
-	//TODO
+	clear(root);
+	root=nill;
 }
 
 void RBTree::traverse(RBTreeNode* T)
@@ -434,5 +435,13 @@ RBTreeNode * RBTree::minimum(RBTreeNode * ptr)
 	while(ptr->left != nill)
 		ptr = ptr->left;
 	return ptr;
+}
+void RBTree::clear(RBTreeNode * root)
+{
+	if(root == nill)
+		return;
+	clear(root->left);
+	clear(root->right);
+	delete root;
 }
 

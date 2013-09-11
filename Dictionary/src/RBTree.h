@@ -45,6 +45,7 @@ class RBTree: public Dictionary
 
 		RBTreeNode * minimum();
 		RBTreeNode * minimum(RBTreeNode * ptr);
+		void clear(RBTreeNode * root);
 
 	public:
 		RBTree();

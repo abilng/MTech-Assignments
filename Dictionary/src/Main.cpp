@@ -29,8 +29,8 @@ struct Args
 
 void help()
 {
-	cout<<"Usage: "<<args.prgName<<" [-bst][-t] insertFile searchFile";
-	cout<<" [ITimeFile] [STimeFile] "<<endl;
+	cout<<"Usage: "<<args.prgName<<" [-bst] insertFile searchFile";
+	cout<<"[-t] [ITimeFile] [STimeFile] "<<endl;
 
 	cout<<endl;
 	cout<<"-bst		Use Binary Search Tree"<<endl;
@@ -50,7 +50,7 @@ void parseArgs(int argc, char*argv[])
 
 	args.prgName = argv[0];
 
-	for (int i = 1; i < argc && i<3; ++i)
+	for (int i = 1; i < argc && i<5; ++i)
 	{
 		currentArg = argv[i];
 		if(currentArg[0] == OPTIONPREFIX)
@@ -64,9 +64,8 @@ void parseArgs(int argc, char*argv[])
 			}
 			else if(currentArg=="-t")
 			{
-				if( i!= 1 && i!=2 ) help();
+				if( i!= 3 && i!=4 ) help();
 				noofargs+=3;
-				fileStartIndex++;
 				args.timer = true;
 
 			}
@@ -81,6 +80,7 @@ void parseArgs(int argc, char*argv[])
 	args.insertFile = argv[fileStartIndex++];
 	args.lookupFile = argv[fileStartIndex++];
 	if(!args.timer) return;
+	fileStartIndex++;
 	args.insertTimeFile = argv[fileStartIndex++];
 	args.lookupTimeFile = argv[fileStartIndex++];
 }
@@ -107,7 +107,7 @@ int main(int argc, char*argv[])
 	 */
 	dict->lookupDictionary(args.lookupFile, args.lookupTimeFile,args.timer);
 
-	//TODO menu driven part
+
 
 	char option,ch;
 	int element;
@@ -119,6 +119,7 @@ int main(int argc, char*argv[])
 		cout<<"3:SEARCH"<<endl;
 		cout<<"4:DISPLAY"<<endl;
 		cout<<"5:CLEAR"<<endl;
+		cout<<"Any other key to exit"<<endl;
 		cout<<"Enter the choice:";
 		cin>>option;
 		switch(option)
@@ -150,19 +151,20 @@ int main(int argc, char*argv[])
 				cout<<endl;
 				break;
 			case '5':
-				cin>>element;
 				dict->clear();
 				cout<<"ADT Cleared"<<endl;
 				break;
 			default:
-				cout<<"Unknown option"<<endl;
+				cout<<"Exit program ?[Y/N]:";
+				cin>>ch;
+				if(ch=='Y' || ch == 'y')
+				{
+					cout<<"Bye.."<<endl;
+					return 0;
+				}
 				break;
 		}
-		cout<<"Press Y to continue:";
-		cin>>ch;
-	}while(ch=='Y' || ch == 'y');
-	cout<<"Bye.."<<endl;
-return 0;
+	}while(true);
 }
 
 

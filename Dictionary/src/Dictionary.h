@@ -1,9 +1,3 @@
-/*
- * Dictionary.h
- *
- *  Created on: Sep 5, 2013
- *      Author: abil
- */
 
 #ifndef DICTIONARY_H_
 #define DICTIONARY_H_
@@ -24,10 +18,8 @@ class Dictionary
 		virtual void clear() = 0;
 		virtual void display() = 0;
 
-		void populateDictionary(const char * InputFile,
-				const char * TimeFile,bool timer);
-		void lookupDictionary(const char * InputFile,
-						const char * TimeFile,bool timer);
+		void populateDictionary(const char * InputFile,	const char * TimeFile,bool timer);
+		void lookupDictionary(const char * InputFile, const char * TimeFile,bool timer);
 };
 
 #endif /* DICTIONARY_H_ */

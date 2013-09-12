@@ -1,9 +1,3 @@
-/*
- * Main.cpp
- *
- *  Created on: Sep 5, 2013
- *      Author: abilng
- */
 
 #include "Dictionary.h"
 #include "BSTree.h"
@@ -27,6 +21,13 @@ struct Args
 		char * lookupTimeFile;
 }args;
 
+
+
+/*
+ * Input: N/A
+ * Output: Displays help
+ * Description: N/A
+ */
 void help()
 {
 	cout<<"Usage: "<<args.prgName<<" [-bst] insertFile searchFile";
@@ -42,6 +43,13 @@ void help()
 	exit(3);
 }
 
+
+
+/*
+ * Input: Command line arguments and number of such arguments
+ * Output: Parses the arguments to identify switches
+ * Description: N/A
+ */
 void parseArgs(int argc, char*argv[])
 {
 	int noofargs = 3;
@@ -85,6 +93,13 @@ void parseArgs(int argc, char*argv[])
 	args.lookupTimeFile = argv[fileStartIndex++];
 }
 
+
+
+/*
+ * Input: Command line arguments and number of such arguments
+ * Output: N/A
+ * Description: Entry point of execution
+ */
 int main(int argc, char*argv[])
 {
 
@@ -97,30 +112,20 @@ int main(int argc, char*argv[])
 		dict = new RBTree();
 
 	dict->populateDictionary(args.insertFile, args.insertTimeFile,args.timer);
-	/*
-	cout <<"\nDeleted 2: "; dict->del(2); dict->display(); cout<< endl;
-	cout <<"Deleted 5: "; dict->del(5); dict->display(); cout<< endl;
-	cout <<"Deleted 3: "; dict->del(3); dict->display(); cout<< endl;
-	cout <<"Deleted 7: "; dict->del(7); dict->display(); cout<< endl;
-	cout <<"Deleted 8: "; dict->del(8); dict->display(); cout<< endl;
-	cout <<"Deleted 9: "; dict->del(9); dict->display(); cout<< endl;
-	 */
 	dict->lookupDictionary(args.lookupFile, args.lookupTimeFile,args.timer);
-
-
 
 	char option,ch;
 	int element;
 
 	do {
-		cout<<"===  MENU  ==="<<endl;
+		cout<<"\n===  MENU  ==="<<endl;
 		cout<<"1:INSERT"<<endl;
 		cout<<"2:DELETE"<<endl;
 		cout<<"3:SEARCH"<<endl;
 		cout<<"4:DISPLAY"<<endl;
 		cout<<"5:CLEAR"<<endl;
-		cout<<"Any other key to exit"<<endl;
-		cout<<"Enter the choice:";
+		cout<<"6:EXIT"<<endl;
+		cout<<"Enter the choice: ";
 		cin>>option;
 		switch(option)
 		{
@@ -154,6 +159,8 @@ int main(int argc, char*argv[])
 				dict->clear();
 				cout<<"ADT Cleared"<<endl;
 				break;
+			case '6':
+				return 0;
 			default:
 				cout<<"Exit program ?[Y/N]:";
 				cin>>ch;
@@ -166,7 +173,3 @@ int main(int argc, char*argv[])
 		}
 	}while(true);
 }
-
-
-
-

@@ -1,23 +1,37 @@
-/*
- * BSTree.cpp
- *
- *  Created on: Sep 5, 2013
- *
- */
 
 #include "BSTree.h"
 
+
+
+/*
+ * Input: N/A
+ * Output: Returns BSTree object properly initialized
+ * Description: Constructor for BSTree class
+ */
 BSTree::BSTree()
 {
     root = NULL;
-
 }
 
+
+
+/*
+ * Input: N/A
+ * Output: N/A
+ * Description: Destructor for BSTree class
+ */
 BSTree::~BSTree()
 {
     clear();
 }
 
+
+
+/*
+ * Input: Data item to be inserted
+ * Output: Inserts data item in BSTree implementation
+ * Description: N/A
+ */
 void BSTree::insert(data val)
 {
     BSTNode *x, *y, *z;
@@ -34,7 +48,10 @@ void BSTree::insert(data val)
         if(z->val < x->val)
             x = x ->left;
         else
-            x = x->right;
+        	if(z->val > x->val)
+        		x = x->right;
+        	else
+        		return;
     }
     z->p = y;
     if(y == NULL)
@@ -51,6 +68,12 @@ void BSTree::insert(data val)
 }
 
 
+
+/*
+ * Input: Data item to be deleted
+ * Output: Deletes data item from BSTree implementation
+ * Description: N/A
+ */
 bool BSTree::del(data val)
 {
     BSTNode * delnode = lookup(val);
@@ -60,6 +83,13 @@ bool BSTree::del(data val)
     return true;
 }
 
+
+
+/*
+ * Input: Data item to be searched
+ * Output: Searches data item in BSTree implementation
+ * Description: N/A
+ */
 bool BSTree::search(data val)
 {
     if(lookup(val) != NULL)
@@ -67,24 +97,51 @@ bool BSTree::search(data val)
     return false;
 }
 
+
+
+/*
+ * Input: N/A
+ * Output: A BSTree with existing elements cleared
+ * Description: N/A
+ */
 void BSTree::clear()
 {
     clear(root);
     root = NULL;
 }
 
+
+
+/*
+ * Input: N/A
+ * Output: Existing elements of BSTree in in-order
+ * Description: N/A
+ */
 void BSTree::display()
 {
- traverse(root);
+	traverse(root);
 }
 
-inline BSTNode * BSTree::lookup(data val)
+
+
+/*
+ * Input: Item to be looked up for
+ * Output: Pointer to the node containing the item
+ * Description: N/A
+ */
+inline BSTNode* BSTree::lookup(data val)
 {
-    return lookup(val,root);
+    return lookup(val, root);
 }
 
 
-BSTNode * BSTree::lookup(data val,BSTNode* ptr)
+
+/*
+ * Input: Data item to be looked up for and the pointer to the node search to start from (usually root)
+ * Output: Pointer to the node holding the data item
+ * Description: N/A
+ */
+BSTNode* BSTree::lookup(data val, BSTNode* ptr)
 {
     while(ptr!= NULL)
     {
@@ -98,7 +155,14 @@ BSTNode * BSTree::lookup(data val,BSTNode* ptr)
     return NULL;
 }
 
-void BSTree::del(BSTNode * z)
+
+
+/*
+ * Input: Pointer to the node to be deleted
+ * Output: BST with the item deleted
+ * Description: N/A
+ */
+void BSTree::del(BSTNode* z)
 {
     BSTNode * y;
     if(z->left == NULL)
@@ -122,12 +186,23 @@ void BSTree::del(BSTNode * z)
 }
 
 
-BSTNode * BSTree::minimum()
+
+/*
+ * Input: N/A
+ * Output: Pointer to the node containing the minimum item
+ * Description: N/A
+ */
+BSTNode* BSTree::minimum()
 {
     return minimum(root);
 }
-/**
- * Minimum of Tree rooted at ptr
+
+
+
+/*
+ * Input: Pointer to a sub-tree
+ * Output: Minimum of tree rooted at ptr
+ * Description: N/A
  */
 BSTNode * BSTree::minimum(BSTNode * ptr)
 {
@@ -136,12 +211,14 @@ BSTNode * BSTree::minimum(BSTNode * ptr)
     return ptr;
 }
 
-/**
- * Replaces sub tree rooted at u with sub tree
- * rooted at v
- *
+
+
+/*
+ * Input: Pointer to two sub-trees, u & v
+ * Output: Replaces sub tree rooted at u with sub tree rooted at v
+ * Description: N/A
  */
-void BSTree::transplant(BSTNode * u,BSTNode * v)
+void BSTree::transplant(BSTNode* u,BSTNode* v)
 {
     if(u == root)
         root = v;
@@ -153,6 +230,13 @@ void BSTree::transplant(BSTNode * u,BSTNode * v)
         v->p = u->p;
 }
 
+
+
+/*
+ * Input: Pointer to a sub-tree
+ * Output: Existing elements of BSTree in in-order
+ * Description: N/A
+ */
 void BSTree::traverse(BSTNode* T)
 {
     if(T == NULL) return;

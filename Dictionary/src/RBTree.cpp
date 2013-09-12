@@ -1,15 +1,15 @@
-/*
- * RBTree.cpp
- *
- *  Created on: Sep 5, 2013
- *      Author: abilng
- */
 
 #include "RBTree.h"
 #include <cstdlib>
 #include <iostream>
 
 
+
+/*
+ * Input: N/A
+ * Output: Returns RBTree object properly initialized
+ * Description: Constructor for RBTree class
+ */
 RBTree::RBTree()
 {
 
@@ -23,6 +23,13 @@ RBTree::RBTree()
 	root = nill;
 }
 
+
+
+/*
+ * Input: N/A
+ * Output: N/A
+ * Description: Destructor for RBTree class
+ */
 RBTree::~RBTree()
 {
 	clear();
@@ -30,6 +37,12 @@ RBTree::~RBTree()
 }
 
 
+
+/*
+ * Input: Data item to be inserted
+ * Output: Inserts data item in RBTree implementation
+ * Description: N/A
+ */
 void RBTree::insert(data val)
 {
 	RBTreeNode *x, *y, *z;
@@ -49,7 +62,10 @@ void RBTree::insert(data val)
 		if(z->val < x->val)
 			x = x ->left;
 		else
-			x = x->right;
+			if(z->val > x->val)
+				x = x->right;
+			else
+				return;
 	}
 	z->p = y;
 	if(y == this->nill)
@@ -68,6 +84,12 @@ void RBTree::insert(data val)
 }
 
 
+
+/*
+ * Input: Pointer to sub-tree needs to be fixed up
+ * Output: Recolors and restructures a sub-tree
+ * Description: N/A
+ */
 void RBTree::insertFixup(RBTreeNode* z)
 {
 	RBTreeNode *y;
@@ -124,6 +146,13 @@ void RBTree::insertFixup(RBTreeNode* z)
 	this->root->colour = BLACK;
 }
 
+
+
+/*
+ * Input: Data item to be deleted
+ * Output: Deletes data item from RBTree implementation
+ * Description: N/A
+ */
 bool RBTree::del(const data val)
 {
 	RBTreeNode * delNode = lookup(val);
@@ -133,6 +162,13 @@ bool RBTree::del(const data val)
 	return true;
 }
 
+
+
+/*
+ * Input: Data item to be searched
+ * Output: Searches data item in RBTree implementation
+ * Description: N/A
+ */
 bool RBTree::search(data val)
 {
 	if(lookup(val)==NULL)
@@ -141,12 +177,26 @@ bool RBTree::search(data val)
 		return true;
 }
 
+
+
+/*
+ * Input: N/A
+ * Output: A RBTree with existing elements cleared
+ * Description: N/A
+ */
 void RBTree::clear()
 {
 	clear(root);
 	root=nill;
 }
 
+
+
+/*
+ * Input: Pointer to a sub-tree
+ * Output: Existing elements of RBTree in in-order
+ * Description: N/A
+ */
 void RBTree::traverse(RBTreeNode* T)
 {
 	if(T == nill) return;
@@ -164,17 +214,37 @@ void RBTree::traverse(RBTreeNode* T)
 		traverse(T->right);
 }
 
+
+
+/*
+ * Input: N/A
+ * Output: Existing elements of RBTree in in-order
+ * Description: N/A
+ */
 void RBTree::display()
 {
 	traverse(this->root);
 }
 
 
-inline RBTreeNode * RBTree::lookup(data val)
+
+/*
+ * Input: Item to be looked up for
+ * Output: Pointer to the node containing the item
+ * Description: N/A
+ */
+inline RBTreeNode* RBTree::lookup(data val)
 {
 	return lookup(val,root);
 }
 
+
+
+/*
+ * Input: Data item to be looked up for and the pointer to the node search to start from (usually root)
+ * Output: Pointer to the node holding the data item
+ * Description: N/A
+ */
 RBTreeNode * RBTree::lookup(data val,RBTreeNode* ptr)
 {
 	if(ptr == NULL) return NULL;
@@ -190,6 +260,13 @@ RBTreeNode * RBTree::lookup(data val,RBTreeNode* ptr)
 	return NULL;
 }
 
+
+
+/*
+ * Input: Pointer to the root of the sub-tree needs to be left rotated
+ * Output: Left-rotated sub tree
+ * Description: N/A
+ */
 void RBTree::leftRotate(RBTreeNode *x)
 {
 	RBTreeNode *y = x->right;
@@ -209,7 +286,14 @@ void RBTree::leftRotate(RBTreeNode *x)
 	x->p=y;
 }
 
-void RBTree::rightRotate(RBTreeNode * y)
+
+
+/*
+ * Input: Pointer to the root of the sub-tree needs to be right rotated
+ * Output: Right-rotated sub tree
+ * Description: N/A
+ */
+void RBTree::rightRotate(RBTreeNode* y)
 {
 	RBTreeNode *x = y->left;
 
@@ -228,12 +312,15 @@ void RBTree::rightRotate(RBTreeNode * y)
 	x->right=y;
 	y->p=x;
 }
-/**
- * Replaces sub tree rooted at u with sub tree
- * rooted at v
- *
+
+
+
+/*
+ * Input: Pointer to two sub-trees, u & v
+ * Output: Replaces sub tree rooted at u with sub tree rooted at v
+ * Description: N/A
  */
-void RBTree::transplant(RBTreeNode * u,RBTreeNode * v)
+void RBTree::transplant(RBTreeNode* u,RBTreeNode* v)
 {
 	if(u->p == nill)
 		root = v;
@@ -245,7 +332,14 @@ void RBTree::transplant(RBTreeNode * u,RBTreeNode * v)
 	v->p = u->p;
 }
 
-void RBTree::del(RBTreeNode * delNode)
+
+
+/*
+ * Input: Pointer to the node to be deleted
+ * Output: RBT with the item deleted
+ * Description: N/A
+ */
+void RBTree::del(RBTreeNode* delNode)
 {
 
 	//Node which take delNode's position
@@ -295,9 +389,17 @@ void RBTree::del(RBTreeNode * delNode)
 	if (yOrginalColour == BLACK /*&& xNode != nill*/)
 		deleteFixup(xNode);
 }
+
+
+
+/*
+ * Input: Pointer to sub-tree needs to be fixed up
+ * Output: Recolors and restructures a sub-tree
+ * Description: N/A
+ */
 void RBTree::deleteFixup(RBTreeNode * x)
 {
-	RBTreeNode * w;//Sibling
+	RBTreeNode * w;		//Sibling
 
 	while(x !=root && x->colour == BLACK)
 	{
@@ -426,16 +528,33 @@ void RBTree::deleteFixup(RBTreeNode * x)
 }
 
 
-RBTreeNode * RBTree::minimum()
+
+/*
+ * Input: N/A
+ * Output: Pointer to the node containing the minimum item
+ * Description: N/A
+ */
+RBTreeNode* RBTree::minimum()
 {
 	return minimum(root);
 }
-RBTreeNode * RBTree::minimum(RBTreeNode * ptr)
+
+
+
+/*
+ * Input: Pointer to a sub-tree
+ * Output: Minimum of tree rooted at ptr
+ * Description: N/A
+ */
+RBTreeNode* RBTree::minimum(RBTreeNode * ptr)
 {
 	while(ptr->left != nill)
 		ptr = ptr->left;
 	return ptr;
 }
+
+
+
 void RBTree::clear(RBTreeNode * root)
 {
 	if(root == nill)
@@ -444,4 +563,3 @@ void RBTree::clear(RBTreeNode * root)
 	clear(root->right);
 	delete root;
 }
-

@@ -1,8 +1,3 @@
-/*
- * BSTree.h
- *
- *  Created on: Sep 5, 2013
- */
 
 #ifndef BSTREE_H_
 #define BSTREE_H_
@@ -23,8 +18,6 @@ struct BSTNode
 class BSTree: public Dictionary
 {
 	private:
-
-
 		BSTNode * root;
 
 		BSTNode * lookup(data val);

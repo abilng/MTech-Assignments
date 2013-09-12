@@ -1,9 +1,3 @@
-/*
- * Dictinory.cpp
- *
- *  Created on: Sep 6, 2013
- *      Author: abil
- */
 
 #include "Dictionary.h"
 #include <ctime>
@@ -13,10 +7,17 @@
 
 using namespace std;
 
+
+
+/*
+ * Input: File from which data to be loaded and timimg information to be written to
+ * Output: Loads ADT from the input data file and writes timing information to time file
+ * Description: N/A
+ */
 void Dictionary::populateDictionary(const char* InputFile,	const char* TimeFile, bool timer)
 {
 	clock_t insTime = 0, startTime;
-	int nElements=0, element;
+	int nElements=1, element;
 	char errorMsg[30];
 
 	ifstream fileToRead(InputFile);
@@ -28,21 +29,18 @@ void Dictionary::populateDictionary(const char* InputFile,	const char* TimeFile,
 
 	while(fileToRead >> element)
 	{
-		nElements++;
+		nElements++; cout << element << endl;
+		//if(fileToRead.bad())
+			//cout << "I/O error while reading file \"" << InputFile << "\" at position " << nElements << ", skipping remaining input.\n";
 		startTime = clock();
 		insert(element);
 		insTime += (clock() - startTime);
-		/*
-		cout << "Inserted " << element << ": ";
-		display();
-		cout << endl;
-		*/
 	}
 	fileToRead.close();
 
 	if(timer)
 	{
-		float seconds  = ((float)insTime)/CLOCKS_PER_SEC;
+		double seconds  = ((double)insTime)/CLOCKS_PER_SEC;
 		fstream outfp;
 		outfp.open(TimeFile, fstream::app|fstream::out);
 		if (!outfp.is_open())
@@ -56,6 +54,12 @@ void Dictionary::populateDictionary(const char* InputFile,	const char* TimeFile,
 }
 
 
+
+/*
+ * Input: File from which data to be looked up and timimg information to be written to
+ * Output: Searches ADT from the lookup data file and writes timing information to time file
+ * Description: N/A
+ */
 void Dictionary::lookupDictionary(const char* InputFile, const char* TimeFile,bool timer)
 {
 	clock_t lookupTime = 0, startTime;
@@ -72,6 +76,8 @@ void Dictionary::lookupDictionary(const char* InputFile, const char* TimeFile,bo
 	while(fileToRead >> element)
 	{
 		nElements++;
+		if(fileToRead.bad())
+			cout << "I/O error while reading file \"" << InputFile << "\" at position " << nElements << ", skipping remaining input.\n";
 		startTime = clock();
 		isFound = search(element);
 		lookupTime += (clock() - startTime);
@@ -86,7 +92,7 @@ void Dictionary::lookupDictionary(const char* InputFile, const char* TimeFile,bo
 
 	if(timer)
 	{
-		float seconds  = ((float)lookupTime)/CLOCKS_PER_SEC;
+		double seconds  = ((double)lookupTime)/CLOCKS_PER_SEC;
 		fstream outfp;
 		outfp.open(TimeFile,fstream::app|fstream::out);
 		if (!outfp.is_open())
@@ -100,4 +106,3 @@ void Dictionary::lookupDictionary(const char* InputFile, const char* TimeFile,bo
 		outfp.close();
 	}
 }
-

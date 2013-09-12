@@ -1,9 +1,3 @@
-/*
- * RBTree.h
- *
- *  Created on: Sep 5, 2013
- *      Author: abilng
- */
 
 #ifndef RBTREE_H_
 #define RBTREE_H_
@@ -36,13 +30,11 @@ class RBTree: public Dictionary
 		void rightRotate(RBTreeNode *);
 
 		void insertFixup(RBTreeNode * );
-
 		void transplant(RBTreeNode *,RBTreeNode *);
 		void deleteFixup(RBTreeNode *);
 		void del(RBTreeNode *);
 
 		void traverse(RBTreeNode* T);
-
 		RBTreeNode * minimum();
 		RBTreeNode * minimum(RBTreeNode * ptr);
 		void clear(RBTreeNode * root);

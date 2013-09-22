@@ -246,6 +246,13 @@ void BSTree::traverse(BSTNode* T)
 
 }
 
+
+
+/*
+ * Input: Pointer to the root of a sub-tree
+ * Output: Children of the sub-tree cleared bottom-up
+ * Description: N/A
+ */
 void BSTree::clear(BSTNode * root)
 {
 	if(root == NULL)

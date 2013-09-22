@@ -555,6 +555,11 @@ RBTreeNode* RBTree::minimum(RBTreeNode * ptr)
 
 
 
+/*
+ * Input: Pointer to the root of a sub-tree
+ * Output: Children of the sub-tree cleared bottom-up
+ * Description: N/A
+ */
 void RBTree::clear(RBTreeNode * root)
 {
 	if(root == nill)

@@ -111,8 +111,8 @@ void Kruskal::MST_Kruskal()
 {
 	class UnionFind* unionFind = new UnionFind();
 	class Sort* sort = new Sort();
-	struct GraphNode* nodePtr = nodeSet;
-	struct GraphEdge* edgePtr = edgeSet;
+	struct GraphNode* nodePtr = nodeSet->nextNode;
+	struct GraphEdge* edgePtr = edgeSet->nextEdge;
 
 	while(nodePtr)
 	{
@@ -120,15 +120,17 @@ void Kruskal::MST_Kruskal()
 		nodePtr = nodePtr->nextNode;
 	}
 
-	sort->MergeSort(edgeSet);
+	sort->MergeSort(&edgeSet);
 
 	while(edgePtr)
 	{
 		if(unionFind->FindSet(edgePtr->startNode) != unionFind->FindSet(edgePtr->endNode))
 		{
-			addEdgeToSpanningTree(edgePtr); cout << "Edge added to MST";
+			addEdgeToSpanningTree(edgePtr);
+			cout << edgePtr->startNode->nodeName << "-" << edgePtr->endNode->nodeName << "(" << edgePtr->label << ")" << endl;
 			unionFind->Union(edgePtr->startNode, edgePtr->endNode);
 		}
+		edgePtr = edgePtr->nextEdge;
 	}
 }
 

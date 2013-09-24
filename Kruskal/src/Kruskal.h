@@ -5,6 +5,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <iostream>
+#include <fstream>
 #include "UnionFind.h"
 #include "Sort.h"
 #include "Graph.h"
@@ -31,7 +32,7 @@ class Kruskal
 		void displayNodes();
 		void addEdge(char startNodeName[], char endNodeName[], int label);
 		void displayEdges();
-		void MST_Kruskal();
+		int MST_Kruskal(char* outputFile);
 		void displaySpanningTree();
 };
 

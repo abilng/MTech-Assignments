@@ -9,21 +9,21 @@ void Sort::MergeSort(struct GraphEdge** edgeSet)
 	struct GraphEdge* list2 = NULL;
 
 	/* Base case -- length 0 or 1 */
-	if ((edge== NULL) || (edge->nextEdge == NULL))
-	{
+	if ((edge == NULL) || (edge->nextEdge == NULL))
 		return;
-	}
 
 	/* Split head into 'list1' and 'list2' sublists */
 	FrontBackSplit(edge, &list1, &list2);
-	/* Recursively sort the sublists */
 
+	/* Recursively sort the sublists */
 	MergeSort(&list1);
 	MergeSort(&list2);
 
 	/* answer = merge the two sorted lists together */
 	*edgeSet = SortedMerge(list1,list2);
 }
+
+
 struct GraphEdge* Sort::SortedMerge(struct GraphEdge* list1, struct GraphEdge* list2)
 {
 	struct GraphEdge* result = NULL;
@@ -31,7 +31,7 @@ struct GraphEdge* Sort::SortedMerge(struct GraphEdge* list1, struct GraphEdge* l
 	/* Base cases */
 	if (list1 == NULL)
 		return(list2);
-	else if (list2==NULL)
+	else if (list2 == NULL)
 		return(list1);
 
 	/* Pick either a or b, and recur */
@@ -48,12 +48,13 @@ struct GraphEdge* Sort::SortedMerge(struct GraphEdge* list1, struct GraphEdge* l
 	return(result);
 }
 
+
 void Sort::FrontBackSplit(struct GraphEdge* source,struct GraphEdge** frontRef, struct GraphEdge** backRef)
 {
 
 	struct GraphEdge* fast;
 	struct GraphEdge* slow;
-	if (source==NULL || source->nextEdge==NULL)
+	if (source == NULL || source->nextEdge == NULL)
 	{
 		/* length < 2 cases */
 		*frontRef = source;
@@ -66,6 +67,7 @@ void Sort::FrontBackSplit(struct GraphEdge* source,struct GraphEdge** frontRef, 
 
 		/* Advance 'fast' two nodes, and advance 'slow' one node */
 		while (fast != NULL)
+
 		{
 			fast = fast->nextEdge;
 			if (fast != NULL)
@@ -82,4 +84,3 @@ void Sort::FrontBackSplit(struct GraphEdge* source,struct GraphEdge** frontRef, 
 		slow->nextEdge = NULL;
 	}
 }
-

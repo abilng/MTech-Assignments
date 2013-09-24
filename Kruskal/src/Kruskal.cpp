@@ -9,6 +9,7 @@ Kruskal::Kruskal()
 	lastGraphNode = nodeSet;
 
 	edgeSet = new GraphEdge();
+	edgeSet->label = -1;
 	edgeSet->nextEdge = NULL;
 	lastGraphEdge = edgeSet;
 
@@ -76,7 +77,7 @@ void Kruskal::addEdge(char startNodeName[], char endNodeName[], int label)
 
 void Kruskal::displayEdges(struct GraphEdge* graphEdge)
 {
-	struct GraphEdge* currentEdge = edgeSet;
+	struct GraphEdge* currentEdge = graphEdge;
 
 	while(currentEdge->nextEdge)
 	{
@@ -107,31 +108,55 @@ void Kruskal::addEdgeToSpanningTree(struct GraphEdge* graphEdge)
 }
 
 
-void Kruskal::MST_Kruskal()
+int Kruskal::MST_Kruskal(char* outputFile)
 {
 	class UnionFind* unionFind = new UnionFind();
 	class Sort* sort = new Sort();
 	struct GraphNode* nodePtr = nodeSet->nextNode;
-	struct GraphEdge* edgePtr = edgeSet->nextEdge;
+	struct GraphEdge* edgePtr;
+	ofstream outFile;
+	int isPrinted;
+
+	outFile.open(outputFile, ofstream::out);
+	if(!outFile.is_open())
+	{
+		cout << "Error writing " << outputFile << ".\n";
+		return -1;
+	}
+
+	outFile << "graph G {\n";
+	outFile << "// nodes\n";
 
 	while(nodePtr)
 	{
+		outFile << nodePtr->nodeName << ";\n";
 		unionFind->MakeSet(nodePtr);
 		nodePtr = nodePtr->nextNode;
 	}
 
+	outFile << "// edges\n";
 	sort->MergeSort(&edgeSet);
+	edgePtr = edgeSet->nextEdge;
 
 	while(edgePtr)
 	{
+		isPrinted = 0;
 		if(unionFind->FindSet(edgePtr->startNode) != unionFind->FindSet(edgePtr->endNode))
 		{
 			addEdgeToSpanningTree(edgePtr);
-			cout << edgePtr->startNode->nodeName << "-" << edgePtr->endNode->nodeName << "(" << edgePtr->label << ")" << endl;
 			unionFind->Union(edgePtr->startNode, edgePtr->endNode);
+			outFile << edgePtr->startNode->nodeName << " -- " << edgePtr->endNode->nodeName << " [label=\"" << edgePtr->label << "\", color=blue];\n";
+			isPrinted = 1;
 		}
+
+		if(!isPrinted)
+			outFile << edgePtr->startNode->nodeName << " -- " << edgePtr->endNode->nodeName << " [label=\"" << edgePtr->label << "\", style=dotted];\n";
 		edgePtr = edgePtr->nextEdge;
 	}
+
+	outFile << "}";
+	outFile.close();
+	return 0;
 }
 
 

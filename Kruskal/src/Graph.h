@@ -4,7 +4,7 @@
 
 struct GraphNode
 {
-	char* nodeName[15];
+	char nodeName[15];
 	struct GraphNode* parent;
 	int rank;
 	struct GraphNode* nextNode;

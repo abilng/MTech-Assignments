@@ -3,22 +3,36 @@
 #define KRUSKAL_H_
 
 #include <stddef.h>
+#include <string.h>
+#include <iostream>
 #include "UnionFind.h"
 #include "Sort.h"
 #include "Graph.h"
+
+using namespace std;
 
 class Kruskal
 {
 	private:
 		struct GraphNode* nodeSet;
+		struct GraphNode* lastGraphNode;
 		struct GraphEdge* edgeSet;
+		struct GraphEdge* lastGraphEdge;
 		struct GraphEdge* minimumSpanningTree;
+		struct GraphEdge* lastMSTEdge;
+
+		GraphNode* searchNode(char nodeName[]);
+		void addEdgeToSpanningTree(struct GraphEdge* graphEdge);
+		void displayEdges(struct GraphEdge* graphEdge);
 
 	public:
-		void addNode(char* nodeName);
-		void addEdge(char* startNodeName, char* endNodeName, int label);
-		void addEdgeToSpanningTree(struct GraphEdge* graphEdge);
-		void MST_Kruskal(struct GraphNode* nodeSet, struct GraphEdge* edgeSet);
+		Kruskal();
+		void addNode(char nodeName[]);
+		void displayNodes();
+		void addEdge(char startNodeName[], char endNodeName[], int label);
+		void displayEdges();
+		void MST_Kruskal();
+		void displaySpanningTree();
 };
 
 #endif

@@ -4,10 +4,10 @@
 
 #include "Graph.h"
 
-class MergeSort
+class Sort
 {
 	public:
-		void Sort(struct GraphEdge* edgeSet);
+		void MergeSort(struct GraphEdge* edgeSet);
 };
 
 #endif

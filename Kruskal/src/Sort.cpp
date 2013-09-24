@@ -2,7 +2,7 @@
 #include "Sort.h"
 
 
-void MergeSort::Sort(struct GraphEdge* edgeSet)
+void Sort::MergeSort(struct GraphEdge* edgeSet)
 {
 	return;
 }

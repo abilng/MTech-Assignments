@@ -5,7 +5,7 @@
 #include <fstream>
 #include <cstring>
 
-#define INPUT_BUFFER 100
+#define INPUT_BUFFER 1000
 
 using namespace std;
 
@@ -23,7 +23,8 @@ int parseInput(char* parseFile, Kruskal* K)
 	char fileLine[INPUT_BUFFER];
 	char* delimiter = " $[\"=];";
 	char *srcNode, *destNode, *edgeWeight;
-	short fileLineCount = 0, charIndex;
+	short fileLineCount = 0;
+	unsigned short charIndex;
 	double weightOfEdge;
 
 	inputFile.open(parseFile, ifstream::in);
@@ -79,6 +80,7 @@ int parseInput(char* parseFile, Kruskal* K)
 						cout << "Expected \';\' (semicolon) at the end of line no. " << fileLineCount << endl;
 						return -1;
 				}
+
 				for(charIndex = 0; charIndex < strlen(fileLine); charIndex++)
 					if(fileLine[charIndex] == '-' && fileLine[charIndex + 1] == '-')
 					{
@@ -88,11 +90,38 @@ int parseInput(char* parseFile, Kruskal* K)
 					}
 
 				srcNode = strtok(fileLine, delimiter);
+				if(!srcNode)
+				{
+					cout << "Can't extract source node information at line no. " << fileLineCount << endl;
+					return -1;
+				}
+
 				destNode = strtok(NULL, delimiter);
-				strtok(NULL, delimiter);
+				if(!destNode)
+				{
+					cout << "Can't extract destination node information at line no. " << fileLineCount << endl;
+					return -1;
+				}
+
+				if(!strtok(NULL, delimiter))
+				{
+					cout << "Malformed edge pattern at line no. " << fileLineCount << endl;
+					return -1;
+				}
+
 				edgeWeight = strtok(NULL, delimiter);
+				if(!edgeWeight)
+				{
+					cout << "Can't extract edge weight information at line no. " << fileLineCount << endl;
+					return -1;
+				}
+
 				weightOfEdge = strtod(edgeWeight, NULL);
-				K->addEdge(srcNode, destNode, weightOfEdge);
+				if(K->addEdge(srcNode, destNode, weightOfEdge) == -1)
+				{
+					cout << "Attempted to add an edge with non-existent node at line " << fileLineCount << endl;
+					return -1;
+				}
 		}
 		while(!inputFile.eof());
 	}

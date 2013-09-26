@@ -30,7 +30,7 @@ class Kruskal
 		Kruskal();
 		void addNode(char nodeName[]);
 		void displayNodes();
-		void addEdge(char startNodeName[], char endNodeName[], double label);
+		int addEdge(char startNodeName[], char endNodeName[], double label);
 		void displayEdges();
 		int MST_Kruskal(char* outputFile);
 		void displaySpanningTree();

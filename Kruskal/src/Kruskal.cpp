@@ -79,18 +79,20 @@ void Kruskal::displayNodes()
  * Input: Start node,End node and weight of edge
  * Output: NA.
  */
-void Kruskal::addEdge(char startNodeName[], char endNodeName[], double label)
+int Kruskal::addEdge(char startNodeName[], char endNodeName[], double label)
 {
 	struct GraphEdge* newEdge = new GraphEdge();
 
 	newEdge->startNode = searchNode(startNodeName);
 	newEdge->endNode = searchNode(endNodeName);
+	if(!(newEdge->startNode && newEdge->endNode))
+		return -1;
 	newEdge->label = label;
 	newEdge->nextEdge = NULL;
 	lastGraphEdge->nextEdge = newEdge;
 	lastGraphEdge = newEdge;
 
-	return;
+	return 0;
 }
 
 /* Description: Display an edge of graph in std-out.

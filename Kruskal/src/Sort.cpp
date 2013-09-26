@@ -2,6 +2,10 @@
 #include "Sort.h"
 
 
+/* Description: Merge sorts list of edges.
+ * Input: Linked list of edges.
+ * Output: Sorted linked list of edges.
+ */
 void Sort::MergeSort(struct GraphEdge** edgeSet)
 {
 	struct GraphEdge* edge = *edgeSet;
@@ -24,6 +28,10 @@ void Sort::MergeSort(struct GraphEdge** edgeSet)
 }
 
 
+/* Description: Helper routine for Merge sort.
+ * Input: Two sorted linked lists of edges to be merged.
+ * Output: Merges the sorted linked lists.
+ */
 struct GraphEdge* Sort::SortedMerge(struct GraphEdge* list1, struct GraphEdge* list2)
 {
 	struct GraphEdge* result = NULL;
@@ -49,6 +57,10 @@ struct GraphEdge* Sort::SortedMerge(struct GraphEdge* list1, struct GraphEdge* l
 }
 
 
+/* Description: Helper routine for Merge sort.
+ * Input: Addresses of two empty lists .
+ * Output: .
+ */
 void Sort::FrontBackSplit(struct GraphEdge* source,struct GraphEdge** frontRef, struct GraphEdge** backRef)
 {
 

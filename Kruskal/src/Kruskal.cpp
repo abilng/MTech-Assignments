@@ -2,6 +2,10 @@
 #include "Kruskal.h"
 
 
+/* Description: Constructor of Kruskal class.
+ * Input: NA
+ * Output: Linked lists of edges and sets properly initialized.
+ */ 
 Kruskal::Kruskal()
 {
 	nodeSet = new GraphNode();
@@ -19,6 +23,10 @@ Kruskal::Kruskal()
 }
 
 
+/* Description: Searches the reference of a node from the set of nodes.
+ * Input: Name of graph node.
+ * Output: Reference of graph node, if exists.
+ */
 GraphNode* Kruskal::searchNode(char nodeName[])
 {
 	struct GraphNode* nodePtr = nodeSet;
@@ -35,6 +43,10 @@ GraphNode* Kruskal::searchNode(char nodeName[])
 }
 
 
+/* Description: Adds a node to the list of nodes.
+ * Input: Name of the graph node to be added.
+ * Output: Modified linked list of graph nodes.
+ */
 void Kruskal::addNode(char nodeName[])
 {
 	struct GraphNode* newNode = new GraphNode();
@@ -48,6 +60,10 @@ void Kruskal::addNode(char nodeName[])
 }
 
 
+/* Description: Displays list of graph nodes.
+ * Input: NA
+ * Output: List of graph nodes.
+ */ 
 void Kruskal::displayNodes()
 {
 	struct GraphNode* currentNode = nodeSet;

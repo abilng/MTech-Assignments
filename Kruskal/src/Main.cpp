@@ -9,6 +9,12 @@
 
 using namespace std;
 
+
+/*
+ * Description: Parses GraphViz input file to extract node and edge definition of the graph to operate on.
+ * Input: GraphViz input file containing node and edge definition of the graph to operate on.
+ * Output: Graph to operate on in form of edge set and vertex set.
+ */
 int parseInput(char* parseFile, Kruskal* K)
 {
 	ifstream inputFile;
@@ -85,6 +91,11 @@ int parseInput(char* parseFile, Kruskal* K)
 }
 
 
+/*
+ * Description: Driver program for Kruskal MST routine.
+ * Input: GraphViz input file.
+ * Output: GraphViz output file.
+ */
 int main(int argc, char* argv[])
 {
 	Kruskal* K = new Kruskal();

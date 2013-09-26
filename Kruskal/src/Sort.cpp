@@ -61,7 +61,8 @@ struct GraphEdge* Sort::SortedMerge(struct GraphEdge* list1, struct GraphEdge* l
  * Input: Addresses of two empty lists .
  * Output: .
  */
-void Sort::FrontBackSplit(struct GraphEdge* source,struct GraphEdge** frontRef, struct GraphEdge** backRef)
+void Sort::FrontBackSplit(struct GraphEdge* source,
+		struct GraphEdge** frontRef, struct GraphEdge** backRef)
 {
 
 	struct GraphEdge* fast;

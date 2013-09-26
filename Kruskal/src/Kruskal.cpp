@@ -75,7 +75,10 @@ void Kruskal::displayNodes()
 	}
 }
 
-
+/* Description: Add a new edge to graph.
+ * Input: Start node,End node and weight of edge
+ * Output: NA.
+ */
 void Kruskal::addEdge(char startNodeName[], char endNodeName[], double label)
 {
 	struct GraphEdge* newEdge = new GraphEdge();
@@ -90,7 +93,10 @@ void Kruskal::addEdge(char startNodeName[], char endNodeName[], double label)
 	return;
 }
 
-
+/* Description: Display an edge of graph in std-out.
+ * Input: An edge
+ * Output: NA.
+ */
 void Kruskal::displayEdges(struct GraphEdge* graphEdge)
 {
 	struct GraphEdge* currentEdge = graphEdge;
@@ -102,13 +108,19 @@ void Kruskal::displayEdges(struct GraphEdge* graphEdge)
 	}
 }
 
-
+/* Description: Display all edges of graph in std-out.
+ * Input: NA
+ * Output: NA.
+ */
 void Kruskal::displayEdges()
 {
 	displayEdges(edgeSet);
 }
 
-
+/* Description: Add an edge of graph to a current Spanning tree.
+ * Input: an edge of graph
+ * Output: NA.
+ */
 void Kruskal::addEdgeToSpanningTree(struct GraphEdge* graphEdge)
 {
 	struct GraphEdge* newMSTEdge = new GraphEdge();
@@ -123,7 +135,21 @@ void Kruskal::addEdgeToSpanningTree(struct GraphEdge* graphEdge)
 	return;
 }
 
+/* Description: Display all edges of MST in std-out.
+ * Input: NA
+ * Output: NA.
+ */
+void Kruskal::displaySpanningTree()
+{
+	displayEdges(minimumSpanningTree);
+}
 
+
+/* Description: Find MST of current graph and write that
+ *         in GraphViz format in an file with given name.
+ * Input: Output file name.
+ * Output: On success return `0` else `-1`.
+ */
 int Kruskal::MST_Kruskal(char* outputFile)
 {
 	class UnionFind* unionFind = new UnionFind();
@@ -136,7 +162,7 @@ int Kruskal::MST_Kruskal(char* outputFile)
 	outFile.open(outputFile, ofstream::out);
 	if(!outFile.is_open())
 	{
-		cout << "Error writing " << outputFile << ".\n";
+		perror("Error in writing");
 		return -1;
 	}
 
@@ -176,8 +202,4 @@ int Kruskal::MST_Kruskal(char* outputFile)
 }
 
 
-void Kruskal::displaySpanningTree()
-{
-	displayEdges(minimumSpanningTree);
-}
 

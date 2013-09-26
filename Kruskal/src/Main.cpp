@@ -11,8 +11,10 @@ using namespace std;
 
 
 /*
- * Description: Parses GraphViz input file to extract node and edge definition of the graph to operate on.
- * Input: GraphViz input file containing node and edge definition of the graph to operate on.
+ * Description: Parses GraphViz input file to extract node
+ *          and edge definition of the graph to operate on.
+ * Input: GraphViz input file containing node and
+ *        edge definition of the graph to operate on.
  * Output: Graph to operate on in form of edge set and vertex set.
  */
 int parseInput(char* parseFile, Kruskal* K)
@@ -27,7 +29,7 @@ int parseInput(char* parseFile, Kruskal* K)
 	inputFile.open(parseFile, ifstream::in);
 	if(!inputFile.is_open())
 	{
-		cout << "Error reading " << parseFile << ".\n";
+		perror("Error in reading:");
 		return -1;
 	}
 
@@ -107,6 +109,12 @@ int parseInput(char* parseFile, Kruskal* K)
  */
 int main(int argc, char* argv[])
 {
+	if(argc != 3)
+	{
+		cerr<<"Not enough arguments"<<endl;
+		cerr<<"Usage:"<<argv[0]<<" input.gv output.gv"<<endl;
+		return 1;
+	}
 	Kruskal* K = new Kruskal();
 	parseInput(argv[1], K);
 	K->MST_Kruskal(argv[2]);

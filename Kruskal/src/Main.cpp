@@ -19,9 +19,10 @@ int parseInput(char* parseFile, Kruskal* K)
 {
 	ifstream inputFile;
 	char fileLine[INPUT_BUFFER];
-	char* delimiter = " -[\"=];";
+	char* delimiter = " $[\"=];";
 	char *srcNode, *destNode, *edgeWeight;
-	short fileLineCount = 0;
+	short fileLineCount = 0, charIndex;
+	double weightOfEdge;
 
 	inputFile.open(parseFile, ifstream::in);
 	if(!inputFile.is_open())
@@ -76,16 +77,24 @@ int parseInput(char* parseFile, Kruskal* K)
 						cout << "Expected \';\' (semicolon) at the end of line no. " << fileLineCount << endl;
 						return -1;
 				}
+				for(charIndex = 0; charIndex < strlen(fileLine); charIndex++)
+					if(fileLine[charIndex] == '-' && fileLine[charIndex + 1] == '-')
+					{
+						fileLine[charIndex] = '$';
+						fileLine[charIndex + 1] = '$';
+						break;
+					}
 
 				srcNode = strtok(fileLine, delimiter);
 				destNode = strtok(NULL, delimiter);
 				strtok(NULL, delimiter);
 				edgeWeight = strtok(NULL, delimiter);
-				K->addEdge(srcNode, destNode, atoi(edgeWeight));
+				weightOfEdge = strtod(edgeWeight, NULL);
+				K->addEdge(srcNode, destNode, weightOfEdge);
 		}
 		while(!inputFile.eof());
 	}
-	inputFile.close();
+	inputFile.close(); K->displayEdges();
 
 	return 0;
 }

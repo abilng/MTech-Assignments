@@ -76,7 +76,7 @@ void Kruskal::displayNodes()
 }
 
 
-void Kruskal::addEdge(char startNodeName[], char endNodeName[], int label)
+void Kruskal::addEdge(char startNodeName[], char endNodeName[], double label)
 {
 	struct GraphEdge* newEdge = new GraphEdge();
 

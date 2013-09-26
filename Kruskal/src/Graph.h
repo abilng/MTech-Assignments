@@ -15,7 +15,7 @@ struct GraphEdge
 {
 	struct GraphNode* startNode;
 	struct GraphNode* endNode;
-	int label;
+	double label;
 	struct GraphEdge* nextEdge;
 };
 

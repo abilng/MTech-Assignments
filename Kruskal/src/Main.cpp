@@ -94,7 +94,7 @@ int parseInput(char* parseFile, Kruskal* K)
 		}
 		while(!inputFile.eof());
 	}
-	inputFile.close(); K->displayEdges();
+	inputFile.close();
 
 	return 0;
 }

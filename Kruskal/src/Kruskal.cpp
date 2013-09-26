@@ -151,7 +151,7 @@ int Kruskal::MST_Kruskal(char* outputFile)
 	}
 
 	outFile << "// edges\n";
-	sort->MergeSort(&edgeSet);
+	sort->MergeSort(&(edgeSet->nextEdge));
 	edgePtr = edgeSet->nextEdge;
 
 	while(edgePtr)

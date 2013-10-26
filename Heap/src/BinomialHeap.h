@@ -1,24 +1,16 @@
-/*
- * BinomialHeap.h
- *
- *  Created on: Oct 27, 2013
- */
 
 #ifndef BINOMIALHEAP_H_
 #define BINOMIALHEAP_H_
 
 #include "Heap.h"
 
-namespace std
+using namespace std;
+
+class BinomialHeap: public Heap
 {
+	public:
+		BinomialHeap();
+		~BinomialHeap();
+};
 
-	class BinomialHeap: public Heap
-	{
-		public:
-			BinomialHeap();
-			~BinomialHeap();
-	};
-
-} /* namespace std */
-
-#endif /* BINOMIALHEAP_H_ */
+#endif

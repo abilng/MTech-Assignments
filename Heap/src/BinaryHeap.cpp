@@ -13,43 +13,44 @@ BinaryHeap :: ~BinaryHeap()
 
 }
 
+
 void BinaryHeap :: makeHeap()
 {
 
 }
 
 
-int BinaryHeap :: insertKey(Key key)
+void* BinaryHeap :: insertKey(priority key)
 {
 	return 0;
 }
 
 
-int BinaryHeap :: deleteKey(Key key)
+int BinaryHeap :: deleteKey(void* nodeAddress)
 {
 	return 0;
 }
 
 
-Key BinaryHeap :: extractMin()
-{
-
-}
-
-
-Key BinaryHeap :: findMin()
-{
-
-}
-
-
-int BinaryHeap :: increaseKey(Key key)
+priority BinaryHeap :: extractMin()
 {
 	return 0;
 }
 
 
-int BinaryHeap :: decreaseKey(Key key)
+priority BinaryHeap :: findMin()
+{
+	return 0;
+}
+
+
+int BinaryHeap :: increaseKey(void* nodeAddress)
+{
+	return 0;
+}
+
+
+int BinaryHeap :: decreaseKey(void* nodeAddress)
 {
 	return 0;
 }

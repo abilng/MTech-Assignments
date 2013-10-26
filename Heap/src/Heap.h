@@ -6,12 +6,6 @@
 
 typedef int priority;
 
-class HeapNode
-{
-
-};
-
-
 class Heap
 {
 	public:

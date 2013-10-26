@@ -8,6 +8,11 @@ BinaryHeap :: BinaryHeap()
 }
 
 
+BinaryHeap :: ~BinaryHeap()
+{
+
+}
+
 void BinaryHeap :: makeHeap()
 {
 
@@ -28,13 +33,13 @@ int BinaryHeap :: deleteKey(Key key)
 
 Key BinaryHeap :: extractMin()
 {
-	return 0;
+
 }
 
 
 Key BinaryHeap :: findMin()
 {
-	return 0;
+
 }
 
 

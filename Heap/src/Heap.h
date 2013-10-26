@@ -2,7 +2,15 @@
 #ifndef HEAP_H_
 #define HEAP_H_
 
-typedef int Key;
+#include "iostream"
+
+typedef int KeyValue;
+
+struct Key
+{
+	unsigned int id;
+	KeyValue value;
+};
 
 class Heap
 {
@@ -10,7 +18,7 @@ class Heap
 	virtual void searchKey(Key key) = 0;
 
 	public:
-	//virtual ~Heap() = 0;
+	virtual ~Heap() {};
 	virtual void makeHeap() = 0;
 	virtual int insertKey(Key key) = 0;
 	virtual int deleteKey(Key key) = 0;

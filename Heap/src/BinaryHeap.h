@@ -2,7 +2,6 @@
 #ifndef BINARY_H_
 #define BINARY_H_
 
-#include "iostream"
 #include "Heap.h"
 
 class BinaryHeap: public Heap
@@ -17,6 +16,7 @@ class BinaryHeap: public Heap
 
 	public:
 		BinaryHeap();
+		~BinaryHeap();
 		void makeHeap() = 0;
 		int insertKey(Key key) = 0;
 		int deleteKey(Key key) = 0;

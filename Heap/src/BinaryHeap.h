@@ -4,6 +4,8 @@
 
 #include "Heap.h"
 
+using namespace std;
+
 class BinaryHeap: public Heap
 {
 	private:
@@ -22,8 +24,8 @@ class BinaryHeap: public Heap
 		int deleteKey(void* nodeAddress);
 		priority extractMin();
 		priority findMin();
-		int increaseKey(void* nodeAddress);
-		int decreaseKey(void* nodeAddress);
+		int increaseKey(void* nodeAddress, priority newKey);
+		int decreaseKey(void* nodeAddress, priority newKey);
 		void displayHeap(char* fileName);
 };
 

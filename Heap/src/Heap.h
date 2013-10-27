@@ -15,8 +15,8 @@ class Heap
 	virtual int deleteKey(void* nodeAddress) = 0;
 	virtual priority extractMin() = 0;
 	virtual priority findMin() = 0;
-	virtual int increaseKey(void* nodeAddress) = 0;
-	virtual int decreaseKey(void* nodeAddress) = 0;
+	virtual int increaseKey(void* nodeAddress, priority newKey) = 0;
+	virtual int decreaseKey(void* nodeAddress, priority newKey) = 0;
 	virtual void displayHeap(char* fileName) = 0;
 };
 

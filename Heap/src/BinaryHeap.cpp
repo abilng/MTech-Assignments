@@ -44,13 +44,13 @@ priority BinaryHeap :: findMin()
 }
 
 
-int BinaryHeap :: increaseKey(void* nodeAddress)
+int BinaryHeap :: increaseKey(void* nodeAddress, priority newKey)
 {
 	return 0;
 }
 
 
-int BinaryHeap :: decreaseKey(void* nodeAddress)
+int BinaryHeap :: decreaseKey(void* nodeAddress, priority newKey)
 {
 	return 0;
 }

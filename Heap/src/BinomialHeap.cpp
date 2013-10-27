@@ -8,7 +8,6 @@ BinomialHeap::BinomialHeap()
 {
 	minElement = NULL;
 	head = NULL;
-
 }
 
 BinomialHeap::~BinomialHeap()

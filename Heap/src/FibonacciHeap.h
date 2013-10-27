@@ -22,3 +22,4 @@ class FibonacciHeap: public Heap
 };
 
 #endif
+

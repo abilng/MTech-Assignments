@@ -14,6 +14,7 @@ class Heap
 	protected:
 		std::map<Priority, Location> keyToAddress;
 		bool setLocation(Location address,Priority key);
+		bool deleteLocation(Priority key);
 	public:
 		virtual ~Heap() {};
 		virtual void makeHeap() = 0;

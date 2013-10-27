@@ -6,40 +6,90 @@ using namespace std;
 
 BinomialHeap::BinomialHeap()
 {
-	minElement = NULL;
-	head = NULL;
+   makeHeap();
 }
 
 BinomialHeap::~BinomialHeap()
 {
-	// TODO Auto-generated destructor stub
+	clear(head);
 }
 
 
 void BinomialHeap :: makeHeap()
 {
-	// TODO Auto-generated stub
+	minElement = NULL;
+	head = NULL;
 }
 
 
 Location BinomialHeap :: insertKey(Priority key)
 {
-	// TODO Auto-generated stub
-	return 0;
+	BinomialNode * newNode;
+	if(getLocation(key) != NULL) {
+		//duplicate key
+		return NULL;
+	}
+
+	newNode = new BinomialNode;
+	newNode->key = key;
+	newNode->parent = NULL;
+	newNode->child = NULL;
+	newNode->sibling = NULL;
+	newNode->degree = 0;
+	setLocation(newNode,key);
+	head = heapUnion(head, newNode);
+
+	if(minElement==NULL ||minElement->key > key)
+	{
+		minElement = newNode;
+	}
+	return newNode;
 }
 
 
 int BinomialHeap :: deleteKey(Location nodeAddress)
 {
-	// TODO Auto-generated stub
+	decreaseKey(nodeAddress,INT_MIN);
+	extractMin();
 	return 0;
 }
 
 
 Priority BinomialHeap :: extractMin()
 {
-	// TODO Auto-generated stub
-	return 0;
+
+	if(minElement == NULL)
+		return -1;
+
+
+	BinomialNode * ptr = head;
+	BinomialNode *chlidList;
+	Priority key;
+
+	key=minElement->key;
+	chlidList =minElement->child;
+
+	// remove element from root list
+	if(ptr == minElement)
+	{
+		head = ptr->sibling;
+	}
+	else
+	{
+		while (ptr->sibling != minElement)
+			ptr=ptr->sibling;
+		ptr->sibling=minElement->sibling;
+	}
+	deleteLocation(key);
+	delete minElement;
+
+	//reverse child list
+	chlidList = reverseList(chlidList);
+	//union child list
+	head = heapUnion(head,chlidList);
+	setMin();
+
+	return key;
 }
 
 
@@ -101,9 +151,9 @@ void BinomialHeap::setMin()
 	Priority min =INT_MAX;
 	while (x != NULL)
 	{
-		if (x->degree < min)
+		if (x->key < min)
 		{
-			min = x->degree;
+			min = x->key;
 			y=x;
 		}
 		x = x->sibling;
@@ -205,3 +255,23 @@ BinomialHeap::BinomialNode* BinomialHeap::heapUnion(
 	return newHead;
 }
 
+BinomialHeap::BinomialNode* BinomialHeap::reverseList(BinomialNode *listHead)
+{
+	BinomialNode* prev=NULL;
+	BinomialNode* next=NULL;
+	BinomialNode* ptr=listHead;
+	while(ptr != NULL)
+	{
+		next=ptr->sibling;
+		ptr->sibling=prev;
+
+		//make parent NULL
+
+		ptr->parent = NULL;
+		//TODO check working;
+
+		prev=ptr;
+		ptr=next;
+	}
+	return prev;
+}

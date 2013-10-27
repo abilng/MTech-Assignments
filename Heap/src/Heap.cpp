@@ -14,17 +14,26 @@ Location Heap::getLocation(Priority key)
 		ret = keyToAddress[key];
 	} else {
 		//not found
-	  ret = NULL;
+		ret = NULL;
 	}
 	return ret;
 }
 
 bool Heap::setLocation(Location address,Priority key)
 {
-	if(keyToAddress.count(key)>0) {
+	if(address ==NULL)
 		return false;
-	} else {
-		keyToAddress[key] = address;
+	keyToAddress[key] = address;
+	return true;
+}
+
+bool Heap::deleteLocation(Priority key)
+{
+	if(keyToAddress.count(key)>0)
+	{
+		keyToAddress.erase (key);
 		return true;
 	}
+	else
+		return false;
 }

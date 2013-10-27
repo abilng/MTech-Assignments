@@ -26,6 +26,7 @@ class BinomialHeap: public Heap
 		void link(BinomialNode*, BinomialNode*);
 		void setMin();
 		BinomialNode* mergeList(BinomialNode*, BinomialNode*);
+		BinomialNode* reverseList(BinomialNode *);
 
 		BinomialNode* heapUnion(BinomialNode*, BinomialNode*);
 

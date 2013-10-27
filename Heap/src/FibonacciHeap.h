@@ -11,6 +11,14 @@ class FibonacciHeap: public Heap
 	public:
 		FibonacciHeap();
 		~FibonacciHeap();
+		void makeHeap();
+		Location insertKey(Priority key);
+		int deleteKey(Location nodeAddress);
+		Priority extractMin();
+		Priority findMin();
+		int increaseKey(Location nodeAddress, Priority newKey);
+		int decreaseKey(Location nodeAddress, Priority newKey);
+		void displayHeap(char* fileName);
 };
 
 #endif

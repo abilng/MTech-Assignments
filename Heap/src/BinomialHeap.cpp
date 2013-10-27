@@ -2,11 +2,10 @@
 #include "BinomialHeap.h"
 
 
-using namespace std;
-
 BinomialHeap::BinomialHeap()
 {
-	makeHeap();
+	minElement = NULL;
+	head = NULL;
 }
 
 BinomialHeap::~BinomialHeap()
@@ -17,8 +16,12 @@ BinomialHeap::~BinomialHeap()
 
 void BinomialHeap :: makeHeap()
 {
-	minElement = NULL;
+	if(head != NULL)
+	{
+		clear(head);
+	}
 	head = NULL;
+	minElement =NULL;
 }
 
 
@@ -104,14 +107,17 @@ int BinomialHeap :: increaseKey(Location nodeAddress, Priority newKey)
 	BinomialNode * node;
 	BinomialNode * minNode = NULL;
 	BinomialNode * x;
+	Priority min = MAX_PRIORITY;
+	if(nodeAddress == NULL) return -1;
+
 	node = (BinomialNode *) nodeAddress;
-	Priority min; //= MAX_PRIORITY;
 
 	if (newKey < node->key)
 	{
 		std::cerr<<"hew key is less than current key";
 		return node->key;
 	}
+	deleteLocation(node->key);
 	node->key = newKey;
 
 	x = node->child;
@@ -120,8 +126,17 @@ int BinomialHeap :: increaseKey(Location nodeAddress, Priority newKey)
 		if(x->key<min)
 		{
 			min = x->key;
-			//TODO
+			minNode = x;
 		}
+		x = x->sibling;
+	}
+	if(min>newKey)
+	{
+		node->key = minNode->key;
+		//recursive call
+		increaseKey(minNode,newKey);
+
+		setLocation(node,node->key);
 	}
 	return 0;
 }
@@ -132,6 +147,8 @@ int BinomialHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 	BinomialNode * node;
 	BinomialNode * y,* z;
 	Priority temp;
+
+	if(nodeAddress == NULL) return -1;
 
 	node = (BinomialNode *) nodeAddress;
 

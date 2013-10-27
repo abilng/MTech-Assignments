@@ -23,7 +23,7 @@ class BinaryHeap: public Heap
 		void* insertKey(Priority key);
 		int deleteKey(void* nodeAddress);
 		Priority extractMin();
-		Priority findMin();
+		Location findMin();
 		int increaseKey(void* nodeAddress, Priority newKey);
 		int decreaseKey(void* nodeAddress, Priority newKey);
 		void displayHeap(char* fileName);

@@ -1,12 +1,13 @@
 
 #include "BinomialHeap.h"
+#include <climits>
 
 using namespace std;
 
 BinomialHeap::BinomialHeap()
 {
 	minElement = NULL;
-	rootList = NULL;
+	head = NULL;
 
 }
 
@@ -43,10 +44,9 @@ Priority BinomialHeap :: extractMin()
 }
 
 
-Priority BinomialHeap :: findMin()
+Location BinomialHeap :: findMin()
 {
-	// TODO Auto-generated stub
-	return 0;
+  return minElement;
 }
 
 
@@ -69,3 +69,27 @@ void BinomialHeap :: displayHeap(char* fileName)
 	// TODO Auto-generated stub
 }
 
+void BinomialHeap::link(BinomialNode *y, BinomialNode * z)
+{
+	y->parent = z;
+	y->sibling = z->child;
+	z->child = y;
+	z->degree = z->degree + 1;
+}
+
+void BinomialHeap::setMin()
+{
+  BinomialNode * y = NULL;
+  BinomialNode * x = head;
+  Priority min =INT_MAX;
+  while (x != NULL)
+  	{
+  		if (x->key < min)
+  		{
+  	     min = x->key;
+         y=x;
+  		}
+         x = x->sibling;
+  	}
+  minElement = y;
+}

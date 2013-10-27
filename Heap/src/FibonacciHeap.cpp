@@ -41,7 +41,7 @@ Priority FibonacciHeap :: extractMin()
 }
 
 
-Priority FibonacciHeap :: findMin()
+Location FibonacciHeap :: findMin()
 {
 	// TODO Auto-generated stub
 	return 0;

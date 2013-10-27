@@ -38,7 +38,7 @@ Priority BinaryHeap :: extractMin()
 }
 
 
-Priority BinaryHeap :: findMin()
+Location BinaryHeap :: findMin()
 {
 	return 0;
 }

@@ -9,12 +9,23 @@ using namespace std;
 class BinomialHeap: public Heap
 {
 	private:
+
 		struct BinomialNode
 		{
 			Priority key;
-			struct BinaryNode *parent, *childList;
+			BinomialNode *parent;
+			BinomialNode *child;
+			BinomialNode * sibling;
+			int degree;
+
 		};
-		struct BinomialNode *rootList, *minElement;
+
+		BinomialNode *head;
+		BinomialNode *minElement;
+
+		void link(BinomialNode*, BinomialNode*);
+		void setMin();
+
 	public:
 		BinomialHeap();
 		~BinomialHeap();
@@ -22,7 +33,7 @@ class BinomialHeap: public Heap
 		Location insertKey(Priority key);
 		int deleteKey(Location nodeAddress);
 		Priority extractMin();
-		Priority findMin();
+		Location findMin();
 		int increaseKey(Location nodeAddress, Priority newKey);
 		int decreaseKey(Location nodeAddress, Priority newKey);
 		void displayHeap(char* fileName);

@@ -12,6 +12,7 @@ class Heap
 {
 	protected:
 		std::map<Priority, Location> keyToAddress;
+		bool setLocation(Location address,Priority key);
 	public:
 		virtual ~Heap() {};
 		virtual void makeHeap() = 0;
@@ -22,6 +23,7 @@ class Heap
 		virtual int increaseKey(Location nodeAddress, Priority newKey) = 0;
 		virtual int decreaseKey(Location nodeAddress, Priority newKey) = 0;
 		virtual void displayHeap(char* fileName) = 0;
+		Location getLocation(Priority key);
 };
 
 #endif

@@ -16,16 +16,17 @@ class BinaryHeap: public Heap
 		};
 		struct BinaryNode *root, *lastElement;
 
+
 	public:
 		BinaryHeap();
 		~BinaryHeap();
 		void makeHeap();
-		void* insertKey(Priority key);
-		int deleteKey(void* nodeAddress);
+		Location insertKey(Priority key);
+		int deleteKey(Location nodeAddress);
 		Priority extractMin();
-		Location findMin();
-		int increaseKey(void* nodeAddress, Priority newKey);
-		int decreaseKey(void* nodeAddress, Priority newKey);
+		Priority findMin();
+		int increaseKey(Location nodeAddress, Priority newKey);
+		int decreaseKey(Location nodeAddress, Priority newKey);
 		void displayHeap(char* fileName);
 };
 

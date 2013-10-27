@@ -33,7 +33,7 @@ class BinomialHeap: public Heap
 		Location insertKey(Priority key);
 		int deleteKey(Location nodeAddress);
 		Priority extractMin();
-		Location findMin();
+		Priority findMin();
 		int increaseKey(Location nodeAddress, Priority newKey);
 		int decreaseKey(Location nodeAddress, Priority newKey);
 		void displayHeap(char* fileName);

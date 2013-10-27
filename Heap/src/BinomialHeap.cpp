@@ -44,9 +44,9 @@ Priority BinomialHeap :: extractMin()
 }
 
 
-Location BinomialHeap :: findMin()
+Priority BinomialHeap :: findMin()
 {
-  return minElement;
+  return 0;
 }
 
 

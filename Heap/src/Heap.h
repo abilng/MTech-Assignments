@@ -1,7 +1,7 @@
 
 #ifndef HEAP_H_
 #define HEAP_H_
-
+#include "map"
 #include "iostream"
 #include <map>
 
@@ -10,6 +10,7 @@ typedef void* Location;
 
 class Heap
 {
+
 	protected:
 		std::map<Priority, Location> keyToAddress;
 		bool setLocation(Location address,Priority key);
@@ -27,3 +28,4 @@ class Heap
 };
 
 #endif
+

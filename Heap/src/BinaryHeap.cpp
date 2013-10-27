@@ -23,6 +23,8 @@ void BinaryHeap :: makeHeap()
 Location BinaryHeap :: insertKey(Priority key)
 {
     BinaryNode *z,*x=new BinaryNode();
+    x->key=key;
+    keyToAddress[key]=x;
     x->leftChild=x->rightChild=NULL;
     x->leftSibling=x->rightSibling=NULL;
     if(root==NULL){
@@ -31,7 +33,12 @@ Location BinaryHeap :: insertKey(Priority key)
         x->parent=NULL;
     }
     else{
-        if(lastElement->parent->leftChild==lastElement)
+        if(lastElement==root)
+        {
+            root->leftChild=x;
+            x->parent=root;
+        }
+        else if(lastElement->parent->leftChild==lastElement)
             {
                 lastElement->parent->rightChild=x;
                 x->parent=lastElement->parent;
@@ -57,6 +64,20 @@ Location BinaryHeap :: insertKey(Priority key)
         }
     }
     lastElement=x;
+    Priority data;
+    while(x!=NULL){
+        if(x!=root && x->parent->key > x->key )
+        {
+            data=x->key;
+            x->key=x->parent->key;
+            keyToAddress[x->key]=x;
+             x->parent->key=data;
+             keyToAddress[x->parent->key]=x->parent;
+            x=x->parent;
+        }
+        else
+            x=NULL;
+    }
 	return x;
 }
 
@@ -73,6 +94,7 @@ int BinaryHeap :: deleteKey(Location nodeAddress)
     else if(x->parent->rightChild==x){
         x->parent->rightChild=NULL;
         lastElement=x->parent->leftChild;
+        x->leftSibling->rightSibling=NULL;
     }
     else if(x->parent->leftChild==x)
     {
@@ -90,10 +112,14 @@ int BinaryHeap :: deleteKey(Location nodeAddress)
                 }
                 lastElement=z;
             }
-            else
+            else{
               lastElement=x->parent->leftSibling->rightChild;
+              x->parent->leftSibling->rightChild->rightSibling=NULL;
+            }
         }
+
     }
+    keyToAddress.erase(x->key);
     delete x;
     if(y->key < datakey)
         increaseKey(y,datakey);
@@ -134,13 +160,17 @@ int BinaryHeap :: increaseKey(Location nodeAddress, Priority newKey)
     if(y==NULL || (newKey <= y->key))
     return -1;
     else{
+        //keyToAddress.erase(y->key);
         y->key=newKey;
+        keyToAddress[y->key]=y;
             if(y->leftChild!=NULL && y->leftChild->key < newKey){
                 y->key=y->leftChild->key ;
+                keyToAddress[y->key]=y;
                 increaseKey(y->leftChild,newKey);
             }
             else if(y->rightChild!=NULL && (y->rightChild->key < newKey)){
                 y->key=y->rightChild->key ;
+                keyToAddress[y->key]=y;
                 increaseKey(y->rightChild,newKey);
             }
     }
@@ -154,8 +184,10 @@ int BinaryHeap :: decreaseKey(Location nodeAddress, Priority newKey)
     return -1;
     else{
         y->key=newKey;
+        keyToAddress[y->key]=y;
             if(y->parent!=NULL && y->parent->key > newKey){
                 y->key=y->parent->key;
+                keyToAddress[y->key]=y;
                 decreaseKey(y->parent,newKey);
             }
         }
@@ -164,5 +196,19 @@ int BinaryHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 
 void BinaryHeap :: displayHeap(char* fileName)
 {
-
+    BinaryNode *x,*z;
+    x=root;
+    while(x!=NULL)
+    {
+        cout<<x->key << " "/*<<" chirag  "*/;
+        if(x->rightSibling==NULL){
+            cout<<endl;
+            z=x;
+        while(z->leftSibling!=NULL)
+          z=z->leftSibling;
+          x=z->leftChild;
+        }
+        else
+            x=x->rightSibling;
+    }
 }

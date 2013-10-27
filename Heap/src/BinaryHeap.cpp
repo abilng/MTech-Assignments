@@ -70,9 +70,11 @@ Location BinaryHeap :: insertKey(Priority key)
         {
             data=x->key;
             x->key=x->parent->key;
-            keyToAddress[x->key]=x;
+            setLocation(x,x->key);
+            //keyToAddress[x->key]=x;
              x->parent->key=data;
-             keyToAddress[x->parent->key]=x->parent;
+             setLocation(x->parent,x->parent->key);
+             //keyToAddress[x->parent->key]=x->parent;
             x=x->parent;
         }
         else
@@ -156,21 +158,36 @@ Priority BinaryHeap :: findMin()
 
 int BinaryHeap :: increaseKey(Location nodeAddress, Priority newKey)
 {
-    BinaryNode *y=(BinaryNode*)nodeAddress;
+    Priority data=newKey;
+    BinaryNode *x,*y=(BinaryNode*)nodeAddress;
     if(y==NULL || (newKey <= y->key))
     return -1;
     else{
         //keyToAddress.erase(y->key);
         y->key=newKey;
-        keyToAddress[y->key]=y;
-            if(y->leftChild!=NULL && y->leftChild->key < newKey){
+        setLocation(y,y->key);
+        //keyToAddress[y->key]=y;
+        if(y->leftChild!=NULL && y->leftChild->key < newKey){
+            data=y->leftChild->key;
+            x=y->leftChild;
+        }
+         else if(y->rightChild!=NULL && (y->rightChild->key < newKey)){
+             if(data >y->rightChild->key)
+             {
+                 data=y->righttChild->key;
+                 x=y->rightChild;
+             }
+         }
+            if(y->leftChild==x){
                 y->key=y->leftChild->key ;
-                keyToAddress[y->key]=y;
+                setLocation(y,y->key);
+                //keyToAddress[y->key]=y;
                 increaseKey(y->leftChild,newKey);
             }
-            else if(y->rightChild!=NULL && (y->rightChild->key < newKey)){
+            else if(y->rightChild==x)){
                 y->key=y->rightChild->key ;
-                keyToAddress[y->key]=y;
+                setLocation(y,y->key);
+                //keyToAddress[y->key]=y;
                 increaseKey(y->rightChild,newKey);
             }
     }
@@ -184,13 +201,16 @@ int BinaryHeap :: decreaseKey(Location nodeAddress, Priority newKey)
     return -1;
     else{
         y->key=newKey;
-        keyToAddress[y->key]=y;
+        setLocation(y,y->key);
+        //keyToAddress[y->key]=y;
             if(y->parent!=NULL && y->parent->key > newKey){
                 y->key=y->parent->key;
-                keyToAddress[y->key]=y;
+                setLocation(y,y->key);
+                //keyToAddress[y->key]=y;
                 decreaseKey(y->parent,newKey);
             }
         }
+    return 0;
 }
 
 

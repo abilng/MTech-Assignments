@@ -20,7 +20,7 @@ void BinaryHeap :: makeHeap()
 }
 
 
-void* BinaryHeap :: insertKey(priority key)
+void* BinaryHeap :: insertKey(Priority key)
 {
 	return 0;
 }
@@ -32,25 +32,25 @@ int BinaryHeap :: deleteKey(void* nodeAddress)
 }
 
 
-priority BinaryHeap :: extractMin()
+Priority BinaryHeap :: extractMin()
 {
 	return 0;
 }
 
 
-priority BinaryHeap :: findMin()
+Priority BinaryHeap :: findMin()
 {
 	return 0;
 }
 
 
-int BinaryHeap :: increaseKey(void* nodeAddress, priority newKey)
+int BinaryHeap :: increaseKey(void* nodeAddress, Priority newKey)
 {
 	return 0;
 }
 
 
-int BinaryHeap :: decreaseKey(void* nodeAddress, priority newKey)
+int BinaryHeap :: decreaseKey(void* nodeAddress, Priority newKey)
 {
 	return 0;
 }

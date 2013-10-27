@@ -11,7 +11,7 @@ class BinaryHeap: public Heap
 	private:
 		struct BinaryNode
 		{
-			priority key;
+			Priority key;
 			struct BinaryNode *parent, *leftSibling, *rightSibling, *leftChild, *rightChild;
 		};
 		struct BinaryNode *root, *lastElement;
@@ -20,12 +20,12 @@ class BinaryHeap: public Heap
 		BinaryHeap();
 		~BinaryHeap();
 		void makeHeap();
-		void* insertKey(priority key);
+		void* insertKey(Priority key);
 		int deleteKey(void* nodeAddress);
-		priority extractMin();
-		priority findMin();
-		int increaseKey(void* nodeAddress, priority newKey);
-		int decreaseKey(void* nodeAddress, priority newKey);
+		Priority extractMin();
+		Priority findMin();
+		int increaseKey(void* nodeAddress, Priority newKey);
+		int decreaseKey(void* nodeAddress, Priority newKey);
 		void displayHeap(char* fileName);
 };
 

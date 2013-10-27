@@ -1,9 +1,13 @@
 
 #ifndef HEAP_H_
 #define HEAP_H_
-#include "map"
-#include "iostream"
+
+#include <iostream">
 #include <map>
+#include <climits>
+
+#define MIN_PRIORITY INT_MIN
+#define MAX_PRIORITY INT_MAX
 
 typedef int Priority;
 typedef void* Location;

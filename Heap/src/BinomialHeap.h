@@ -30,6 +30,7 @@ class BinomialHeap: public Heap
 
 		BinomialNode* heapUnion(BinomialNode*, BinomialNode*);
 
+
 		void clear(BinomialNode*);
 
 	public:

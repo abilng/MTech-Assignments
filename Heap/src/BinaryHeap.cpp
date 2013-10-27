@@ -200,7 +200,7 @@ void BinaryHeap :: displayHeap(char* fileName)
     x=root;
     while(x!=NULL)
     {
-        cout<<x->key << " "/*<<" chirag  "*/;
+        cout<<x->key << " ";
         if(x->rightSibling==NULL){
             cout<<endl;
             z=x;

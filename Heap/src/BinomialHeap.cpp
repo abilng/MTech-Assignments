@@ -1,12 +1,12 @@
 
 #include "BinomialHeap.h"
-#include <climits>
+
 
 using namespace std;
 
 BinomialHeap::BinomialHeap()
 {
-   makeHeap();
+	makeHeap();
 }
 
 BinomialHeap::~BinomialHeap()
@@ -49,7 +49,7 @@ Location BinomialHeap :: insertKey(Priority key)
 
 int BinomialHeap :: deleteKey(Location nodeAddress)
 {
-	decreaseKey(nodeAddress,INT_MIN);
+	decreaseKey(nodeAddress,MIN_PRIORITY);
 	extractMin();
 	return 0;
 }
@@ -101,15 +101,70 @@ Priority BinomialHeap :: findMin()
 
 int BinomialHeap :: increaseKey(Location nodeAddress, Priority newKey)
 {
-	// TODO Auto-generated stub
+	BinomialNode * node;
+	BinomialNode * minNode = NULL;
+	BinomialNode * x;
+	node = (BinomialNode *) nodeAddress;
+	Priority min; //= MAX_PRIORITY;
+
+	if (newKey < node->key)
+	{
+		std::cerr<<"hew key is less than current key";
+		return node->key;
+	}
+	node->key = newKey;
+
+	x = node->child;
+	while(x != NULL)
+	{
+		if(x->key<min)
+		{
+			min = x->key;
+			//TODO
+		}
+	}
 	return 0;
 }
 
 
 int BinomialHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 {
-	// TODO Auto-generated stub
-	return 0;
+	BinomialNode * node;
+	BinomialNode * y,* z;
+	Priority temp;
+
+	node = (BinomialNode *) nodeAddress;
+
+	if (newKey > node->key)
+	{
+		std::cerr<<"hew key is greater than current key";
+		return node->key;
+	}
+	deleteLocation(node->key);
+	node->key = newKey;
+	y = node;
+	z = y->parent;
+	while( z != NULL and y->key < z->key)
+	{
+		//do exchange key[y] and key[z]
+		//   if y and z have satellite fields, exchange them, too.
+
+		temp = y->key;
+		y->key = z->key;
+		z->key = temp;
+
+		//update location
+		setLocation(y,y->key);
+		setLocation(z,z->key);
+
+		y = z;
+		z = y->parent;
+	}
+	if(minElement->key < newKey)
+	{
+		minElement = y;
+	}
+	return newKey;
 }
 
 
@@ -148,7 +203,7 @@ void BinomialHeap::setMin()
 {
 	BinomialNode * y = NULL;
 	BinomialNode * x = head;
-	Priority min =INT_MAX;
+	Priority min =MAX_PRIORITY;
 	while (x != NULL)
 	{
 		if (x->key < min)

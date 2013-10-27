@@ -10,7 +10,7 @@ typedef void* Location;
 
 class Heap
 {
-	private:
+	protected:
 		std::map<Priority, Location> keyToAddress;
 	public:
 		virtual ~Heap() {};

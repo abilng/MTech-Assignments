@@ -15,7 +15,7 @@ class BinaryHeap: public Heap
 			struct BinaryNode *parent, *leftSibling, *rightSibling, *leftChild, *rightChild;
 		};
 		struct BinaryNode *root, *lastElement;
-
+        void clear(BinaryNode*);
 
 	public:
 		BinaryHeap();

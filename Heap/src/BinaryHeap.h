@@ -25,9 +25,9 @@ class BinaryHeap: public Heap
 		int deleteKey(Location nodeAddress);
 		Priority extractMin();
 		Priority findMin();
-		int increaseKey(Location nodeAddress, Priority newKey);
-		int decreaseKey(Location nodeAddress, Priority newKey);
-		void displayHeap(char* fileName);
+		bool increaseKey(Location nodeAddress, Priority newKey);
+		bool decreaseKey(Location nodeAddress, Priority newKey);
+		bool displayHeap(char* fileName);
 };
 
 #endif

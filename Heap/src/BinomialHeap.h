@@ -29,6 +29,7 @@ class BinomialHeap: public Heap
 
 		BinomialNode* heapUnion(BinomialNode*, BinomialNode*);
 
+		void printDOT(BinomialNode *root,fstream& out);
 
 		void clear(BinomialNode*);
 
@@ -40,9 +41,9 @@ class BinomialHeap: public Heap
 		int deleteKey(Location nodeAddress);
 		Priority extractMin();
 		Priority findMin();
-		int increaseKey(Location nodeAddress, Priority newKey);
-		int decreaseKey(Location nodeAddress, Priority newKey);
-		void displayHeap(char* fileName);
+		bool increaseKey(Location nodeAddress, Priority newKey);
+		bool decreaseKey(Location nodeAddress, Priority newKey);
+		bool displayHeap(char* fileName);
 };
 
 #endif

@@ -157,13 +157,13 @@ Priority FibonacciHeap :: findMin()
 }
 
 
-int FibonacciHeap :: increaseKey(Location nodeAddress, Priority newKey)
+bool FibonacciHeap :: increaseKey(Location nodeAddress, Priority newKey)
 {
-	return 0;
+	return true;
 }
 
 
-int FibonacciHeap :: decreaseKey(Location nodeAddress, Priority newKey)
+bool FibonacciHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 {
 	FibonacciNode* x = (FibonacciNode*)nodeAddress;
 	FibonacciNode* y;
@@ -182,11 +182,11 @@ int FibonacciHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 	if(x->key < minPointer->key)
 		minPointer = x;
 
-	return 0;
+	return true;
 }
 
 
-void FibonacciHeap :: displayHeap(char* fileName)
+bool FibonacciHeap :: displayHeap(char* fileName)
 {
 	FibonacciNode* temp = minPointer;
 	do
@@ -195,4 +195,5 @@ void FibonacciHeap :: displayHeap(char* fileName)
 		temp = temp->leftSibling;
 	}
 	while(temp != minPointer);
+	return true;
 }

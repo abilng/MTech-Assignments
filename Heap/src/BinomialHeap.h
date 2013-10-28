@@ -9,7 +9,6 @@ using namespace std;
 class BinomialHeap: public Heap
 {
 	private:
-
 		struct BinomialNode
 		{
 			Priority key;

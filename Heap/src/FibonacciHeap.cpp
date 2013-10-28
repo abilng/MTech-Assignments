@@ -5,8 +5,8 @@ using namespace std;
 
 FibonacciHeap::FibonacciHeap()
 {
-	// TODO Auto-generated constructor stub
-
+	minPointer = NULL;
+	nodes = 0;
 }
 
 FibonacciHeap::~FibonacciHeap()
@@ -22,8 +22,25 @@ void FibonacciHeap :: makeHeap()
 
 Location FibonacciHeap :: insertKey(Priority key)
 {
-	// TODO Auto-generated stub
-	return 0;
+	FibonacciNode* newNode = new FibonacciNode;
+	newNode->degree = 0;
+	newNode->parent = NULL;
+	newNode->child = NULL;
+	newNode->mark = false;
+	if(!minPointer)
+		minPointer = newNode;
+	else
+	{
+		newNode->rightSibling = minPointer->rightSibling;
+		newNode->leftSibling = minPointer;
+		minPointer->rightSibling = newNode;
+	}
+
+	if(newNode->key < minPointer->key)
+		minPointer = newNode;
+	nodes++;
+
+	return newNode;
 }
 
 
@@ -36,15 +53,17 @@ int FibonacciHeap :: deleteKey(Location nodeAddress)
 
 Priority FibonacciHeap :: extractMin()
 {
-	// TODO Auto-generated stub
+	FibonacciNode tempMinPointer = minPointer->rightSibling;
+	minPointer->leftSibling->rightSibling = minPointer->rightSibling;
+	delete minPointer;
+
 	return 0;
 }
 
 
 Priority FibonacciHeap :: findMin()
 {
-	// TODO Auto-generated stub
-	return 0;
+	return minPointer->key;
 }
 
 

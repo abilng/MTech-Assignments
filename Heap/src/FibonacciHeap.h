@@ -8,6 +8,17 @@ using namespace std;
 
 class FibonacciHeap: public Heap
 {
+	private:
+		struct FibonacciNode
+		{
+			Priority key;
+			FibonacciNode *parent, *rightSibling, *leftSibling, *child;
+			bool mark;
+			unsigned short degree;
+		};
+		FibonacciNode *minPointer;
+		unsigned short nodes;
+
 	public:
 		FibonacciHeap();
 		~FibonacciHeap();
@@ -22,4 +33,3 @@ class FibonacciHeap: public Heap
 };
 
 #endif
-

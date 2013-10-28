@@ -36,6 +36,66 @@ void FibonacciHeap::addToRoot(FibonacciNode* x)
 
 void FibonacciHeap::consolidate()
 {
+	std::map<int, Location> rankToAddress;
+	FibonacciNode * temp = minPointer, * x,*y;
+	Priority rank;
+	bool updateRootList = true;
+
+	while(updateRootList)
+	{
+		y = temp;
+		temp = temp->rightSibling;
+		if(rankToAddress.count(y->degree) == 0)
+		{
+			rankToAddress[y->degree] = y;
+		}
+		else if(rankToAddress.count(y->degree) > 0 && rankToAddress(y->degree) != y)
+		{
+			while(rankToAddress.count(y->degree) > 0)
+			{
+				x = rankToAddress(y->degree);
+
+				if(y->key < x->key )
+				{
+					rankToAddress.erase(x->degree);
+					heapLink(y,x);
+					if (rankToAddress[y->degree] != NULL)
+						continue;
+					else
+						rankToAddress[y->degree] = y;
+					if (minPointer->key > y->key)
+					{
+						minPointer = y;
+					}
+
+				}
+				else
+				{
+					rankToAddress.erase(x->degree);
+					heapLink(x,y);
+					if (rankToAddress[x->degree]!= NULL)
+					{
+						y = x;
+						continue;
+					}
+					else
+						rankToAddress[x->degree] = x;
+					if (minPointer->key > x->key)
+					{
+						minPointer = x;
+					}
+
+				}
+
+			}
+
+		}
+		else
+		{
+			updateRootList = false;
+		}
+
+	}
 
 }
 
@@ -46,6 +106,7 @@ void FibonacciHeap::heapLink(FibonacciNode* x, FibonacciNode* y)
 	y->leftSibling = x->child;
 	y->rightSibling = x->child->rightSibling;
 	x->child->rightSibling = y;
+	y->parent = x;
 	x->degree++;
 	y->mark = false;
 }

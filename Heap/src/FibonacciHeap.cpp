@@ -112,6 +112,8 @@ Location FibonacciHeap :: insertKey(Priority key)
 
 int FibonacciHeap :: deleteKey(Location nodeAddress)
 {
+	decreaseKey(nodeAddress, -1);
+	extractMin();
 	return 0;
 }
 
@@ -163,6 +165,23 @@ int FibonacciHeap :: increaseKey(Location nodeAddress, Priority newKey)
 
 int FibonacciHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 {
+	FibonacciNode* x = (FibonacciNode*)nodeAddress;
+	FibonacciNode* y;
+
+	if(newKey > x->key)
+		return -1;
+	x->key = newKey;
+	y = x->parent;
+
+	if((y != NULL) && (x->key < y->key))
+	{
+		cut(x, y);
+		cascadingCut(y);
+	}
+
+	if(x->key < minPointer->key)
+		minPointer = x;
+
 	return 0;
 }
 

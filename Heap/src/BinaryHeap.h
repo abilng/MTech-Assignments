@@ -16,6 +16,7 @@ class BinaryHeap: public Heap
 		};
 		struct BinaryNode *root, *lastElement;
         void clear(BinaryNode*);
+        void printDOT(BinaryNode *root1,fstream& out);
 
 	public:
 		BinaryHeap();

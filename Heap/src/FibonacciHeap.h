@@ -19,6 +19,12 @@ class FibonacciHeap: public Heap
 		FibonacciNode *minPointer;
 		unsigned short nodes;
 
+		void consolidate();
+		void addToRoot(FibonacciNode* x);
+		void heapLink(FibonacciNode* x, FibonacciNode* y);
+		void cut(FibonacciNode* x, FibonacciNode* y);
+		void cascadingCut(FibonacciNode* y);
+
 	public:
 		FibonacciHeap();
 		~FibonacciHeap();

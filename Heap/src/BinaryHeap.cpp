@@ -181,7 +181,7 @@ int BinaryHeap :: increaseKey(Location nodeAddress, Priority newKey)
             data=y->leftChild->key;
             x=y->leftChild;
         }
-         else if(y->rightChild!=NULL && (y->rightChild->key < newKey)){
+        if(y->rightChild!=NULL && (y->rightChild->key < newKey)){
              if(data >y->rightChild->key)
              {
                  data=y->rightChild->key;

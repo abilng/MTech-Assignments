@@ -19,6 +19,7 @@ Location Heap::getLocation(Priority key)
 	return ret;
 }
 
+
 bool Heap::setLocation(Location address,Priority key)
 {
 	if(address == NULL)
@@ -26,6 +27,7 @@ bool Heap::setLocation(Location address,Priority key)
 	keyToAddress[key] = address;
 	return true;
 }
+
 
 bool Heap::deleteLocation(Priority key)
 {

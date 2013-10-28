@@ -100,7 +100,7 @@ int BinaryHeap :: deleteKey(Location nodeAddress)
 	//updation of pointers
 	if(root==NULL || y==NULL )
 		return -1;
-	else if(y==root)
+	else if(y==root && y->leftChild==NULL && y->rightChild==NULL)
 		root=lastElement=NULL;
 	else if(x->parent->rightChild==x){
 		x->parent->rightChild=NULL;

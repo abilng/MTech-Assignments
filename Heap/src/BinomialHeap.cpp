@@ -105,7 +105,7 @@ Priority BinomialHeap :: findMin()
 
 bool BinomialHeap :: increaseKey(Location nodeAddress, Priority newKey)
 {
-	//TODO check
+	//TODO debug
 
 	BinomialNode * node;
 	BinomialNode * minNode = NULL;

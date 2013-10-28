@@ -113,7 +113,9 @@ int main(int argc, char*argv[])
 		cout<<"3:DECREASE KEY"<<endl;
 		cout<<"4:INCREASE KEY"<<endl;
 		cout<<"5:DISPLAY"<<endl;
-		cout<<"6:EXIT"<<endl;
+		cout<<"6:EXTRACT MIN"<<endl;
+		cout<<"7:FIND MIN"<<endl;
+		cout<<"Any other key to exit"<<endl;
 		cout<<"Enter the choice: ";
 		cin>>option;
 		switch(option)
@@ -188,8 +190,11 @@ int main(int argc, char*argv[])
 				break;
 
 			case '6':
-				return 0;
-
+				cout<<"Extracted :"<<heap->extractMin()<<endl;
+				break;
+			case '7':
+				cout<<"Minimum is :"<<heap->findMin()<<endl;
+				break;
 			default:
 				cout<<"Exit program ?[Y/N]:";
 				cin>>ch;

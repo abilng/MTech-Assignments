@@ -49,11 +49,11 @@ void FibonacciHeap::consolidate()
 		{
 			rankToAddress[y->degree] = y;
 		}
-		else if(rankToAddress.count(y->degree) > 0 && rankToAddress(y->degree) != y)
+		else if(rankToAddress.count(y->degree) > 0 && rankToAddress[y->degree] != y)
 		{
 			while(rankToAddress.count(y->degree) > 0)
 			{
-				x = rankToAddress(y->degree);
+				x = (FibonacciNode *)rankToAddress[y->degree];
 
 				if(y->key < x->key )
 				{

@@ -205,6 +205,10 @@ int main(int argc, char*argv[])
 				}
 				break;
 		}
+//TODO for debug
+		heap->displayHeap("xyz");
+		system("dot -Tpng xyz>xyz.png");
+//
 	}while(true);
 
 

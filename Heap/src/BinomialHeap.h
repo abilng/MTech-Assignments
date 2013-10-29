@@ -20,10 +20,9 @@ class BinomialHeap: public Heap
 		};
 
 		BinomialNode *head;
-		BinomialNode *minElement;
 
 		void link(BinomialNode*, BinomialNode*);
-		void setMin();
+		BinomialNode* getMin();
 		BinomialNode* mergeList(BinomialNode*, BinomialNode*);
 		BinomialNode* reverseList(BinomialNode *);
 

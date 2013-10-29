@@ -5,7 +5,6 @@
 
 BinomialHeap::BinomialHeap()
 {
-	minElement = NULL;
 	head = NULL;
 }
 
@@ -22,7 +21,6 @@ void BinomialHeap :: makeHeap()
 		clear(head);
 	}
 	head = NULL;
-	minElement =NULL;
 }
 
 
@@ -43,10 +41,6 @@ Location BinomialHeap :: insertKey(Priority key)
 	setLocation(newNode,key);
 	head = heapUnion(head, newNode);
 
-	if(minElement==NULL ||minElement->key > key)
-	{
-		minElement = newNode;
-	}
 	return newNode;
 }
 
@@ -62,28 +56,32 @@ int BinomialHeap :: deleteKey(Location nodeAddress)
 Priority BinomialHeap :: extractMin()
 {
 
-	if(minElement == NULL)
-		return -1;
-
+	if(head == NULL)
+		return MIN_PRIORITY;
 
 	BinomialNode * ptr = head;
-	BinomialNode *chlidList;
+	BinomialNode * prev = NULL;
+	BinomialNode * chlidList;
+	BinomialNode * minElement;
 	Priority key;
+
+	minElement = getMin();
 
 	key=minElement->key;
 	chlidList =minElement->child;
 
 	// remove element from root list
-	if(ptr == minElement)
+	while (ptr != minElement)
 	{
-		head = ptr->sibling;
+		prev = ptr;
+		ptr = ptr->sibling;
 	}
+
+	if(prev == NULL)
+		head=minElement->sibling;
 	else
-	{
-		while (ptr->sibling != minElement)
-			ptr=ptr->sibling;
-		ptr->sibling=minElement->sibling;
-	}
+		prev->sibling=minElement->sibling;
+
 	deleteLocation(key);
 	delete minElement;
 
@@ -91,7 +89,6 @@ Priority BinomialHeap :: extractMin()
 	chlidList = reverseList(chlidList);
 	//union child list
 	head = heapUnion(head,chlidList);
-	setMin();
 
 	return key;
 }
@@ -99,7 +96,12 @@ Priority BinomialHeap :: extractMin()
 
 Priority BinomialHeap :: findMin()
 {
-	return minElement->key;
+	BinomialNode * minElement;
+	minElement = getMin();
+	if(minElement == NULL)
+		return MIN_PRIORITY;
+	else
+		return minElement->key;
 }
 
 
@@ -133,14 +135,13 @@ bool BinomialHeap :: increaseKey(Location nodeAddress, Priority newKey)
 		}
 		x = x->sibling;
 	}
-	if(min>newKey)
+	if(min<newKey)
 	{
 		node->key = minNode->key;
 		//recursive call
 		increaseKey(minNode,newKey);
-
-		setLocation(node,node->key);
 	}
+	setLocation(node,node->key);
 	return true;
 }
 
@@ -187,10 +188,6 @@ bool BinomialHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 		y = z;
 		z = y->parent;
 	}
-	if(minElement->key < newKey)
-	{
-		minElement = y;
-	}
 	return true;
 }
 
@@ -218,7 +215,7 @@ bool BinomialHeap :: displayHeap(char* fileName)
 		printDOT(root,outFile);
 		if(root->sibling !=NULL)
 			outFile<<root->key<<" -> "
-				<<root->sibling->key<<" [style=dotted];"<<endl;
+			<<root->sibling->key<<" [style=dotted];"<<endl;
 		root=root->sibling;
 	}
 
@@ -246,8 +243,8 @@ void BinomialHeap::printDOT(BinomialNode *root,fstream& out)
 
 	ptr = root->child;
 	while(ptr != NULL){
-			printDOT(ptr,out);
-			ptr = ptr->sibling;
+		printDOT(ptr,out);
+		ptr = ptr->sibling;
 	}
 }
 
@@ -277,7 +274,7 @@ void BinomialHeap::link(BinomialNode *y, BinomialNode * z)
 	z->degree = z->degree + 1;
 }
 
-void BinomialHeap::setMin()
+BinomialHeap::BinomialNode * BinomialHeap::getMin()
 {
 	BinomialNode * y = NULL;
 	BinomialNode * x = head;
@@ -291,7 +288,7 @@ void BinomialHeap::setMin()
 		}
 		x = x->sibling;
 	}
-	minElement = y;
+	return y;
 }
 
 /**
@@ -348,18 +345,18 @@ BinomialHeap::BinomialNode* BinomialHeap::heapUnion(
 	while(next_x !=NULL)
 	{
 		/*
-		 * Case1: degree[x] ≠ degree[next-x]
+		 * Case1: degree[x] != degree[next-x]
 		 *          :-  do nothing,just increment
 		 *
 		 * Case2: degree[x] = degree[next-x] = degree[sibling[next-x]].
 		 *          :- do nothing,just increment
 		 *
-		 * Case3: degree[x] = degree[next-x] ≠ degree[sibling[next-x]]
-		 *       and  key[x] ≤ key[next-x]
+		 * Case3: degree[x] = degree[next-x] != degree[sibling[next-x]]
+		 *       and  key[x] <= key[next-x]
 		 *          :- removes next-x from the root list,
 		 *             and make next-x the leftmost child of x.
 		 *
-		 * Case4: degree[x] = degree[next-x] ≠ degree[sibling[next-x]]
+		 * Case4: degree[x] = degree[next-x] != degree[sibling[next-x]]
 		 *       and  key[x] > key[next-x]
 		 *          :- next-x has the smaller key, so x is linked to next-x.
 		 *

@@ -343,7 +343,7 @@ int main()
 	heap->insertKey(10);
 	heap->decreaseKey(nodeAddress, 14);
 	//heap->deleteKey(nodeAddress);
-	cout<< "The extracted node is "<<heap->extractMin()<<endl;
+	cout<< "The extracted node is "<< heap->extractMin() <<endl;
 	cout << "Minimum: " << heap->findMin() << endl;
 	heap->displayHeap("out.gv");
 	system("dot -Tpng out.gv > out.png");

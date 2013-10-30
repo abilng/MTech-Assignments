@@ -1,8 +1,3 @@
-/*
- * Heap.cpp
- *
- *  Created on: Oct 27, 2013
- */
 
 #include "Heap.h"
 

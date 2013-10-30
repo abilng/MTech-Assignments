@@ -3,6 +3,7 @@
 #define FIBONACCIHEAP_H_
 
 #include "Heap.h"
+#include <cstdlib>
 #include <fstream>
 #include <cstdlib>
 #include <map>

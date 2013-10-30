@@ -194,40 +194,44 @@ int FibonacciHeap :: deleteKey(Location nodeAddress)
 
 Priority FibonacciHeap :: extractMin()
 {
-  FibonacciNode* extractedNode = minPointer,*lastChild;
-  if(extractedNode == extractedNode->rightSibling)
-    minPointer = NULL;
-  else
-    minPointer = extractedNode->rightSibling;
+	FibonacciNode* extractedNode = minPointer;
+	if(extractedNode == extractedNode->rightSibling)
+		minPointer = NULL;
+	else
+		minPointer = extractedNode->rightSibling;
 
-  if(extractedNode)
+	if(extractedNode)
     {
+		FibonacciNode *childPointer, *nextChild;
+		childPointer = extractedNode->child;
+		nextChild = childPointer;
 
-      FibonacciNode *childPointer , *nextChild= extractedNode->child;
-      if(nextChild)
-	{
-	  lastChild = extractedNode->child->leftSibling;
-	  do
-	    {
-	      childPointer = nextChild;
-	      addToRoot(childPointer);
-	      childPointer->parent = NULL;
-	      nextChild = childPointer->rightSibling;
-	    }
-	  while(childPointer != lastChild);
-	}
+		// Cut and add the children to the root list
+		if(childPointer)
+		{
+			childPointer->leftSibling->rightSibling = NULL;
+			do
+			{
+				nextChild = childPointer->rightSibling;
+				addToRoot(childPointer);
+				childPointer->parent = NULL;
+				childPointer = nextChild;
+			}
+			while(childPointer);
+		}
 
-      extractedNode->leftSibling->rightSibling = extractedNode->rightSibling;
-      extractedNode->rightSibling->leftSibling = extractedNode->leftSibling;
+		// Delete the minimum node extracted
+		extractedNode->leftSibling->rightSibling = extractedNode->rightSibling;
+		extractedNode->rightSibling->leftSibling = extractedNode->leftSibling;
 
-      consolidate();
-      nodes--;
+		consolidate();
+		nodes--;
 
-      return extractedNode->key;
-      delete extractedNode;
+		return extractedNode->key;
+		delete extractedNode;
     }
 
-  return 0;
+	return 0;
 }
 
 
@@ -268,14 +272,6 @@ bool FibonacciHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 
 bool FibonacciHeap :: displayHeap(char const* fileName)
 {
-  /*FibonacciNode* temp = minPointer;
-    do
-    {
-    cout << temp->key << " ";
-    temp = temp->leftSibling;
-    }
-    while(temp != minPointer);*/
-
   fstream outFile;
   char errorMsg[100];
   outFile.open(fileName,fstream::out);
@@ -333,22 +329,21 @@ void FibonacciHeap :: printDOT(FibonacciNode *root, fstream& out)
 }
 
 
-  int main()
-  {
-  Heap* heap = new FibonacciHeap();
-  Location nodeAddress;
+int main()
+{
+	Heap* heap = new FibonacciHeap();
+	Location nodeAddress;
 
-  heap->insertKey(5);
-  nodeAddress = heap->insertKey(15);
-  heap->insertKey(2);
-  heap->insertKey(20);
-  //heap->insertKey(40);
-  heap->decreaseKey(nodeAddress, 14);
-  //heap->deleteKey(nodeAddress);
-  cout<< "The extracted node is "<<heap->extractMin()<<endl;
-  cout << "Minimum: " << heap->findMin() << endl;
-  heap->displayHeap("out.gv");
-  system("dot -Tpng out.gv > out.png");
-  system("display out.png");
-  return 0;
-  }
+	heap->insertKey(5);
+	nodeAddress = heap->insertKey(15);
+	heap->insertKey(2);
+	heap->insertKey(20);
+	heap->decreaseKey(nodeAddress, 14);
+	//heap->deleteKey(nodeAddress);
+	heap->extractMin();
+	cout << "Minimum: " << heap->findMin() << endl;
+	heap->displayHeap("out.gv");
+	system("dot -Tpng out.gv > out.png");
+	system("display out.png");
+	return 0;
+}

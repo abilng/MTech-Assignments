@@ -4,244 +4,246 @@
 
 BinomialHeap::BinomialHeap()
 {
-	head = NULL;
+  head = NULL;
 }
 
 BinomialHeap::~BinomialHeap()
 {
-	clear(head);
+  clear(head);
 }
 
 
 void BinomialHeap :: makeHeap()
 {
-	if(head != NULL)
-	{
-		clear(head);
-	}
-	head = NULL;
+  if(head != NULL)
+    {
+      clear(head);
+    }
+  head = NULL;
 }
 
 
 Location BinomialHeap :: insertKey(Priority key)
 {
-	BinomialNode * newNode;
-	if(getLocation(key) != NULL) {
-		//duplicate key
-		return NULL;
-	}
+  BinomialNode * newNode;
+  if(getLocation(key) != NULL) {
+    //duplicate key
+    return NULL;
+  }
 
-	newNode = new BinomialNode;
-	newNode->key = key;
-	newNode->parent = NULL;
-	newNode->child = NULL;
-	newNode->sibling = NULL;
-	newNode->degree = 0;
-	setLocation(newNode,key);
-	head = heapUnion(head, newNode);
+  newNode = new BinomialNode;
+  newNode->key = key;
+  newNode->parent = NULL;
+  newNode->child = NULL;
+  newNode->sibling = NULL;
+  newNode->degree = 0;
+  setLocation(newNode,key);
+  head = heapUnion(head, newNode);
 
-	return newNode;
+  return newNode;
 }
 
 
 int BinomialHeap :: deleteKey(Location nodeAddress)
 {
-	decreaseKey(nodeAddress,MIN_PRIORITY);
-	extractMin();
-	return 0;
+  decreaseKey(nodeAddress,MIN_PRIORITY);
+  extractMin();
+  return 0;
 }
 
 
 Priority BinomialHeap :: extractMin()
 {
 
-	if(head == NULL)
-		return MIN_PRIORITY;
+  if(head == NULL)
+    return MIN_PRIORITY;
 
-	BinomialNode * ptr = head;
-	BinomialNode * prev = NULL;
-	BinomialNode * chlidList;
-	BinomialNode * minElement;
-	Priority key;
+  BinomialNode * ptr = head;
+  BinomialNode * prev = NULL;
+  BinomialNode * chlidList;
+  BinomialNode * minElement;
+  Priority key;
 
-	minElement = getMin();
+  minElement = getMin();
 
-	key=minElement->key;
-	chlidList =minElement->child;
+  key=minElement->key;
+  chlidList =minElement->child;
 
-	// remove element from root list
-	while (ptr != minElement)
-	{
-		prev = ptr;
-		ptr = ptr->sibling;
-	}
+  // remove element from root list
+  while (ptr != minElement)
+    {
+      prev = ptr;
+      ptr = ptr->sibling;
+    }
 
-	if(prev == NULL)
-		head=minElement->sibling;
-	else
-		prev->sibling=minElement->sibling;
+  if(prev == NULL)
+    head=minElement->sibling;
+  else
+    prev->sibling=minElement->sibling;
 
-	deleteLocation(key);
-	delete minElement;
+  deleteLocation(key);
+  delete minElement;
 
-	//reverse child list
-	chlidList = reverseList(chlidList);
-	//union child list
-	head = heapUnion(head,chlidList);
+  //reverse child list
+  chlidList = reverseList(chlidList);
+  //union child list
+  head = heapUnion(head,chlidList);
 
-	return key;
+  return key;
 }
 
 
 Priority BinomialHeap :: findMin()
 {
-	BinomialNode * minElement;
-	minElement = getMin();
-	if(minElement == NULL)
-		return MIN_PRIORITY;
-	else
-		return minElement->key;
+  BinomialNode * minElement;
+  minElement = getMin();
+  if(minElement == NULL)
+    return MIN_PRIORITY;
+  else
+    return minElement->key;
 }
 
 
 bool BinomialHeap :: increaseKey(Location nodeAddress, Priority newKey)
 {
-	BinomialNode * node;
-	BinomialNode * minNode = NULL;
-	BinomialNode * x;
-	Priority min = MAX_PRIORITY;
-	if(nodeAddress == NULL) return false;
+  BinomialNode * node;
+  BinomialNode * minNode = NULL;
+  BinomialNode * x;
+  Priority min = MAX_PRIORITY;
+  if(nodeAddress == NULL) return false;
 
-	node = (BinomialNode *) nodeAddress;
+  node = (BinomialNode *) nodeAddress;
 
-	if (newKey < node->key)
-	{
-		std::cerr<<"new key is less than current key"<<endl;
-		return false;
-	}
-	deleteLocation(node->key);
-	node->key = newKey;
+  if (newKey < node->key)
+    {
+      std::cerr<<"new key is less than current key"<<endl;
+      return false;
+    }
+  deleteLocation(node->key);
+  node->key = newKey;
 
-	x = node->child;
-	while(x != NULL)
+  x = node->child;
+  while(x != NULL)
+    {
+      if(x->key<min)
 	{
-		if(x->key<min)
-		{
-			min = x->key;
-			minNode = x;
-		}
-		x = x->sibling;
+	  min = x->key;
+	  minNode = x;
 	}
-	if(min<newKey)
-	{
-		node->key = minNode->key;
-		//recursive call
-		increaseKey(minNode,newKey);
-	}
-	setLocation(node,node->key);
-	return true;
+      x = x->sibling;
+    }
+  if(min<newKey)
+    {
+      node->key = minNode->key;
+      //recursive call
+      increaseKey(minNode,newKey);
+    }
+  setLocation(node,node->key);
+  return true;
 }
 
 
 bool BinomialHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 {
-	BinomialNode * node;
-	BinomialNode * y,* z;
-	Priority temp;
+  BinomialNode * node;
+  BinomialNode * y,* z;
+  Priority temp;
 
-	if(nodeAddress == NULL) return false;
+  if(nodeAddress == NULL) return false;
 
-	node = (BinomialNode *) nodeAddress;
+  node = (BinomialNode *) nodeAddress;
 
-	if (newKey > node->key)
-	{
-		std::cerr<<"new key is greater than current key"<<endl;
-		return false;
-	}
+  if (newKey > node->key)
+    {
+      std::cerr<<"new key is greater than current key"<<endl;
+      return false;
+    }
 
-	if (getLocation(newKey)!= NULL)
-	{
-		std::cerr<<"new key is already present"<<endl;
-		return false;
-	}
+  if (getLocation(newKey)!= NULL)
+    {
+      std::cerr<<"new key is already present"<<endl;
+      return false;
+    }
 
-	deleteLocation(node->key);
-	node->key = newKey;
-	y = node;
-	z = y->parent;
-	while( z != NULL and y->key < z->key)
-	{
-		//do exchange key[y] and key[z]
-		//   if y and z have satellite fields, exchange them, too.
+  deleteLocation(node->key);
+  node->key = newKey;
+  y = node;
+  z = y->parent;
+  while( z != NULL and y->key < z->key)
+    {
+      //do exchange key[y] and key[z]
+      //   if y and z have satellite fields, exchange them, too.
 
-		temp = y->key;
-		y->key = z->key;
-		z->key = temp;
+      temp = y->key;
+      y->key = z->key;
+      z->key = temp;
 
-		//update location
-		setLocation(y,y->key);
-		setLocation(z,z->key);
+      //update location
+      setLocation(y,y->key);
+      setLocation(z,z->key);
 
-		y = z;
-		z = y->parent;
-	}
-	return true;
+      y = z;
+      z = y->parent;
+    }
+  return true;
 }
 
 
 bool BinomialHeap :: displayHeap(char const* fileName)
 {
-	fstream outFile;
-	char errorMsg[100];
-	outFile.open(fileName,fstream::out);
-	if (!outFile.is_open())
-	{
-		sprintf(errorMsg,"Error while opening %s:",fileName);
-		perror(errorMsg);
-		return false;
-	}
+  fstream outFile;
+  char errorMsg[100];
+  outFile.open(fileName,fstream::out);
+  if (!outFile.is_open())
+    {
+      sprintf(errorMsg,"Error while opening %s:",fileName);
+      perror(errorMsg);
+      return false;
+    }
 
-	BinomialNode * root = head;
+  BinomialNode * root = head;
 
-	outFile<<"/* Generated by Heap Program */"<<endl;
-	outFile<<"digraph BinomialHeap {"<<endl;
+  outFile<<"/* Generated by Heap Program */"<<endl;
+  outFile<<"digraph BinomialHeap {"<<endl;
 
-	while(root!=NULL)
-	{
-		printDOT(root,outFile);
-		if(root->sibling !=NULL)
-			outFile<<root->key<<" -> "
-			<<root->sibling->key<<" [style=dotted];"<<endl;
-		root=root->sibling;
-	}
+  while(root!=NULL)
+    {
+      printDOT(root,outFile);
+      if(root->sibling != NULL)
+	outFile<<root->key<<" -> "
+	       <<root->sibling->key<<" [style=dotted];"<<endl;
+      else
+	outFile<<root->key<<" ;"<<endl;
+      root=root->sibling;
+    }
 
-	outFile<<"}"<<endl;
+  outFile<<"}"<<endl;
 
-	outFile.close();
-	return true;
+  outFile.close();
+  return true;
 }
 
 void BinomialHeap::printDOT(BinomialNode *root,fstream& out)
 {
-	BinomialNode *ptr;
-	if(root == NULL)
-		return;
-	ptr = root->child;
-	if(ptr == NULL)
-		return;
-	//printing children
-	out<<" "<<root->key<<" -> {";
-	while(ptr != NULL){
-		out<<ptr->key<<" ; ";
-		ptr = ptr->sibling;
-	}
-	out<<"}"<<endl;
+  BinomialNode *ptr;
+  if(root == NULL)
+    return;
+  ptr = root->child;
+  if(ptr == NULL)
+    return;
+  //printing children
+  out<<" "<<root->key<<" -> {";
+  while(ptr != NULL){
+    out<<ptr->key<<" ; ";
+    ptr = ptr->sibling;
+  }
+  out<<"}"<<endl;
 
-	ptr = root->child;
-	while(ptr != NULL){
-		printDOT(ptr,out);
-		ptr = ptr->sibling;
-	}
+  ptr = root->child;
+  while(ptr != NULL){
+    printDOT(ptr,out);
+    ptr = ptr->sibling;
+  }
 }
 
 /**
@@ -249,42 +251,42 @@ void BinomialHeap::printDOT(BinomialNode *root,fstream& out)
  */
 void BinomialHeap::clear(BinomialNode* listRoot)
 {
-	if(listRoot == NULL) return;
-	BinomialNode* ptr = listRoot;
-	BinomialNode * temp;
-	while(ptr != NULL)
-	{
-		temp = ptr;
-		clear(ptr->child);
-		ptr=temp->sibling;
-		delete temp;
-	}
+  if(listRoot == NULL) return;
+  BinomialNode* ptr = listRoot;
+  BinomialNode * temp;
+  while(ptr != NULL)
+    {
+      temp = ptr;
+      clear(ptr->child);
+      ptr=temp->sibling;
+      delete temp;
+    }
 }
 
 
 void BinomialHeap::link(BinomialNode *y, BinomialNode * z)
 {
-	y->parent = z;
-	y->sibling = z->child;
-	z->child = y;
-	z->degree = z->degree + 1;
+  y->parent = z;
+  y->sibling = z->child;
+  z->child = y;
+  z->degree = z->degree + 1;
 }
 
 BinomialHeap::BinomialNode * BinomialHeap::getMin()
 {
-	BinomialNode * y = NULL;
-	BinomialNode * x = head;
-	Priority min =MAX_PRIORITY;
-	while (x != NULL)
+  BinomialNode * y = NULL;
+  BinomialNode * x = head;
+  Priority min =MAX_PRIORITY;
+  while (x != NULL)
+    {
+      if (x->key < min)
 	{
-		if (x->key < min)
-		{
-			min = x->key;
-			y=x;
-		}
-		x = x->sibling;
+	  min = x->key;
+	  y=x;
 	}
-	return y;
+      x = x->sibling;
+    }
+  return y;
 }
 
 /**
@@ -293,111 +295,111 @@ BinomialHeap::BinomialNode * BinomialHeap::getMin()
  *  monotonically increasing degree
  */
 BinomialHeap::BinomialNode* BinomialHeap::mergeList(
-		BinomialNode* head1, BinomialNode* head2)
+						    BinomialNode* head1, BinomialNode* head2)
 {
-	if (head1 == NULL) return head2;
-	if (head2 == NULL) return head1;
+  if (head1 == NULL) return head2;
+  if (head2 == NULL) return head1;
 
-	BinomialNode * newHead =NULL;
-	BinomialNode * listEnd =NULL;
+  BinomialNode * newHead =NULL;
+  BinomialNode * listEnd =NULL;
 
-	while(head1 != NULL && head2 != NULL) {
-		if (head1->degree <= head2->degree)
-		{
-			if(listEnd==NULL) newHead=head1;
-			else listEnd->sibling = head1;
-			listEnd = head1;
-			head1=head1->sibling;
-		}
-		else
-		{
-			if(listEnd==NULL) newHead=head2;
-			else listEnd->sibling = head2;
-			listEnd = head2;
-			head2 = head2->sibling;
-		}
-	}
-	if (head1 == NULL) listEnd->sibling = head2;
+  while(head1 != NULL && head2 != NULL) {
+    if (head1->degree <= head2->degree)
+      {
+	if(listEnd==NULL) newHead=head1;
 	else listEnd->sibling = head1;
-	return newHead;
+	listEnd = head1;
+	head1=head1->sibling;
+      }
+    else
+      {
+	if(listEnd==NULL) newHead=head2;
+	else listEnd->sibling = head2;
+	listEnd = head2;
+	head2 = head2->sibling;
+      }
+  }
+  if (head1 == NULL) listEnd->sibling = head2;
+  else listEnd->sibling = head1;
+  return newHead;
 }
 
 BinomialHeap::BinomialNode* BinomialHeap::heapUnion(
-		BinomialNode* h1, BinomialNode* h2)
+						    BinomialNode* h1, BinomialNode* h2)
 {
-	BinomialNode * newHead = NULL;
-	BinomialNode * x = NULL;
-	BinomialNode * next_x = NULL;
-	BinomialNode * prev_x = NULL;
+  BinomialNode * newHead = NULL;
+  BinomialNode * x = NULL;
+  BinomialNode * next_x = NULL;
+  BinomialNode * prev_x = NULL;
 
 
-	newHead = mergeList(h1,h2);
+  newHead = mergeList(h1,h2);
 
-	if(newHead == NULL)
-		return newHead;
+  if(newHead == NULL)
+    return newHead;
 
-	x=newHead;
-	next_x = x->sibling;
-	while(next_x !=NULL)
+  x=newHead;
+  next_x = x->sibling;
+  while(next_x !=NULL)
+    {
+      /*
+       * Case1: degree[x] != degree[next-x]
+       *          :-  do nothing,just increment
+       *
+       * Case2: degree[x] = degree[next-x] = degree[sibling[next-x]].
+       *          :- do nothing,just increment
+       *
+       * Case3: degree[x] = degree[next-x] != degree[sibling[next-x]]
+       *       and  key[x] <= key[next-x]
+       *          :- removes next-x from the root list,
+       *             and make next-x the leftmost child of x.
+       *
+       * Case4: degree[x] = degree[next-x] != degree[sibling[next-x]]
+       *       and  key[x] > key[next-x]
+       *          :- next-x has the smaller key, so x is linked to next-x.
+       *
+       */
+
+      if((x->degree != next_x->degree)//Case 1
+	 ||((next_x->sibling != NULL)&& //Case 2
+	    (x->degree == next_x->sibling->degree)))
 	{
-		/*
-		 * Case1: degree[x] != degree[next-x]
-		 *          :-  do nothing,just increment
-		 *
-		 * Case2: degree[x] = degree[next-x] = degree[sibling[next-x]].
-		 *          :- do nothing,just increment
-		 *
-		 * Case3: degree[x] = degree[next-x] != degree[sibling[next-x]]
-		 *       and  key[x] <= key[next-x]
-		 *          :- removes next-x from the root list,
-		 *             and make next-x the leftmost child of x.
-		 *
-		 * Case4: degree[x] = degree[next-x] != degree[sibling[next-x]]
-		 *       and  key[x] > key[next-x]
-		 *          :- next-x has the smaller key, so x is linked to next-x.
-		 *
-		 */
-
-		if((x->degree != next_x->degree)//Case 1
-				||((next_x->sibling != NULL)&& //Case 2
-						(x->degree == next_x->sibling->degree)))
-		{
-			prev_x=x;
-			x = next_x;
-		}
-		else if (x->key <= next_x->key)//case2
-		{
-			x->sibling = next_x->sibling;
-			link(next_x, x);
-		}
-		else{ //Case 4
-			if (prev_x == NULL) newHead = next_x;
-			else prev_x->sibling = next_x;
-			link(x, next_x);
-			x = next_x;
-		}
-		next_x = x->sibling;
+	  prev_x=x;
+	  x = next_x;
 	}
-	return newHead;
+      else if (x->key <= next_x->key)//case2
+	{
+	  x->sibling = next_x->sibling;
+	  link(next_x, x);
+	}
+      else{ //Case 4
+	if (prev_x == NULL) newHead = next_x;
+	else prev_x->sibling = next_x;
+	link(x, next_x);
+	x = next_x;
+      }
+      next_x = x->sibling;
+    }
+  return newHead;
 }
 
 BinomialHeap::BinomialNode* BinomialHeap::reverseList(BinomialNode *listHead)
 {
-	BinomialNode* prev=NULL;
-	BinomialNode* next=NULL;
-	BinomialNode* ptr=listHead;
-	while(ptr != NULL)
-	{
-		next=ptr->sibling;
-		ptr->sibling=prev;
+  BinomialNode* prev=NULL;
+  BinomialNode* next=NULL;
+  BinomialNode* ptr=listHead;
+  while(ptr != NULL)
+    {
+      next=ptr->sibling;
+      ptr->sibling=prev;
 
-		//make parent NULL
+      //make parent NULL
 
-		ptr->parent = NULL;
-		//TODO check working;
+      ptr->parent = NULL;
+      //TODO check working;
 
-		prev=ptr;
-		ptr=next;
-	}
-	return prev;
+      prev=ptr;
+      ptr=next;
+    }
+  return prev;
 }

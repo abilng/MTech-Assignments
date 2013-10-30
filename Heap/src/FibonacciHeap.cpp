@@ -41,7 +41,6 @@ void FibonacciHeap::consolidate()
 
   while(updateRootList)
    {
-	  //cout<<"i m in while"<<endl;
       y = temp;
       temp = temp->rightSibling;
       if(rankToAddress[y->degree] == NULL)
@@ -57,9 +56,9 @@ void FibonacciHeap::consolidate()
     		  if(y->key < x->key )
     		  {
     			  rankToAddress.erase(x->degree);
-    			  heapLink(y,x);
     			  if(temp == x)
     				  temp=temp->rightSibling;
+    			  heapLink(y,x);
 
     			  if (rankToAddress[y->degree] != NULL)
     				  continue;
@@ -72,9 +71,10 @@ void FibonacciHeap::consolidate()
     		  else
     		  {
     			  rankToAddress.erase(x->degree);
-    			  heapLink(x,y);
     			  if(temp == y)
-    				  temp = temp->rightSibling;
+    			     temp = temp->rightSibling;
+    			  heapLink(x,y);
+
     			  if (rankToAddress[x->degree]!= NULL)
     			  {
     				  y = x;
@@ -97,9 +97,9 @@ void FibonacciHeap::consolidate()
 	  if(minPointer->key > temp->key)
 		  minPointer = temp;
 	  temp=temp->leftSibling;
-	  //cout<<temp->key<<endl;
 
   }while(temp!=x);
+
 }
 
 
@@ -338,12 +338,15 @@ int main()
 	nodeAddress = heap->insertKey(15);
 	heap->insertKey(2);
 	heap->insertKey(20);
+	heap->insertKey(60);
+	heap->insertKey(1);
+	heap->insertKey(10);
 	heap->decreaseKey(nodeAddress, 14);
 	//heap->deleteKey(nodeAddress);
-	heap->extractMin();
+	cout<< "The extracted node is "<<heap->extractMin()<<endl;
 	cout << "Minimum: " << heap->findMin() << endl;
 	heap->displayHeap("out.gv");
 	system("dot -Tpng out.gv > out.png");
 	system("display out.png");
 	return 0;
-}
+  }

@@ -1,6 +1,5 @@
 
 #include "FibonacciHeap.h"
-#include <cstdlib>
 
 using namespace std;
 
@@ -37,68 +36,70 @@ void FibonacciHeap::addToRoot(FibonacciNode* x)
 
 void FibonacciHeap::consolidate()
 {
-  std::map<int, Location> rankToAddress;
   FibonacciNode *temp  = minPointer, *x,*y;
   bool updateRootList = true;
-  cout <<"i m here ";
+
   while(updateRootList)
-    {
-      cout <<"i m here in while ";
+   {
+	  //cout<<"i m in while"<<endl;
       y = temp;
       temp = temp->rightSibling;
-      if(rankToAddress.count(y->degree) == 0)
-	{
-	  rankToAddress[y->degree] = y;
-	}
-      else if(rankToAddress.count(y->degree) > 0 && rankToAddress[y->degree] != y)
-	{
+      if(rankToAddress[y->degree] == NULL)
+      {
+    	  rankToAddress[y->degree] = y;
+      }
+      else if(rankToAddress[y->degree] != y)
+      {
+    	  while(rankToAddress[y->degree] != NULL)
+    	  {
+    		  x = (FibonacciNode *)rankToAddress[y->degree];
 
-	  while(rankToAddress.count(y->degree) > 0)
-	    {
-	      x = (FibonacciNode *)rankToAddress[y->degree];
+    		  if(y->key < x->key )
+    		  {
+    			  rankToAddress.erase(x->degree);
+    			  heapLink(y,x);
+    			  if(temp == x)
+    				  temp=temp->rightSibling;
 
-	      if(y->key < x->key )
-		{
-		  rankToAddress.erase(x->degree);
-		  heapLink(y,x);
-		  if (rankToAddress[y->degree] != NULL)
-		    continue;
-		  else
-		    rankToAddress[y->degree] = y;
-		  if (minPointer->key > y->key)
-		    {
-		      minPointer = y;
-		    }
-
-		}
-	      else
-		{
-		  rankToAddress.erase(x->degree);
-		  heapLink(x,y);
-		  if (rankToAddress[x->degree]!= NULL)
-		    {
-		      y = x;
-		      continue;
-		    }
-		  else
-		    rankToAddress[x->degree] = x;
-		  if (minPointer->key > x->key)
-		    {
-		      minPointer = x;
-		    }
-
-		}
-
+    			  if (rankToAddress[y->degree] != NULL)
+    				  continue;
+    			  else
+    			  {
+    				  rankToAddress[y->degree] = y;
+    			  	  break;
+    			  }
+    		  }
+    		  else
+    		  {
+    			  rankToAddress.erase(x->degree);
+    			  heapLink(x,y);
+    			  if(temp == y)
+    				  temp = temp->rightSibling;
+    			  if (rankToAddress[x->degree]!= NULL)
+    			  {
+    				  y = x;
+    				  continue;
+    			  }
+    			  else
+    			  {
+    				  rankToAddress[x->degree] = x;
+       			  	  break;
+    			  }
+    		 }
 	    }
-
 	}
-      else
-	{
-	  updateRootList = false;
-	}
-
+    else
+    	updateRootList = false;
     }
+  x = temp;
+  do
+  {
+	  if(minPointer->key > temp->key)
+		  minPointer = temp;
+	  temp=temp->leftSibling;
+	  //cout<<temp->key<<endl;
 
+  }while(temp!=x);
 }
 
 
@@ -308,7 +309,7 @@ bool FibonacciHeap :: displayHeap(char const* fileName)
 
 void FibonacciHeap :: printDOT(FibonacciNode *root, fstream& out)
 {
-  FibonacciNode *ptr;
+  FibonacciNode *ptr,*temp;
   if(root == NULL)
     return;
   ptr = root->child;
@@ -316,20 +317,22 @@ void FibonacciHeap :: printDOT(FibonacciNode *root, fstream& out)
     return;
   //printing children
   out<<" "<<root->key<<" -- {";
-  while(ptr != NULL){
+  temp = ptr;
+  do{
     out<<ptr->key<<" ; ";
     ptr = ptr->leftSibling;
-  }
+  }while(ptr!=temp);
   out<<"}"<<endl;
 
   ptr = root->child;
-  while(ptr != NULL){
+  temp =ptr;
+  do{
     printDOT(ptr,out);
     ptr = ptr->leftSibling;
-  }
+  }while(ptr!=temp);
 }
 
-/*
+
   int main()
   {
   Heap* heap = new FibonacciHeap();
@@ -339,12 +342,13 @@ void FibonacciHeap :: printDOT(FibonacciNode *root, fstream& out)
   nodeAddress = heap->insertKey(15);
   heap->insertKey(2);
   heap->insertKey(20);
+  //heap->insertKey(40);
   heap->decreaseKey(nodeAddress, 14);
   //heap->deleteKey(nodeAddress);
+  cout<< "The extracted node is "<<heap->extractMin()<<endl;
   cout << "Minimum: " << heap->findMin() << endl;
-  heap->extractMin();
   heap->displayHeap("out.gv");
   system("dot -Tpng out.gv > out.png");
+  system("display out.png");
   return 0;
   }
-*/

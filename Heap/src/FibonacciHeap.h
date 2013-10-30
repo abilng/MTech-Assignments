@@ -4,6 +4,8 @@
 
 #include "Heap.h"
 #include <fstream>
+#include <cstdlib>
+#include <map>
 
 using namespace std;
 
@@ -19,6 +21,7 @@ class FibonacciHeap: public Heap
 		};
 		FibonacciNode *minPointer;
 		unsigned short nodes;
+		std::map<int, Location> rankToAddress;
 
 		void consolidate();
 		void addToRoot(FibonacciNode* x);

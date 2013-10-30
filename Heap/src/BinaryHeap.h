@@ -28,7 +28,7 @@ class BinaryHeap: public Heap
 		Priority findMin();
 		bool increaseKey(Location nodeAddress, Priority newKey);
 		bool decreaseKey(Location nodeAddress, Priority newKey);
-		bool displayHeap(char* fileName);
+		bool displayHeap(char const* fileName);
 };
 
 #endif

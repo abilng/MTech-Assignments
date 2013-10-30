@@ -28,7 +28,7 @@ class Heap
 		virtual Priority findMin() = 0;
 		virtual bool increaseKey(Location nodeAddress, Priority newKey) = 0;
 		virtual bool decreaseKey(Location nodeAddress, Priority newKey) = 0;
-		virtual bool displayHeap(char* fileName) = 0;
+		virtual bool displayHeap(char const* fileName) = 0;
 		Location getLocation(Priority key);
 };
 

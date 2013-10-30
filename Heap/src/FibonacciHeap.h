@@ -3,6 +3,7 @@
 #define FIBONACCIHEAP_H_
 
 #include "Heap.h"
+#include <fstream>
 
 using namespace std;
 
@@ -24,6 +25,7 @@ class FibonacciHeap: public Heap
 		void heapLink(FibonacciNode* x, FibonacciNode* y);
 		void cut(FibonacciNode* x, FibonacciNode* y);
 		void cascadingCut(FibonacciNode* y);
+		void printDOT(FibonacciNode *root,fstream& out);
 
 	public:
 		FibonacciHeap();
@@ -35,7 +37,7 @@ class FibonacciHeap: public Heap
 		Priority findMin();
 		bool increaseKey(Location nodeAddress, Priority newKey);
 		bool decreaseKey(Location nodeAddress, Priority newKey);
-		bool displayHeap(char* fileName);
+		bool displayHeap(char const* fileName);
 };
 
 #endif

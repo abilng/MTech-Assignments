@@ -80,7 +80,7 @@ void parseArgs(int argc, char*argv[])
 
 
 
-int main(int argc, char*argv[])
+/*int main(int argc, char*argv[])
 {
 
 	parseArgs(argc,argv);
@@ -205,14 +205,14 @@ int main(int argc, char*argv[])
 				}
 				break;
 		}
-//TODO for debug
-		heap->displayHeap("xyz");
-		system("dot -Tpng xyz>xyz.png");
-//
+
+		//TODO for debug
+		heap->displayHeap("out.gv");
+		system("dot -Tpng out.gv > out.png");
+
 	}while(true);
 
-
 	return 0;
+}*/
 
-}
 

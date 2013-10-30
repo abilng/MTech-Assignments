@@ -225,7 +225,7 @@ bool BinaryHeap :: decreaseKey(Location nodeAddress, Priority newKey)
 }
 
 //function to write the nodes to the output file..
-bool BinaryHeap :: displayHeap(char* fileName)
+bool BinaryHeap :: displayHeap(char const* fileName)
 {
 	/*BinaryNode *x,*z;
 	x=root;

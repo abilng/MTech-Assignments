@@ -3,6 +3,7 @@
 #define BINOMIALHEAP_H_
 
 #include "Heap.h"
+#include <fstream>
 
 using namespace std;
 
@@ -14,9 +15,8 @@ class BinomialHeap: public Heap
 			Priority key;
 			BinomialNode *parent;
 			BinomialNode *child;
-			BinomialNode * sibling;
+			BinomialNode *sibling;
 			int degree;
-
 		};
 
 		BinomialNode *head;
@@ -42,7 +42,7 @@ class BinomialHeap: public Heap
 		Priority findMin();
 		bool increaseKey(Location nodeAddress, Priority newKey);
 		bool decreaseKey(Location nodeAddress, Priority newKey);
-		bool displayHeap(char* fileName);
+		bool displayHeap(char const* fileName);
 };
 
 #endif

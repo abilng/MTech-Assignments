@@ -15,6 +15,13 @@ FibonacciHeap::~FibonacciHeap()
 
 }
 
+bool FibonacciHeap::isEmpty()
+{
+  if (minPointer == NULL)
+    return true;
+  else
+    return false;
+}
 
 void FibonacciHeap::addToRoot(FibonacciNode* x)
 {
@@ -184,11 +191,11 @@ Location FibonacciHeap :: insertKey(Priority key)
 }
 
 
-int FibonacciHeap :: deleteKey(Location nodeAddress)
+bool FibonacciHeap :: deleteKey(Location nodeAddress)
 {
   decreaseKey(nodeAddress, -1);
   extractMin();
-  return 0;
+  return true;
 }
 
 
@@ -238,6 +245,21 @@ Priority FibonacciHeap :: extractMin()
 Priority FibonacciHeap :: findMin()
 {
   return minPointer->key;
+}
+
+
+bool FibonacciHeap :: updateKey(Location nodeAddress, Priority newKey)
+{
+  FibonacciNode * node;
+ if(nodeAddress == NULL) return false;
+ node = (FibonacciNode *) nodeAddress;
+ if (newKey < node->key)
+    return decreaseKey(nodeAddress,newKey);
+ else if (newKey > node->key)
+    return increaseKey(nodeAddress,newKey);
+ else
+    return true;
+
 }
 
 

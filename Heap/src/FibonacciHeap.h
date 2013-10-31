@@ -35,10 +35,12 @@ class FibonacciHeap: public Heap
 		FibonacciHeap();
 		~FibonacciHeap();
 		void makeHeap();
+		bool isEmpty();
 		Location insertKey(Priority key);
-		int deleteKey(Location nodeAddress);
+		bool deleteKey(Location nodeAddress);
 		Priority extractMin();
 		Priority findMin();
+		bool updateKey(Location nodeAddress, Priority newKey);
 		bool increaseKey(Location nodeAddress, Priority newKey);
 		bool decreaseKey(Location nodeAddress, Priority newKey);
 		bool displayHeap(char const* fileName);

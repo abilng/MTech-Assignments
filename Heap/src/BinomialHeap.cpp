@@ -22,6 +22,14 @@ void BinomialHeap :: makeHeap()
   head = NULL;
 }
 
+bool BinomialHeap::isEmpty()
+{
+  if (head == NULL)
+    return true;
+  else
+    return false;
+}
+
 
 Location BinomialHeap :: insertKey(Priority key)
 {
@@ -44,11 +52,11 @@ Location BinomialHeap :: insertKey(Priority key)
 }
 
 
-int BinomialHeap :: deleteKey(Location nodeAddress)
+bool BinomialHeap :: deleteKey(Location nodeAddress)
 {
   decreaseKey(nodeAddress,MIN_PRIORITY);
   extractMin();
-  return 0;
+  return true;
 }
 
 

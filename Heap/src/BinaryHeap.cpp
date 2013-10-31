@@ -23,6 +23,29 @@ void BinaryHeap :: makeHeap()
   lastElement = NULL;
 }
 
+bool BinaryHeap::isEmpty()
+{
+  if (root == NULL)
+    return true;
+  else
+    return false;
+}
+
+
+bool BinaryHeap :: updateKey(Location nodeAddress, Priority newKey)
+{
+ BinaryNode * node;
+ if(nodeAddress == NULL) return false;
+ node = (BinaryNode *) nodeAddress;
+ if (newKey < node->key)
+    return decreaseKey(nodeAddress,newKey);
+ else if (newKey > node->key)
+    return increaseKey(nodeAddress,newKey);
+ else
+    return true;
+
+}
+
 // insert the given key into the heap
 Location BinaryHeap :: insertKey(Priority key)
 {
@@ -91,7 +114,7 @@ Location BinaryHeap :: insertKey(Priority key)
 }
 
 // delete the given node from the heap
-int BinaryHeap :: deleteKey(Location nodeAddress)
+bool BinaryHeap :: deleteKey(Location nodeAddress)
 {
   BinaryNode *x,*z,*y=(BinaryNode*)nodeAddress;
   Priority datakey =lastElement->key;
@@ -99,7 +122,7 @@ int BinaryHeap :: deleteKey(Location nodeAddress)
 
   //updation of pointers
   if(root==NULL || y==NULL )
-    return -1;
+    return false;
   else if(y==root && y->leftChild==NULL && y->rightChild==NULL)
     root=lastElement=NULL;
   else if(x->parent->rightChild==x){
@@ -137,7 +160,7 @@ int BinaryHeap :: deleteKey(Location nodeAddress)
     increaseKey(y,datakey);
   else if(y->key > datakey)
     decreaseKey(y,datakey);
-  return 0;
+  return true;
 }
 
 

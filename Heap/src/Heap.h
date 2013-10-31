@@ -22,10 +22,12 @@ class Heap
 	public:
 		virtual ~Heap() {};
 		virtual void makeHeap() = 0;
+		virtual bool isEmpty() = 0;
 		virtual Location insertKey(Priority key) = 0;
-		virtual int deleteKey(Location nodeAddress) = 0;
+		virtual bool deleteKey(Location nodeAddress) = 0;
 		virtual Priority extractMin() = 0;
 		virtual Priority findMin() = 0;
+		virtual bool updateKey(Location nodeAddress, Priority newKey) = 0;
 		virtual bool increaseKey(Location nodeAddress, Priority newKey) = 0;
 		virtual bool decreaseKey(Location nodeAddress, Priority newKey) = 0;
 		virtual bool displayHeap(char const* fileName) = 0;

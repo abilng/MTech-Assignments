@@ -36,8 +36,9 @@ class BinomialHeap: public Heap
   BinomialHeap();
   ~BinomialHeap();
   void makeHeap();
+  bool isEmpty();
   Location insertKey(Priority key);
-  int deleteKey(Location nodeAddress);
+  bool deleteKey(Location nodeAddress);
   Priority extractMin();
   Priority findMin();
   bool updateKey(Location nodeAddress, Priority newKey);

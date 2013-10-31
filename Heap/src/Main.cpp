@@ -84,7 +84,7 @@ void parseArgs(int argc, char*argv[])
 }
 
 
-/*int main(int argc, char*argv[])
+int main(int argc, char*argv[])
 {
 
   parseArgs(argc,argv);
@@ -220,4 +220,4 @@ void parseArgs(int argc, char*argv[])
 
   }while(true);
   return 0;
-}*/
+}

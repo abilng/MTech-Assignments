@@ -328,7 +328,7 @@ void FibonacciHeap :: printDOT(FibonacciNode *root, fstream& out)
   }while(ptr!=temp);
 }
 
-
+/*
 int main()
 {
 	Heap* heap = new FibonacciHeap();
@@ -350,3 +350,4 @@ int main()
 	system("display out.png");
 	return 0;
   }
+*/

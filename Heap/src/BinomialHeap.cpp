@@ -103,6 +103,19 @@ Priority BinomialHeap :: findMin()
     return minElement->key;
 }
 
+bool BinomialHeap :: updateKey(Location nodeAddress, Priority newKey)
+{
+ BinomialNode * node; 
+ if(nodeAddress == NULL) return false;
+ node = (BinomialNode *) nodeAddress;
+ if (newKey < node->key)
+    return decreaseKey(nodeAddress,newKey);
+ else if (newKey > node->key)
+    return increaseKey(nodeAddress,newKey);
+ else
+    return true;   
+
+}
 
 bool BinomialHeap :: increaseKey(Location nodeAddress, Priority newKey)
 {

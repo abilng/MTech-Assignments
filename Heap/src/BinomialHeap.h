@@ -9,40 +9,41 @@ using namespace std;
 
 class BinomialHeap: public Heap
 {
-	private:
-		struct BinomialNode
-		{
-			Priority key;
-			BinomialNode *parent;
-			BinomialNode *child;
-			BinomialNode *sibling;
-			int degree;
-		};
+ private:
+  struct BinomialNode
+  {
+    Priority key;
+    BinomialNode *parent;
+    BinomialNode *child;
+    BinomialNode *sibling;
+    int degree;
+  };
 
-		BinomialNode *head;
+  BinomialNode *head;
 
-		void link(BinomialNode*, BinomialNode*);
-		BinomialNode* getMin();
-		BinomialNode* mergeList(BinomialNode*, BinomialNode*);
-		BinomialNode* reverseList(BinomialNode *);
+  void link(BinomialNode*, BinomialNode*);
+  BinomialNode* getMin();
+  BinomialNode* mergeList(BinomialNode*, BinomialNode*);
+  BinomialNode* reverseList(BinomialNode *);
 
-		BinomialNode* heapUnion(BinomialNode*, BinomialNode*);
+  BinomialNode* heapUnion(BinomialNode*, BinomialNode*);
 
-		void printDOT(BinomialNode *root,fstream& out);
+  void printDOT(BinomialNode *root,fstream& out);
 
-		void clear(BinomialNode*);
+  void clear(BinomialNode*);
 
-	public:
-		BinomialHeap();
-		~BinomialHeap();
-		void makeHeap();
-		Location insertKey(Priority key);
-		int deleteKey(Location nodeAddress);
-		Priority extractMin();
-		Priority findMin();
-		bool increaseKey(Location nodeAddress, Priority newKey);
-		bool decreaseKey(Location nodeAddress, Priority newKey);
-		bool displayHeap(char const* fileName);
+ public:
+  BinomialHeap();
+  ~BinomialHeap();
+  void makeHeap();
+  Location insertKey(Priority key);
+  int deleteKey(Location nodeAddress);
+  Priority extractMin();
+  Priority findMin();
+  bool updateKey(Location nodeAddress, Priority newKey);
+  bool increaseKey(Location nodeAddress, Priority newKey);
+  bool decreaseKey(Location nodeAddress, Priority newKey);
+  bool displayHeap(char const* fileName);
 };
 
 #endif

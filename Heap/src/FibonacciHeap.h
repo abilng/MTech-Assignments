@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <cstdlib>
+#include <cmath>
 #include <map>
 
 using namespace std;

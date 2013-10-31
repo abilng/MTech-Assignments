@@ -71,7 +71,7 @@ int main(int argc, char*argv[])
           cerr<<"Key is already present"<<endl;
           break;
         }
-        cout << "Inserted at address: " << heap->insertKey(key) << endl;
+        heap->insertKey(key);
         break;
 
       case '2':
@@ -141,7 +141,6 @@ int main(int argc, char*argv[])
 
     heap->displayHeap("out.gv");
     system("dot -Tpng out.gv -o out.png");
-    system("eog out.png &");
 
   }while(true);
   return 0;

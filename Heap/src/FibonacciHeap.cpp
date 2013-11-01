@@ -381,7 +381,9 @@ bool FibonacciHeap :: displayHeap(char const* fileName)
       do
 	{
 	  printDOT(root,outFile);
-	  outFile << root->key <<" -> " <<root->leftSibling->key <<" [color=red];" << endl;
+	  outFile << root->key <<" -> " <<root->leftSibling->key 
+		  <<" [color=red,dir=both];" 
+		  << endl;
 	  root=root->leftSibling;
 	}
       while(root != minPointer);

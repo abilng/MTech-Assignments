@@ -231,8 +231,9 @@ bool BinomialHeap :: displayHeap(char const* fileName)
     {
       printDOT(root,outFile);
       if(root->sibling != NULL)
-	outFile<<root->key<<" -> "
-	       <<root->sibling->key<<" [style=dotted];"<<endl;
+	outFile<<root->key<<" -> "<<root->sibling->key
+	       <<" [style=dotted,headport=w,color=red,tailport=e];"
+	       <<endl;
       else
 	outFile<<root->key<<" ;"<<endl;
       root=root->sibling;

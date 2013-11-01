@@ -31,6 +31,7 @@ class FibonacciHeap: public Heap
 		void cut(FibonacciNode* x, FibonacciNode* y);
 		void cascadingCut(FibonacciNode* y);
 		void printDOT(FibonacciNode *root,fstream& out);
+		void updateMin();
 
 	public:
 		FibonacciHeap();

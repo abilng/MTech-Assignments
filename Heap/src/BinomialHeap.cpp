@@ -418,7 +418,6 @@ BinomialHeap::BinomialNode* BinomialHeap::reverseList(BinomialNode *listHead)
       //make parent NULL
 
       ptr->parent = NULL;
-      //TODO check working;
 
       prev=ptr;
       ptr=next;

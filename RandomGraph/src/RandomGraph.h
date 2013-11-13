@@ -11,8 +11,8 @@
 #include <vector>
 using namespace std;
 
-vector<bool> graph_property (bool**, int&, int);
+vector<bool> graph_property (bool[][1000], int&, int);
 double getProbability (int, int);
-void getEdges(bool**, int, double, int&);
+void getEdges(bool[][1000], int, double, int&);
 
 #endif

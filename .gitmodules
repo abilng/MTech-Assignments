@@ -1,0 +1,3 @@
+[submodule "NLP/Assign1"]
+	path = NLP/Assign1
+	url = git@github.com:abilng/Spell_Checker.git

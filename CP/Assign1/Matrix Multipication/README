@@ -1,0 +1,16 @@
+Martix Square
+=============
+
+Approaches Used
+1.Iterative Program.
+Source : matrix-sq-it.cpp
+Binary : matrix-sq-it
+
+2.Recursive - Divide and Conquer	
+Source : matrix-sq-re.cpp
+Binary : matrix-sq-re
+
+3.Using Transpose
+Source : matrix-sq-it.cpp
+Binary : matrix-sq-tra
+

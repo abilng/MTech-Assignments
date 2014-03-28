@@ -2,7 +2,7 @@ close all
 clear all
 clc
 
-IMGPATH = 'C:\Users\abil\Documents\PR\Yogi.gif';
+IMGPATH = 'C../Yogi.gif';
 
 [inImage,map] = imread(IMGPATH);
 inImage = ind2rgb(inImage, map);

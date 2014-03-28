@@ -2,7 +2,7 @@ close all
 clear all
 clc
 
-IMGPATH = 'C:\Users\abil\Documents\PR\250px-Yogi_Rock.jpg';
+IMGPATH = '../250px-Yogi_Rock.jpg';
 inImage=imread(IMGPATH);
 inImageD= im2double(inImage);
 

@@ -1,7 +1,7 @@
 clear all
 clc
 
-IMGPATH = 'C:\Users\abil\Documents\PR\DSC01934.jpg';
+IMGPATH = '../DSC01934.jpg';
 inImage=imread(IMGPATH);
 inImage=rgb2gray(inImage);
 

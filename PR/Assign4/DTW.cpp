@@ -1,11 +1,47 @@
-//============================================================================
-// Name        : DTW.cpp
-// Author      : abilng
-// Version     :
-// Copyright   : 
-// Description : Hello World in C++, Ansi-style
-//============================================================================
-
+/*
+ * -----------------------------------------------------------------
+ * Name        : DTW.cpp
+ * Author      : abilng
+ * Version     :
+ * Copyright   : GPLv3
+ * Description : DTW
+ * -----------------------------------------------------------------
+ * Usage:
+ * ./dtw IndexFile
+ * -----------------------------------------------------------------
+ * IndexFile:
+ * It should contain filename of all mfcc file of different class.
+ * syntax:
+ * _______________________________________
+ * #comment
+ * ;Size <#of_classes>
+ * ;Class <className> <#ofSamplePerClass>
+ * Filename1
+ * Filename2
+ * ...
+ * ;Class <className> <#ofSamplePerClass>
+ * ...
+ * ________________________________________
+ * Sample Index File:
+ * ;Size 10
+ * ;Class Zero 3
+ * Data/zero1.mfcc
+ * Data/zero2.mfcc
+ * Data/zero3.mfcc
+ * ;Class One 3
+ * Data/one1.mfcc
+ * Data/one2.mfcc
+ * Data/one3.mfcc
+ * ;Class Two 3
+ * Data/two1.mfcc
+ * Data/two2.mfcc
+ * Data/two3.mfcc
+ * ...
+ * ------------------------------------------------------------------
+ * MFCC File
+ * Fist line should contain "<no of Vectors(rows)> <dim(col)>"
+ * Then mfcc vectors,one in each line
+ */
 #include <fstream>
 #include <string>
 #include <vector>
